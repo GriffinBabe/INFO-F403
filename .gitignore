@@ -1,2 +1,5 @@
 dist/
 bin/
+out/
+.idea/
+INFO-F403.iml
