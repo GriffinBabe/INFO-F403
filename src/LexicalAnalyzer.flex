@@ -11,11 +11,11 @@ import java_cup.runtime.*;
 %{
     StringBuffer string = new StringBuffer();
 
-    private Symbol symbol(int type) {
+    private Symbol symbol(LexicalUnit type) {
         return new Symbol(type, yyline, yycolumn); // no value
     }
 
-    private Symbol symbol(int type, Object value) {
+    private Symbol symbol(LexicalUnit type, Object value) {
         return new Symbol(type, yyline, yycolumn, value); // with value
     }
 
