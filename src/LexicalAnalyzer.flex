@@ -36,14 +36,15 @@ BlockComment = "/*" [^*]* ~"*/"
 VarName = [a-z][a-z0-9]*
 ProgName = [A-Z][A-Za-z0-9]*
 
-// TODO: this is the best I could find but it includes the numbers starting with 0
-// Number = (?<!\w[+-])[+-]?[1-9][0-9]*(?![\w+-])
+Number = ([ ][+-]?[1-9][0-9]*([ ][+-*/][ ][1-9][0-9]*)?)
+
+// (?<!\w[+-])[+-]?[1-9][0-9]*(?![\w+-]) previous regex
 
 %state STRING
 
 %%
 
-<YYINITIAL> "BEGINPROG" { return symobol(LexicalUnit.BEGINPROG); }
+<YYINITIAL> "BEGINPROG" { return symbol(LexicalUnit.BEGINPROG); }
 <YYINITIAL> "ENDPROG" { return symbol(LexicalUnit.ENDPROG); }
 <YYINITIAL> "ENDPROG" { return symbol(LexicalUnit.ENDPROG); }
 <YYINITIAL> "IF" { return symbol(LexicalUnit.IF); }
@@ -59,7 +60,7 @@ ProgName = [A-Z][A-Za-z0-9]*
 <YYINITIAL> {
 	{VarName} { return symbol(LexicalUnit.VARNAME); }
 	{ProgName} { return symbol(LexicalUnit.PROGNAME); }
-//	{Number} { return symbol(LexicalUnit.NUMBER); }
+ 	{Number} { return symbol(LexicalUnit.NUMBER); }
 
 	// TODO add LPAREN RPAREN
 	":=" { return symbol(LexicalUnit.ASSIGN); }
@@ -77,4 +78,4 @@ ProgName = [A-Z][A-Za-z0-9]*
 	{WhiteSpace} { /* ignores */ }
 }
 
-[^]         { throw new Error(“Illegal character <“+yytext()+”>”); }
+[^]         { throw new Error("Illegal character <" +yytext()+ ">"); }
