@@ -1,10 +1,10 @@
-import java_cup.runtime.*;
+// import java_cup.runtime.*;
 
 %%
 
 %class LexicalAnalyzer
 %unicode
-%cup
+%standalone
 %line
 %column
 
@@ -36,11 +36,9 @@ BlockComment = "/*" [^*]* ~"*/"
 VarName = [a-z][a-z0-9]*
 ProgName = [A-Z][A-Za-z0-9]*
 
-Number = ([ ][+-]?[1-9][0-9]*([ ][+-*/][ ][1-9][0-9]*)?)
+// Number = ([ ][+-]?[1-9][0-9]*([ ][+-*/][ ][1-9][0-9]*)?)
 
 // (?<!\w[+-])[+-]?[1-9][0-9]*(?![\w+-]) previous regex
-
-%state STRING
 
 %%
 
@@ -60,9 +58,11 @@ Number = ([ ][+-]?[1-9][0-9]*([ ][+-*/][ ][1-9][0-9]*)?)
 <YYINITIAL> {
 	{VarName} { return symbol(LexicalUnit.VARNAME); }
 	{ProgName} { return symbol(LexicalUnit.PROGNAME); }
- 	{Number} { return symbol(LexicalUnit.NUMBER); }
+// 	{Number} { return symbol(LexicalUnit.NUMBER); }
 
 	// TODO add LPAREN RPAREN
+	"(" { return symbol(LexicalUnit.LPAREN); }
+	")" { return symbol(LexicalUnit.RPAREN); }
 	":=" { return symbol(LexicalUnit.ASSIGN); }
 	"," { return symbol(LexicalUnit.COMMA); }
 	"-" { return symbol(LexicalUnit.MINUS); }

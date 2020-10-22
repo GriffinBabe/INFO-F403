@@ -22,8 +22,15 @@ class Main {
 	}
 
 	void printTable() {
-//		Symbol symbol = scanner.next_token();
-//		while (scanner.next_token())
+		try {
+			Symbol symbol;
+			do {
+				symbol = scanner.yylex();
+				System.out.println(symbol);
+			} while (symbol != null);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public static void main(String[] args) {
