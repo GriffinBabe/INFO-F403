@@ -54,7 +54,10 @@ class Main {
 				System.out.println(s.getValue()+" "+s.getLine());
 			}
 			System.out.println();
-		} catch (Exception e) { // IOException for stream exception or Error for parser exception.
+		} catch (IOException e) { // IOException for stream exception
+			e.printStackTrace();
+			System.exit(-1);
+		} catch (Error e) { // Syntax errors thrown by JFlex
 			e.printStackTrace();
 			System.exit(-1);
 		}
