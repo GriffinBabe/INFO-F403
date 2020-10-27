@@ -9,17 +9,13 @@
 %column
 %type Symbol
 
-%{
-    private boolean isLineComment = false;
-%}
-
 LineTerminator = \r|\n|\r\n
 InputCharacter = [^\r\n]
 WhiteSpace = {LineTerminator} | [ \t\f]
 
 // Comment regexes
 CommentStart = {LineCommentStart} | {BlockCommentStart}
-LineCommentStart = "//" {InputCharacter}* {LineTerminator}
+LineCommentStart = "//"
 BlockCommentStart = "/*"
 BlockCommentEnd = "*/"
 NonCommentRelated = ~( {CommentStart} | {BlockCommentEnd} | {LineTerminator} | {WhiteSpace} )
@@ -32,7 +28,7 @@ ProgName = [A-Z][A-Za-z0-9]*
 WrongNumber = [0][0-9]+
 Number = [1-9][0-9]* | [0]
 
-%xstate YYINITIAL, BLOCK_COMMENT
+%xstate YYINITIAL, BLOCK_COMMENT, LINE_COMMENT
 
 %%
 <YYINITIAL> {
@@ -41,8 +37,7 @@ Number = [1-9][0-9]* | [0]
     {ProgName} { return new Symbol(LexicalUnit.PROGNAME,yyline, yycolumn, yytext()); }
     {WrongNumber} { throw new Error("Illegal syntax: \""+yytext()+"\", non-zero literal cannot start with 0."); }
     {Number} { return new Symbol(LexicalUnit.NUMBER,yyline, yycolumn, yytext()); }
-    // {LineCommentStart} { this.isLineComment = true; yybegin(COMMENT); }
-    {LineCommentStart} {/*ignore*/}
+    {LineCommentStart} { yybegin(LINE_COMMENT); }
     {BlockCommentStart} { yybegin(BLOCK_COMMENT); }
 
     "BEGINPROG" { return new Symbol(LexicalUnit.BEGINPROG,yyline, yycolumn, "BEGINPROG"); }
@@ -75,10 +70,18 @@ Number = [1-9][0-9]* | [0]
 
 <BLOCK_COMMENT> {
     {BlockCommentStart} { throw new Error("Illegal syntax: nested comments are not supported"); }
-    {BlockCommentEnd} { if (!this.isLineComment) { yybegin(YYINITIAL); } }
-
+    {BlockCommentEnd} { yybegin(YYINITIAL); }
+    {LineCommentStart} { /* ignores */ }
     {NonCommentRelated} { /* ignores */ }
+    {LineTerminator} { /* ignores */ }
+}
 
+<LINE_COMMENT> {
+    {LineTerminator} { yybegin(YYINITIAL); }
+    {BlockCommentStart} { /* ignores */ }
+    {BlockCommentEnd} { /* ignores */ }
+    {LineCommentStart} { /* ignores */ }
+    {NonCommentRelated} { /* ignores */ }
 }
 
 [^]         { throw new Error("Illegal character <" +yytext()+ ">"); }
