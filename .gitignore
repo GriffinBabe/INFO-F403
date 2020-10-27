@@ -1,4 +1,5 @@
 .DS_Store
+# Dist is out of the repository but it must be provided in the final work!
 dist/
 bin/
 out/
