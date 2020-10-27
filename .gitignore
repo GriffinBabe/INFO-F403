@@ -3,4 +3,5 @@ dist/
 bin/
 out/
 .idea/
+src/LexicalAnalyzer.java
 INFO-F403.iml
