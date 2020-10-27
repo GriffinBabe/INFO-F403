@@ -2,6 +2,8 @@
 dist/
 bin/
 out/
+# Doc is out of the repository but it must be provided in the final work!
+doc/
 .idea/
 src/LexicalAnalyzer.java
 src/LexicalAnalyzer.java~
