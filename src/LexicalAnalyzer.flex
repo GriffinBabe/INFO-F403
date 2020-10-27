@@ -18,7 +18,9 @@ CommentStart = {LineCommentStart} | {BlockCommentStart}
 LineCommentStart = "//"
 BlockCommentStart = "/*"
 BlockCommentEnd = "*/"
-NonCommentRelated = ~( {CommentStart} | {BlockCommentEnd} | {LineTerminator} | {WhiteSpace} )
+NonCommentRelated = ~( {CommentStart} | {BlockCommentEnd} | {WhiteSpace} )
+
+LineComment = "//" {InputCharacter}* {LineTerminator}
 
 // Identifiers and literals
 VarName = [a-z][a-z0-9]*
@@ -33,13 +35,6 @@ Number = [1-9][0-9]* | [0]
 %%
 <YYINITIAL> {
 
-    {VarName} { return new Symbol(LexicalUnit.VARNAME,yyline, yycolumn, yytext()); }
-    {ProgName} { return new Symbol(LexicalUnit.PROGNAME,yyline, yycolumn, yytext()); }
-    {WrongNumber} { throw new Error("Illegal syntax: \""+yytext()+"\", non-zero literal cannot start with 0."); }
-    {Number} { return new Symbol(LexicalUnit.NUMBER,yyline, yycolumn, yytext()); }
-    {LineCommentStart} { yybegin(LINE_COMMENT); }
-    {BlockCommentStart} { yybegin(BLOCK_COMMENT); }
-
     "BEGINPROG" { return new Symbol(LexicalUnit.BEGINPROG,yyline, yycolumn, "BEGINPROG"); }
     "ENDPROG" { return new Symbol(LexicalUnit.ENDPROG,yyline, yycolumn, "ENDPROG"); }
     "IF" { return new Symbol(LexicalUnit.IF,yyline, yycolumn, "IF"); }
@@ -51,6 +46,14 @@ Number = [1-9][0-9]* | [0]
     "ENDWHILE" { return new Symbol(LexicalUnit.ENDWHILE,yyline, yycolumn, "ENDWHILE"); }
     "PRINT" { return new Symbol(LexicalUnit.PRINT,yyline, yycolumn, "PRINT"); }
     "READ" { return new Symbol(LexicalUnit.READ,yyline, yycolumn, "READ"); }
+
+    {VarName} { return new Symbol(LexicalUnit.VARNAME,yyline, yycolumn, yytext()); }
+    {ProgName} { return new Symbol(LexicalUnit.PROGNAME,yyline, yycolumn, yytext()); }
+    {WrongNumber} { throw new Error("Illegal syntax: \""+yytext()+"\", non-zero literal cannot start with 0."); }
+    {Number} { return new Symbol(LexicalUnit.NUMBER,yyline, yycolumn, yytext()); }
+    {BlockCommentStart} { yybegin(BLOCK_COMMENT); }
+
+    {LineComment} { return new Symbol(LexicalUnit.ENDLINE, yyline, yycolumn, "\\n"); }
 
 	"(" { return new Symbol(LexicalUnit.LPAREN,yyline, yycolumn, "("); }
 	")" { return new Symbol(LexicalUnit.RPAREN,yyline, yycolumn, ")"); }
@@ -69,15 +72,15 @@ Number = [1-9][0-9]* | [0]
 }
 
 <BLOCK_COMMENT> {
+    {LineTerminator} { /* ignores */ }
     {BlockCommentStart} { throw new Error("Illegal syntax: nested comments are not supported"); }
     {BlockCommentEnd} { yybegin(YYINITIAL); }
     {LineCommentStart} { /* ignores */ }
     {NonCommentRelated} { /* ignores */ }
-    {LineTerminator} { /* ignores */ }
 }
 
 <LINE_COMMENT> {
-    {LineTerminator} { yybegin(YYINITIAL); }
+    {LineTerminator} { yybegin(YYINITIAL); return new Symbol(LexicalUnit.ENDLINE, yyline, yycolumn, "\\n"); }
     {BlockCommentStart} { /* ignores */ }
     {BlockCommentEnd} { /* ignores */ }
     {LineCommentStart} { /* ignores */ }
