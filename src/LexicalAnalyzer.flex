@@ -19,7 +19,7 @@ WhiteSpace = {LineTerminator} | [ \t\f]
 
 // Comment regexes
 CommentStart = {LineCommentStart} | {BlockCommentStart}
-LineCommentStart = "//" {InputCharacter}* {LineTerminator}
+LineCommentStart = "//" {InputCharacter}*
 BlockCommentStart = "/*"
 BlockCommentEnd = "*/"
 NonCommentRelated = ~( {CommentStart} | {BlockCommentEnd} | {LineTerminator} | {WhiteSpace} )
