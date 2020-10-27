@@ -23,13 +23,14 @@ class Main {
 
 	void printTable() {
 		try {
-			Symbol symbol;
-			do {
-				symbol = scanner.nextToken();
+			Symbol symbol = scanner.nextToken();
+			while (symbol != null) {
 				System.out.println(symbol);
-			} while (symbol != null);
-		} catch (IOException e) {
+				symbol = scanner.nextToken();
+			}
+		} catch (Exception e) { // IOException for stream exception or Error for parser exception.
 			e.printStackTrace();
+			System.exit(-1);
 		}
 	}
 
