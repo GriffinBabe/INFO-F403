@@ -25,7 +25,7 @@ class Main {
 		try {
 			Symbol symbol;
 			do {
-				symbol = scanner.yylex();
+				symbol = scanner.nextToken();
 				System.out.println(symbol);
 			} while (symbol != null);
 		} catch (IOException e) {
