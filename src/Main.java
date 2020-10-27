@@ -59,7 +59,7 @@ class Main {
 	void printTable() {
 		try {
 			Symbol symbol = scanner.nextToken();
-			while (symbol != null) {
+			while (!scanner.yyatEOF()) {
 				System.out.println(symbol);
 				if (symbol.getType() == LexicalUnit.VARNAME){
 					boolean matched = false;
