@@ -26,7 +26,7 @@ BlockComment = "/*" [^*]* ~"*/"
 VarName = [a-z][a-z0-9]*
 ProgName = [A-Z][A-Za-z0-9]*
 
-Number = [ ][+-]?[1-9][0-9]*
+Number = [ ]([+-]?[1-9][0-9]*|[0])
 
 // (?<!\w[+-])[+-]?[1-9][0-9]*(?![\w+-]) previous regex
 
