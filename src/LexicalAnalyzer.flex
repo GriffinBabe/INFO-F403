@@ -63,7 +63,7 @@ Number = [1-9][0-9]* | [0]
 	"+" { return new Symbol(LexicalUnit.PLUS,yyline, yycolumn, "+"); }
 	"*" { return new Symbol(LexicalUnit.TIMES,yyline, yycolumn, "*"); }
 	"/" { return new Symbol(LexicalUnit.DIVIDE,yyline, yycolumn, "/"); }
-	"==" { return new Symbol(LexicalUnit.EQ,yyline, yycolumn, "=="); }
+	"=" { return new Symbol(LexicalUnit.EQ,yyline, yycolumn, "="); }
 	">" { return new Symbol(LexicalUnit.GT,yyline, yycolumn, ">"); }
 
     {LineTerminator} { return new Symbol(LexicalUnit.ENDLINE, yyline, yycolumn, "\\n"); }
