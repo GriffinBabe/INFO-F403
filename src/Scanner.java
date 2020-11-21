@@ -17,6 +17,9 @@ public class Scanner {
      * ArrayList containing all the Symbol that were identified as variable names.
      */
     private ArrayList<Symbol> variables = new ArrayList<>();
+    /**
+     * symbol list of token for parser use
+     */
     private ArrayList<Symbol> token = new ArrayList<>();
     /**
      * @return symbol list
