@@ -8,4 +8,13 @@ public class StackWrapper {
         stack = new Stack<>();
     }
 
+    public void pushVar(Variable var) {
+        stack.push(var);
+    }
+
+    public Variable remVar() {
+        return stack.pop();
+    }
+
+
 }

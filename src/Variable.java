@@ -1,5 +1,8 @@
 public class Variable {
 
+    public final static int VARIABLE_COUNT = 20;
+    public final static int TERMINAL_COUNT = 25;
+
     public enum Type {
 
         V_PROGRAM(0),
@@ -44,7 +47,9 @@ public class Variable {
         READ(39),
         GT(40),
         EQ(41),
-        ELSE(42);
+        ELSE(42),
+        COMMA(43),
+        DO(44);
 
         int id = 0;
 
@@ -72,6 +77,69 @@ public class Variable {
                 break;
             case ENDPROG:
                 this.type = Type.ENDPROG;
+                break;
+            case COMMA:
+                this.type = Type.COMMA;
+                break;
+            case VARNAME:
+                this.type = Type.VARNAME;
+                break;
+            case ASSIGN:
+                this.type = Type.ASSIGN;
+                break;
+            case NUMBER:
+                this.type = Type.NUMBER;
+                break;
+            case LPAREN:
+                this.type = Type.LPAREN;
+                break;
+            case RPAREN:
+                this.type = Type.RPAREN;
+                break;
+            case MINUS:
+                this.type = Type.MINUS;
+                break;
+            case PLUS:
+                this.type = Type.PLUS;
+                break;
+            case TIMES:
+                this.type = Type.TIMES;
+                break;
+            case DIVIDE:
+                this.type = Type.DIVIDE;
+                break;
+            case IF:
+                this.type = Type.IF;
+                break;
+            case THEN:
+                this.type = Type.THEN;
+                break;
+            case ENDIF:
+                this.type = Type.ENDIF;
+                break;
+            case ELSE:
+                this.type = Type.ELSE;
+                break;
+            case EQ:
+                this.type = Type.EQ;
+                break;
+            case GT:
+                this.type = Type.GT;
+                break;
+            case WHILE:
+                this.type = Type.WHILE;
+                break;
+            case DO:
+                this.type = Type.DO;
+                break;
+            case ENDWHILE:
+                this.type = Type.ENDWHILE;
+                break;
+            case PRINT:
+                this.type = Type.PRINT;
+                break;
+            case READ:
+                this.type = Type.READ;
                 break;
         }
     }
