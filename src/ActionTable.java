@@ -2,7 +2,7 @@ public class ActionTable {
 
     public Rule table[][];
 
-    public ActionTable(StackWrapper stack,) {
+    public ActionTable() {
 
     }
 

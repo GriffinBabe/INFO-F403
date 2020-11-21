@@ -20,8 +20,9 @@ class Main {
 			System.out.println("Usage: java -jar part1.jar <source file>");
 			System.exit(1);
 		}
-		Scanner scanner = new Scanner(args[1]);
+		Scanner scanner = new Scanner(args[0]);
 		scanner.printTable();
+		Parser parser = new Parser(scanner.getVariables());
 	}
 
 }
