@@ -17,12 +17,12 @@ public class Scanner {
      * ArrayList containing all the Symbol that were identified as variable names.
      */
     private ArrayList<Symbol> variables = new ArrayList<>();
-
+    private ArrayList<Symbol> token = new ArrayList<>();
     /**
      * @return symbol list
      */
     public ArrayList<Symbol> getVariables() {
-        return variables;
+        return token;
     }
 
     /**
@@ -71,6 +71,7 @@ public class Scanner {
             Symbol symbol = scanner.nextToken();
             while (symbol != null) {
                 System.out.println(symbol);
+                token.add(symbol);
                 if (symbol.getType() == LexicalUnit.VARNAME){
                     boolean matched = false;
                     for(Symbol s : variables){
@@ -85,6 +86,7 @@ public class Scanner {
                 }
                 symbol = scanner.nextToken();
             }
+            token.add(new Symbol(LexicalUnit.EOS));
             System.out.println("\nVariables");
             Collections.sort(variables,new Scanner.CustomComparator());
             for(Symbol s : variables){

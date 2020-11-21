@@ -15,7 +15,7 @@ class Main {
 	 * objects. Finally it calls the {@link Scanner#printTable()} function.
 	 * @param args must contain a path to the scanned source file.
 	 */
-	public static void main(String[] args) {
+	public static void main(String[] args) throws SyntaxException {
 		if (args.length != 1) {
 			System.out.println("Usage: java -jar part1.jar <source file>");
 			System.exit(1);
@@ -23,6 +23,7 @@ class Main {
 		Scanner scanner = new Scanner(args[0]);
 		scanner.printTable();
 		Parser parser = new Parser(scanner.getVariables());
+		parser.parseSequence();
 	}
 
 }

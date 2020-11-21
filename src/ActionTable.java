@@ -11,6 +11,6 @@ public class ActionTable {
      * @param variable
      */
     public Rule getRule(Variable top, Variable lookahead) {
-        return table[top.getType().id][top.getType().id - 23];
+        return table[top.getType().id][top.getType().id - 20];
     }
 }
