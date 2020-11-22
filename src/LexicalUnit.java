@@ -24,5 +24,4 @@ public enum LexicalUnit{
     ENDWHILE,
     PRINT,
     READ,
-    EOS
 }

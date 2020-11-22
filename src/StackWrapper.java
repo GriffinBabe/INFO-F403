@@ -42,4 +42,5 @@ public class StackWrapper {
         if(stack.isEmpty()){ throw new RuntimeException("Cannot read element from empty stack");}
         return stack.peek();
     }
+
 }
