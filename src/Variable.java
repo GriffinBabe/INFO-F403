@@ -80,7 +80,7 @@ public class Variable {
     private Type type = null;
 
     /**
-     * Variable main contructor.
+     * parser.Variable main contructor.
      * @param type, the {@link Type} of the {@link Variable}.
      */
     public Variable(Type type) {

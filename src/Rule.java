@@ -1,3 +1,5 @@
+package parser;
+
 /**
  * Base class for all the rules.
  * The rules are obtained in the parser through the {@link ActionTable} and are executed with the base
@@ -23,6 +25,6 @@ public class Rule {
      * @throws SyntaxException, if this rule is called anyway, it will throw an exception.
      */
     public void action(StackWrapper stack, SymbolQueue list) throws SyntaxException {
-        throw new SyntaxException("Invalid rule returned by ActionTable");
+        throw new SyntaxException("Invalid rule returned by parser.ActionTable");
     }
 }

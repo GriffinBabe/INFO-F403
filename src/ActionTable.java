@@ -42,155 +42,155 @@ public class ActionTable {
     private void initRules() {
         ruleList = new ArrayList<>(Rule.RULE_COUNT);
 
-        DerivationRule rule1 = new DerivationRule(Variable.Type.V_PROGRAM);
+        DerivationRule rule1 = new DerivationRule(Variable.Type.V_PROGRAM,1);
         rule1.addReplacingVariable(new Variable(Variable.Type.BEGINPROG), new Variable(Variable.Type.V_PROGRAM_));
         ruleList.add(rule1);
 
-        DerivationRule rule2 = new DerivationRule(Variable.Type.V_PROGRAM_);
+        DerivationRule rule2 = new DerivationRule(Variable.Type.V_PROGRAM_,2);
         rule2.addReplacingVariable(new Variable(Variable.Type.PROGNAME), new Variable(Variable.Type.V_PROGRAM__));
         ruleList.add(rule2);
 
-        DerivationRule rule3 = new DerivationRule(Variable.Type.V_PROGRAM__);
+        DerivationRule rule3 = new DerivationRule(Variable.Type.V_PROGRAM__,3);
         rule3.addReplacingVariable(new Variable(Variable.Type.ENDLINE), new Variable(Variable.Type.V_CODE), new Variable(Variable.Type.ENDPROG));
         ruleList.add(rule3);
 
-        DerivationRule rule4 = new DerivationRule(Variable.Type.V_CODE);
+        DerivationRule rule4 = new DerivationRule(Variable.Type.V_CODE,4);
         rule4.addReplacingVariable(new Variable(Variable.Type.V_INSTRUCTION), new Variable(Variable.Type.ENDLINE), new Variable(Variable.Type.V_CODE));
         ruleList.add(rule4);
 
-        DerivationRule rule5 = new DerivationRule(Variable.Type.V_CODE);
+        DerivationRule rule5 = new DerivationRule(Variable.Type.V_CODE,5);
         // no replacing as it is epsilon
         ruleList.add(rule5);
 
-        DerivationRule rule6 = new DerivationRule(Variable.Type.V_INSTRUCTION);
+        DerivationRule rule6 = new DerivationRule(Variable.Type.V_INSTRUCTION,6);
         rule6.addReplacingVariable(new Variable(Variable.Type.VARNAME), new Variable(Variable.Type.V_ASSIGN));
         ruleList.add(rule6);
 
-        DerivationRule rule7 = new DerivationRule(Variable.Type.V_INSTRUCTION);
+        DerivationRule rule7 = new DerivationRule(Variable.Type.V_INSTRUCTION,7);
         rule7.addReplacingVariable(new Variable(Variable.Type.IF), new Variable(Variable.Type.V_IF));
         ruleList.add(rule7);
 
-        DerivationRule rule8 = new DerivationRule(Variable.Type.V_INSTRUCTION);
+        DerivationRule rule8 = new DerivationRule(Variable.Type.V_INSTRUCTION,8);
         rule8.addReplacingVariable(new Variable(Variable.Type.WHILE), new Variable(Variable.Type.V_WHILE));
         ruleList.add(rule8);
 
-        DerivationRule rule9 = new DerivationRule(Variable.Type.V_INSTRUCTION);
+        DerivationRule rule9 = new DerivationRule(Variable.Type.V_INSTRUCTION,9);
         rule9.addReplacingVariable(new Variable(Variable.Type.PRINT), new Variable(Variable.Type.V_V1));
         ruleList.add(rule9);
 
-        DerivationRule rule10 = new DerivationRule(Variable.Type.V_INSTRUCTION);
+        DerivationRule rule10 = new DerivationRule(Variable.Type.V_INSTRUCTION,10);
         rule10.addReplacingVariable(new Variable(Variable.Type.READ), new Variable(Variable.Type.V_V1));
         ruleList.add(rule10);
 
-        DerivationRule rule11 = new DerivationRule(Variable.Type.V_INSTRUCTION);
+        DerivationRule rule11 = new DerivationRule(Variable.Type.V_INSTRUCTION,11);
         //no replacing as it is epsilon
         ruleList.add(rule11);
 
-        DerivationRule rule12 = new DerivationRule(Variable.Type.V_ASSIGN);
+        DerivationRule rule12 = new DerivationRule(Variable.Type.V_ASSIGN,12);
         rule12.addReplacingVariable(new Variable(Variable.Type.ASSIGN), new Variable(Variable.Type.V_EXPRARITH));
         ruleList.add(rule12);
 
-        DerivationRule rule13 = new DerivationRule(Variable.Type.V_EXPRARITH);
+        DerivationRule rule13 = new DerivationRule(Variable.Type.V_EXPRARITH,13);
         rule13.addReplacingVariable(new Variable(Variable.Type.V_B), new Variable(Variable.Type.V_EXPRARITH_));
         ruleList.add(rule13);
 
-        DerivationRule rule14 = new DerivationRule(Variable.Type.V_EXPRARITH_);
+        DerivationRule rule14 = new DerivationRule(Variable.Type.V_EXPRARITH_,14);
         rule14.addReplacingVariable(new Variable(Variable.Type.MINUS), new Variable(Variable.Type.V_B), new Variable(Variable.Type.V_EXPRARITH_));
         ruleList.add(rule14);
 
-        DerivationRule rule15 = new DerivationRule(Variable.Type.V_EXPRARITH_);
+        DerivationRule rule15 = new DerivationRule(Variable.Type.V_EXPRARITH_,15);
         rule15.addReplacingVariable(new Variable(Variable.Type.PLUS), new Variable(Variable.Type.V_B), new Variable(Variable.Type.V_EXPRARITH_));
         ruleList.add(rule15);
 
-        DerivationRule rule16 = new DerivationRule(Variable.Type.V_EXPRARITH_);
+        DerivationRule rule16 = new DerivationRule(Variable.Type.V_EXPRARITH_,16);
         //no replacing as it is epsilon
         ruleList.add(rule16);
 
-        DerivationRule rule17 = new DerivationRule(Variable.Type.V_B);
+        DerivationRule rule17 = new DerivationRule(Variable.Type.V_B,17);
         rule17.addReplacingVariable(new Variable(Variable.Type.V_C), new Variable(Variable.Type.V_B_));
         ruleList.add(rule17);
 
-        DerivationRule rule18 = new DerivationRule(Variable.Type.V_B_);
+        DerivationRule rule18 = new DerivationRule(Variable.Type.V_B_,18);
         rule18.addReplacingVariable(new Variable(Variable.Type.TIMES), new Variable(Variable.Type.V_C), new Variable(Variable.Type.V_B_));
         ruleList.add(rule18);
 
-        DerivationRule rule19 = new DerivationRule(Variable.Type.V_B_);
+        DerivationRule rule19 = new DerivationRule(Variable.Type.V_B_,19);
         rule19.addReplacingVariable(new Variable(Variable.Type.DIVIDE), new Variable(Variable.Type.V_C), new Variable(Variable.Type.V_B_));
         ruleList.add(rule19);
 
-        DerivationRule rule20 = new DerivationRule(Variable.Type.V_B_);
+        DerivationRule rule20 = new DerivationRule(Variable.Type.V_B_,20);
         //no replacing as it is epsilon
         ruleList.add(rule20);
 
-        DerivationRule rule21 = new DerivationRule(Variable.Type.V_C);
+        DerivationRule rule21 = new DerivationRule(Variable.Type.V_C,21);
         rule21.addReplacingVariable(new Variable(Variable.Type.LPAREN), new Variable(Variable.Type.V_EXPRARITH), new Variable(Variable.Type.RPAREN));
         ruleList.add(rule21);
 
-        DerivationRule rule22 = new DerivationRule(Variable.Type.V_C);
+        DerivationRule rule22 = new DerivationRule(Variable.Type.V_C,22);
         rule22.addReplacingVariable(new Variable(Variable.Type.MINUS), new Variable(Variable.Type.V_EXPRARITH));
         ruleList.add(rule22);
 
-        DerivationRule rule23 = new DerivationRule(Variable.Type.V_C);
+        DerivationRule rule23 = new DerivationRule(Variable.Type.V_C,23);
         rule23.addReplacingVariable(new Variable(Variable.Type.NUMBER));
         ruleList.add(rule23);
 
-        DerivationRule rule24 = new DerivationRule(Variable.Type.V_C);
+        DerivationRule rule24 = new DerivationRule(Variable.Type.V_C,24);
         rule24.addReplacingVariable(new Variable(Variable.Type.VARNAME));
         ruleList.add(rule24);
 
-        DerivationRule rule25 = new DerivationRule(Variable.Type.V_IF);
+        DerivationRule rule25 = new DerivationRule(Variable.Type.V_IF,25);
         rule25.addReplacingVariable(new Variable(Variable.Type.V_COND_), new Variable(Variable.Type.THEN), new Variable(Variable.Type.V_IF_));
         ruleList.add(rule25);
 
-        DerivationRule rule26 = new DerivationRule(Variable.Type.V_COND_);
+        DerivationRule rule26 = new DerivationRule(Variable.Type.V_COND_,26);
         rule26.addReplacingVariable(new Variable(Variable.Type.LPAREN), new Variable(Variable.Type.V_COND), new Variable(Variable.Type.RPAREN));
         ruleList.add(rule26);
 
-        DerivationRule rule27 = new DerivationRule(Variable.Type.V_IF_);
+        DerivationRule rule27 = new DerivationRule(Variable.Type.V_IF_,27);
         rule27.addReplacingVariable(new Variable(Variable.Type.ENDLINE), new Variable(Variable.Type.V_CODE), new Variable(Variable.Type.V_IFBIS));
         ruleList.add(rule27);
 
-        DerivationRule rule28 = new DerivationRule(Variable.Type.V_IFBIS);
+        DerivationRule rule28 = new DerivationRule(Variable.Type.V_IFBIS,28);
         rule28.addReplacingVariable(new Variable(Variable.Type.ENDIF));
         ruleList.add(rule28);
 
-        DerivationRule rule29 = new DerivationRule(Variable.Type.V_IFBIS);
+        DerivationRule rule29 = new DerivationRule(Variable.Type.V_IFBIS,29);
         rule29.addReplacingVariable(new Variable(Variable.Type.ELSE), new Variable(Variable.Type.V_IFBIS_));
         ruleList.add(rule29);
 
-        DerivationRule rule30 = new DerivationRule(Variable.Type.V_IFBIS_);
+        DerivationRule rule30 = new DerivationRule(Variable.Type.V_IFBIS_,30);
         rule30.addReplacingVariable(new Variable(Variable.Type.ENDLINE), new Variable(Variable.Type.V_CODE), new Variable(Variable.Type.ENDIF));
         ruleList.add(rule30);
 
-        DerivationRule rule31 = new DerivationRule(Variable.Type.V_COND);
+        DerivationRule rule31 = new DerivationRule(Variable.Type.V_COND,31);
         rule31.addReplacingVariable(new Variable(Variable.Type.V_EXPRARITH), new Variable(Variable.Type.V_COMP), new Variable(Variable.Type.V_EXPRARITH));
         ruleList.add(rule31);
 
-        DerivationRule rule32 = new DerivationRule(Variable.Type.V_COMP);
+        DerivationRule rule32 = new DerivationRule(Variable.Type.V_COMP,32);
         rule32.addReplacingVariable(new Variable(Variable.Type.EQ));
         ruleList.add(rule32);
 
-        DerivationRule rule33 = new DerivationRule(Variable.Type.V_COMP);
+        DerivationRule rule33 = new DerivationRule(Variable.Type.V_COMP,33);
         rule33.addReplacingVariable(new Variable(Variable.Type.GT));
         ruleList.add(rule33);
 
-        DerivationRule rule34 = new DerivationRule(Variable.Type.V_WHILE);
+        DerivationRule rule34 = new DerivationRule(Variable.Type.V_WHILE,34);
         rule34.addReplacingVariable(new Variable(Variable.Type.V_COND_), new Variable(Variable.Type.DO), new Variable(Variable.Type.V_WHILE_));
         ruleList.add(rule34);
 
-        DerivationRule rule35 = new DerivationRule(Variable.Type.V_WHILE_);
+        DerivationRule rule35 = new DerivationRule(Variable.Type.V_WHILE_,35);
         rule35.addReplacingVariable(new Variable(Variable.Type.ENDLINE), new Variable(Variable.Type.V_CODE), new Variable(Variable.Type.ENDWHILE));
         ruleList.add(rule35);
 
-        DerivationRule rule36 = new DerivationRule(Variable.Type.V_V1);
+        DerivationRule rule36 = new DerivationRule(Variable.Type.V_V1,36);
         rule36.addReplacingVariable(new Variable(Variable.Type.LPAREN), new Variable(Variable.Type.V_V2));
         ruleList.add(rule36);
 
-        DerivationRule rule37 = new DerivationRule(Variable.Type.V_V2);
+        DerivationRule rule37 = new DerivationRule(Variable.Type.V_V2,37);
         rule37.addReplacingVariable(new Variable(Variable.Type.VARNAME), new Variable(Variable.Type.V_V3));
         ruleList.add(rule37);
 
-        DerivationRule rule38 = new DerivationRule(Variable.Type.V_V3);
+        DerivationRule rule38 = new DerivationRule(Variable.Type.V_V3,38);
         rule38.addReplacingVariable(new Variable(Variable.Type.RPAREN));
         ruleList.add(rule38);
     }

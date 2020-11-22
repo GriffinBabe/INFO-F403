@@ -6,7 +6,11 @@ import java.util.ListIterator;
  * Extracts the top {@link Variable} of the stack and pushes new {@link Variable} on the stack.
  */
 public final class DerivationRule extends Rule {
-
+    /**
+     * rule number corresponding to our LL(1) grammar, needed for displaying the rule
+     * in standard output when used
+     */
+    private int ruleID;
     /**
      * The type of the expected top variable. This is used for an additional check.
      */
@@ -21,9 +25,10 @@ public final class DerivationRule extends Rule {
      * {@link DerivationRule} constructor. Takes a {@link Variable.Type} in parameter, it is the expected top of the
      * stack for the derivation to happen.
      */
-    public DerivationRule(Variable.Type expectedType) {
+    public DerivationRule(Variable.Type expectedType,int id) {
         this.expectedType = expectedType;
         this.replacingVariables = new ArrayList<>();
+        this.ruleID = id;
     }
 
     /**
@@ -44,7 +49,7 @@ public final class DerivationRule extends Rule {
         // Extracts the fist var of the stack and checks if
         Variable topVar = stack.remVar();
         if (!topVar.getType().equals(expectedType)) {
-            throw new SyntaxException("Variable type on the top of the stack "+topVar.getType().toString()+" doesn't" +
+            throw new SyntaxException("parser.Variable type on the top of the stack "+topVar.getType().toString()+" doesn't" +
                     " correspond to the rule's expected type "+expectedType.toString()+".");
         }
         // adds to the stack the replacing variables in reverse order, as from the stack nature
@@ -52,6 +57,6 @@ public final class DerivationRule extends Rule {
         while (itr.hasPrevious()) {
             stack.pushVar(itr.previous());
         }
+        System.out.print(" "+this.ruleID);
     }
-
 }
