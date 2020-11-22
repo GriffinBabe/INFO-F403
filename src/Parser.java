@@ -21,12 +21,14 @@ public class Parser {
 	}
 
 	/**
-	 * Public methods starting the parsing
+	 * Public method starting the parsing
 	 * @throws SyntaxException
 	 */
 	public void parseSequence() throws SyntaxException {
 		variableStack.pushVar(new Variable(Variable.Type.V_PROGRAM)); // push initial state on the stack
 		while (!(symQue.read().getType().equals(LexicalUnit.EOS))){
+			System.out.println("top stack = " + variableStack.readLast().getType());
+			System.out.println("look-ahead = "+ new Variable(symQue.read()).getType());
 			acTab.getRule(variableStack.readLast(),new Variable(symQue.read())).action(variableStack,symQue);
 		}
 	}

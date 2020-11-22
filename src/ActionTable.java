@@ -1,5 +1,3 @@
-import com.sun.org.apache.bcel.internal.generic.VariableLengthInstruction;
-
 import java.util.ArrayList;
 
 /**
@@ -35,7 +33,7 @@ public class ActionTable {
      * @reutn Rule, a rule to call {@link Rule#action(StackWrapper, SymbolQueue)}.
      */
     public Rule getRule(Variable top, Variable lookahead) {
-        return table[top.getType().id][lookahead.getType().id - Variable.TERMINAL_COUNT];
+        return table[top.getType().id][lookahead.getType().id - Variable.VARIABLE_COUNT];
     }
 
     /**
@@ -204,7 +202,7 @@ public class ActionTable {
      * @param ruleIndex the index of the rule to call in the {@link #ruleList}.
      */
     private void mapRule(Variable top, Variable lookahead, int ruleIndex) {
-        table[top.getType().id][lookahead.getType().id - Variable.TERMINAL_COUNT] = ruleList.get(ruleIndex);
+        table[top.getType().id][lookahead.getType().id - Variable.VARIABLE_COUNT] = ruleList.get(ruleIndex);
     }
 
     /**

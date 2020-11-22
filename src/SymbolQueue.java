@@ -1,7 +1,4 @@
-
-
 import java.util.ArrayList;
-import java.util.LinkedList;
 
 /**
  * Symbol LIFO queue.
@@ -28,6 +25,10 @@ public class SymbolQueue {
         this.end = symbolList.size();
     }
 
+	/**
+	 * move ahead the index
+	 * @return the previous look-ahead value
+	 */
     public Variable remVar() {
         Symbol symbol = symbolList.get(index);
         index++;
