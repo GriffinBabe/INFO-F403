@@ -147,7 +147,7 @@ public class ActionTable {
         ruleList.add(rule26);
 
         DerivationRule rule27 = new DerivationRule(Variable.Type.V_IF_);
-        rule27.addReplacingVariable(new Variable(Variable.Type.ENDLINE), new Variable(Variable.Type.V_CODE), new Variable(Variable.Type.V_IFBIS_));
+        rule27.addReplacingVariable(new Variable(Variable.Type.ENDLINE), new Variable(Variable.Type.V_CODE), new Variable(Variable.Type.V_IFBIS));
         ruleList.add(rule27);
 
         DerivationRule rule28 = new DerivationRule(Variable.Type.V_IFBIS);
@@ -232,11 +232,13 @@ public class ActionTable {
         mapRule(new Variable(Variable.Type.V_CODE), new Variable(Variable.Type.VARNAME), 3);
         mapRule(new Variable(Variable.Type.V_CODE), new Variable(Variable.Type.IF), 3);
         mapRule(new Variable(Variable.Type.V_CODE), new Variable(Variable.Type.ENDIF), 4);
+        mapRule(new Variable(Variable.Type.V_CODE), new Variable(Variable.Type.ELSE), 4);
         mapRule(new Variable(Variable.Type.V_CODE), new Variable(Variable.Type.WHILE), 3);
         mapRule(new Variable(Variable.Type.V_CODE), new Variable(Variable.Type.ENDWHILE), 4);
         mapRule(new Variable(Variable.Type.V_CODE), new Variable(Variable.Type.ENDPROG), 4);
         mapRule(new Variable(Variable.Type.V_CODE), new Variable(Variable.Type.PRINT), 3);
         mapRule(new Variable(Variable.Type.V_CODE), new Variable(Variable.Type.READ), 3);
+        mapRule(new Variable(Variable.Type.V_CODE), new Variable(Variable.Type.ENDLINE), 3);
         mapRule(new Variable(Variable.Type.V_INSTRUCTION), new Variable(Variable.Type.ENDLINE), 10);
         mapRule(new Variable(Variable.Type.V_INSTRUCTION), new Variable(Variable.Type.VARNAME), 5);
         mapRule(new Variable(Variable.Type.V_INSTRUCTION), new Variable(Variable.Type.IF), 6);
@@ -244,10 +246,10 @@ public class ActionTable {
         mapRule(new Variable(Variable.Type.V_INSTRUCTION), new Variable(Variable.Type.PRINT), 8);
         mapRule(new Variable(Variable.Type.V_INSTRUCTION), new Variable(Variable.Type.READ), 9);
         mapRule(new Variable(Variable.Type.V_ASSIGN), new Variable(Variable.Type.ASSIGN), 11);
-        mapRule(new Variable(Variable.Type.V_EXPRARITH), new Variable(Variable.Type.VARNAME), 16);
-        mapRule(new Variable(Variable.Type.V_EXPRARITH), new Variable(Variable.Type.LPAREN), 16);
-        mapRule(new Variable(Variable.Type.V_EXPRARITH), new Variable(Variable.Type.MINUS), 16);
-        mapRule(new Variable(Variable.Type.V_EXPRARITH), new Variable(Variable.Type.NUMBER), 16);
+        mapRule(new Variable(Variable.Type.V_EXPRARITH), new Variable(Variable.Type.VARNAME), 12);
+        mapRule(new Variable(Variable.Type.V_EXPRARITH), new Variable(Variable.Type.LPAREN), 12);
+        mapRule(new Variable(Variable.Type.V_EXPRARITH), new Variable(Variable.Type.MINUS), 12);
+        mapRule(new Variable(Variable.Type.V_EXPRARITH), new Variable(Variable.Type.NUMBER), 12);
         mapRule(new Variable(Variable.Type.V_EXPRARITH_), new Variable(Variable.Type.ENDLINE), 15);
         mapRule(new Variable(Variable.Type.V_EXPRARITH_), new Variable(Variable.Type.RPAREN), 15);
         mapRule(new Variable(Variable.Type.V_EXPRARITH_), new Variable(Variable.Type.PLUS), 14);
@@ -285,7 +287,7 @@ public class ActionTable {
         mapRule(new Variable(Variable.Type.V_WHILE), new Variable(Variable.Type.LPAREN), 33);
         mapRule(new Variable(Variable.Type.V_WHILE_), new Variable(Variable.Type.ENDLINE), 34);
         mapRule(new Variable(Variable.Type.V_V1), new Variable(Variable.Type.LPAREN), 35);
-        mapRule(new Variable(Variable.Type.V_V2), new Variable(Variable.Type.ENDLINE), 36);
+        mapRule(new Variable(Variable.Type.V_V2), new Variable(Variable.Type.VARNAME), 36);
         mapRule(new Variable(Variable.Type.V_V3), new Variable(Variable.Type.RPAREN), 37);
    }
 }
