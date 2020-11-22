@@ -1,8 +1,3 @@
-import java.io.*;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-
 /**
  * Main class. Will initialize a stream to the source file and initialize the {@link LexicalAnalyzer} at construction.
  * Continues by calling a parser.
