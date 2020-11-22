@@ -1,8 +1,21 @@
+/**
+ * This class represents all the Variables and Terminals in the {@link SymbolQueue} and the {@link StackWrapper}.
+ */
 public class Variable {
 
+    /**
+     * Number of variables (excluding terminals).
+     */
     public final static int VARIABLE_COUNT = 23;
+
+    /**
+     * Number of terminals (excluding variables).
+     */
     public final static int TERMINAL_COUNT = 25;
 
+    /**
+     * Enumeration to all variables and symbol types.
+     */
     public enum Type {
 
         V_PROGRAM(0),
@@ -61,12 +74,23 @@ public class Variable {
         }
     }
 
+    /**
+     * The {@link Type} of the {@link Variable}.
+     */
     private Type type = null;
 
+    /**
+     * Variable main contructor.
+     * @param type, the {@link Type} of the {@link Variable}.
+     */
     public Variable(Type type) {
         this.type = type;
     }
 
+    /**
+     * Converts a {@link Symbol} (used by the {@link Scanner}) into a {@link Variable}
+     * @param symbol
+     */
     public Variable(Symbol symbol) {
         switch (symbol.getType()) {
             case BEGINPROG:
@@ -147,6 +171,10 @@ public class Variable {
         }
     }
 
+    /**
+     * {@link Type} getter.
+     * @return the {@link Type} of the {@link Variable}.
+     */
     public Type getType() {
         return this.type;
     }

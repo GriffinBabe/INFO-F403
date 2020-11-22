@@ -17,6 +17,10 @@ public final class DerivationRule extends Rule {
      */
     private ArrayList<Variable> replacingVariables;
 
+    /**
+     * {@link DerivationRule} constructor. Takes a {@link Variable.Type} in parameter, it is the expected top of the
+     * stack for the derivation to happen.
+     */
     public DerivationRule(Variable.Type expectedType) {
         this.expectedType = expectedType;
         this.replacingVariables = new ArrayList<>();
@@ -31,10 +35,9 @@ public final class DerivationRule extends Rule {
     }
 
     /**
-     * Extracts the top {@link Variable} of the stack and pushes all the Variables in {@link #replacingVariables}.
-     * @param stack, reference to the parser's stack.
-     * @param list, reference to the parser's symbol queue.
-     * @throws SyntaxException, if the extracted {@link Variable} doesn't correspond to the rule left-hand variable type.
+     * See {@link Rule#action(StackWrapper, SymbolQueue)}.
+     * Extracts the top {@link Variable} of the stack and pushes all the Variables in the {@link #replacingVariables}
+     * on the {@link StackWrapper}.
      */
     @Override
     public void action(StackWrapper stack, SymbolQueue list) throws SyntaxException {
