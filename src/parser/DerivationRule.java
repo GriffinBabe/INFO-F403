@@ -42,12 +42,12 @@ public final class DerivationRule extends Rule {
     }
 
     /**
-     * See {@link Rule#action(StackWrapper, SymbolQueue)}.
+     * See {@link Rule#action(StackWrapper, SymbolQueue, ParseTree)}.
      * Extracts the top {@link Variable} of the stack and pushes all the Variables in the {@link #replacingVariables}
-     * on the {@link StackWrapper}.
+     * on the {@link StackWrapper}. Finally, derives the left-most node of the parser's {@link ParseTree}.
      */
     @Override
-    public void action(StackWrapper stack, SymbolQueue list) throws SyntaxException {
+    public void action(StackWrapper stack, SymbolQueue list, ParseTree tree) throws SyntaxException {
         // Extracts the fist var of the stack and checks if
         Variable topVar = stack.remVar();
         if (!topVar.getType().equals(expectedType)) {
@@ -59,6 +59,17 @@ public final class DerivationRule extends Rule {
         while (itr.hasPrevious()) {
             stack.pushVar(itr.previous());
         }
+        if (replacingVariables.isEmpty()) {
+            // adds an epsilon to the tree.
+            Variable epsilon = new Variable(Variable.Type.EPS);
+            ArrayList<Variable> tempVariables = new ArrayList<>();
+            tempVariables.add(epsilon);
+            tree.deriveLeftmost(new Variable(expectedType), tempVariables);
+        }
+        else {
+            // adds the replacing variables to the tree
+            tree.deriveLeftmost(new Variable(expectedType), replacingVariables);
+        }
     }
 
     /**
@@ -66,17 +77,23 @@ public final class DerivationRule extends Rule {
      */
     @Override
     public String toString() {
-        StringBuilder builder = new StringBuilder();
-        builder.append("Derivation rule: ");
-        builder.append(this.expectedType);
-        builder.append(" =====> ");
-        for (Variable var : replacingVariables) {
-            builder.append(var.getType());
-            builder.append(", ");
+        if (Parser.VERBOSE) {
+            StringBuilder builder = new StringBuilder();
+            builder.append("Derivation rule: ");
+            builder.append(this.expectedType);
+            builder.append(" =====> ");
+            for (Variable var : replacingVariables) {
+                builder.append(var.getType());
+                builder.append(", ");
+            }
+            if (replacingVariables.isEmpty()) {
+                builder.append("eps");
+            }
+            builder.append("\n");
+            return builder.toString();
         }
-        if (replacingVariables.isEmpty()) {
-            builder.append("eps");
+        else {
+            return String.valueOf(this.ruleID) + "\n";
         }
-        return builder.toString();
     }
 }

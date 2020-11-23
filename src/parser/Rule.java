@@ -3,7 +3,7 @@ package parser;
 /**
  * Base class for all the rules.
  * The rules are obtained in the parser through the {@link ActionTable} and are executed with the base
- * {@link #action(StackWrapper, SymbolQueue)} method.
+ * {@link #action(StackWrapper, SymbolQueue, ParseTree)} method.
  */
 public class Rule {
 
@@ -13,7 +13,7 @@ public class Rule {
     public final static int RULE_COUNT = 38;
 
     /**
-     * Performs an action. Might or not perform operations on the {@link StackWrapper} or the {@link SymbolQueue}.
+     * Performs an action. Might or not perform operations on the {@link StackWrapper}, the {@link SymbolQueue} or the {@link ParseTree}.
      *
      * This method is overridden in the derived classes.
      *
@@ -22,9 +22,10 @@ public class Rule {
      *
      * @param stack, reference to the stack of the parser.
      * @param list, reference to the list of symbols obtained by the {@link scanner.Scanner} in the parser.
+     * @param tree, reference to the parser's {@link ParseTree}.
      * @throws SyntaxException, if this rule is called anyway, it will throw an exception.
      */
-    public void action(StackWrapper stack, SymbolQueue list) throws SyntaxException {
+    public void action(StackWrapper stack, SymbolQueue list, ParseTree tree) throws SyntaxException {
         throw new SyntaxException("No rule found for top stack token: "+stack.readTop().toString()+
                 " and first scanned symbol: "+list.read().toString());
     }
@@ -35,6 +36,6 @@ public class Rule {
      */
     @Override
     public String toString() {
-        return "Invalid rule. Syntax error detected.";
+        return "Invalid rule. Syntax error detected.\n";
     }
 }

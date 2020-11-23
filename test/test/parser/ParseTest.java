@@ -11,35 +11,35 @@ import static org.junit.jupiter.api.Assertions.fail;
 public class ParseTest {
 	@Test
 	public void testFactorial() throws SyntaxException {
-		Scanner scanner = new Scanner("test/test/parser/Factorial.fs");
+		Scanner scanner = new Scanner("test/Factorial.fs");
 		scanner.printTable();
 		Parser parser = new Parser(scanner.getVariables());
 		parser.parseSequence();
 	}
 	@Test
 	public void testAmbiguous() throws SyntaxException {
-		Scanner scanner = new Scanner("test/test/parser/Ambiguous.fs");
+		Scanner scanner = new Scanner("test/Ambiguous.fs");
 		scanner.printTable();
 		Parser parser = new Parser(scanner.getVariables());
 		parser.parseSequence();
 	}
 	@Test
 	public void testUnary() throws SyntaxException {
-		Scanner scanner = new Scanner("test/test/parser/Unary.fs");
+		Scanner scanner = new Scanner("test/Unary.fs");
 		scanner.printTable();
 		Parser parser = new Parser(scanner.getVariables());
 		parser.parseSequence();
 	}
 	@Test
 	public void testNestedWhile() throws SyntaxException {
-		Scanner scanner = new Scanner("test/test/parser/NestedWhile.fs");
+		Scanner scanner = new Scanner("test/NestedWhile.fs");
 		scanner.printTable();
 		Parser parser = new Parser(scanner.getVariables());
 		parser.parseSequence();
 	}
 	@Test
 	public void unfinishedProgram() {
-		Scanner scanner = new Scanner("test/test/parser/UnfinishedProgram.fs");
+		Scanner scanner = new Scanner("test/UnfinishedProgram.fs");
 		scanner.printTable();
 		Parser parser = new Parser(scanner.getVariables());
 

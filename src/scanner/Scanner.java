@@ -8,7 +8,7 @@ import java.util.Collections;
 import java.util.Comparator;
 
 /**
- * scanner.Scanner class. Will initialize a stream to the source file and initialize the {@link LexicalAnalyzer} at construction.
+ * This class will initialize a stream to the source file and initialize the {@link LexicalAnalyzer} at construction.
  *
  * All the symbols scanned by the lexical analyzer can be printed with the {@link #printTable()} class method.
  */
@@ -16,18 +16,20 @@ public class Scanner {
 
 
     /**
-     * ArrayList containing all the scanner.Symbol that were identified as variable names.
+     * ArrayList containing all the {@link Symbol} that were identified as variable names (identifiers).
      */
     private ArrayList<Symbol> variables = new ArrayList<>();
+
     /**
-     * symbol list of token for parser use
+     * Symbol list of token for parser use.
      */
-    private ArrayList<Symbol> token = new ArrayList<>();
+    private ArrayList<Symbol> tokenList = new ArrayList<>();
+
     /**
-     * @return symbol list
+     * @return Symbol list
      */
     public ArrayList<Symbol> getVariables() {
-        return token;
+        return tokenList;
     }
 
     /**
@@ -61,6 +63,59 @@ public class Scanner {
             System.err.println("Couldn't load file: "+sourcePath);
             System.exit(-1);
         }
+        this.scan();
+    }
+
+    /**
+     * Prepares a {@link Symbol} table as specified in the assignments.
+     *
+     * If a wrong syntax is detected, a exception will be thrown
+     * by {@link LexicalAnalyzer}. The exception trace will be printed
+     * in the standard error print and the program will exit with the
+     * -1 state. The same happens for a stream exception.
+     */
+    private void scan() {
+        boolean reachedEndOfProgram = false;
+        try {
+            Symbol symbol = scanner.nextToken();
+            while (symbol != null) {
+                if (symbol.getType() == LexicalUnit.VARNAME) {
+                    checkVariable(symbol);
+                }
+                else if (symbol.getType() == LexicalUnit.ENDPROG) {
+                    reachedEndOfProgram = true;
+                }
+                else if (symbol.getType() == LexicalUnit.ENDLINE && reachedEndOfProgram) {
+                    // Don't add the symbol to the token list.
+                    symbol = scanner.nextToken();
+                    continue;
+                }
+                tokenList.add(symbol);
+                symbol = scanner.nextToken();
+            }
+            tokenList.add(new Symbol(LexicalUnit.EOS));
+        } catch (IOException | Error e) {
+            System.err.println("Couldn't scan source file: "+e.getMessage());
+            System.exit(-1);
+        }
+
+    }
+
+    /**
+     * Checks if the variable is not already registered. If not, then adds it to the {@link #variables} list.
+     * @param symbol
+     */
+    private void checkVariable(Symbol symbol) {
+        boolean matched = false;
+        for(Symbol s : variables){
+            if (((String)(s.getValue())).equals((String)(symbol.getValue()))) {
+                matched = true;
+                break;
+            }
+        }
+        if (!matched) {
+            variables.add(symbol);
+        }
     }
 
     /**
@@ -72,39 +127,15 @@ public class Scanner {
      * -1 state. The same happens for a stream exception.
      */
     public void printTable() {
-        try {
-            Symbol symbol = scanner.nextToken();
-            while (symbol != null) {
-                System.out.println(symbol);
-                token.add(symbol);
-                if (symbol.getType() == LexicalUnit.VARNAME){
-                    boolean matched = false;
-                    for(Symbol s : variables){
-                        if (((String)(s.getValue())).equals((String)(symbol.getValue()))){
-                            matched = true;
-                        }
-                    }
-                    if (!matched) {
-                        variables.add(symbol);
-                    }
-
-                }
-                symbol = scanner.nextToken();
-            }
-            token.add(new Symbol(LexicalUnit.EOS));
-            System.out.println("\nVariables");
-            Collections.sort(variables,new Scanner.CustomComparator());
-            for(Symbol s : variables){
-                System.out.println(s.getValue()+" "+s.getLine());
-            }
-            System.out.println();
-        } catch (IOException e) { // IOException for stream exception
-            e.printStackTrace();
-            System.exit(-1);
-        } catch (Error e) { // Syntax errors thrown by JFlex
-            e.printStackTrace();
-            System.exit(-1);
+        for (Symbol symbol : tokenList) {
+            System.out.println(symbol);
         }
+        System.out.println("\nVariables");
+        Collections.sort(variables,new Scanner.CustomComparator());
+        for(Symbol s : variables){
+            System.out.println(s.getValue()+" "+s.getLine());
+        }
+        System.out.println();
     }
 
 }

@@ -2,19 +2,22 @@ package parser;
 
 import scanner.LexicalUnit;
 import scanner.Symbol;
+import util.LatexWriter;
 
 import java.util.ArrayList;
-import java.util.stream.StreamSupport;
-
 
 /**
  * Parser Class
  */
 public class Parser {
 
+	public static boolean VERBOSE = false;
+
 	private final StackWrapper variableStack;
 	private final ActionTable actionTable;
 	private final SymbolQueue symbolQueue;
+
+	private final ParseTree tree;
 
 	/**
 	 * Public constructor of the parser
@@ -24,6 +27,7 @@ public class Parser {
 		variableStack = new StackWrapper();
 		actionTable = new ActionTable();
 		symbolQueue = new SymbolQueue(arr);
+		tree = new ParseTree(new Variable(Variable.Type.V_PROGRAM));
 	}
 
 	/**
@@ -39,17 +43,23 @@ public class Parser {
 			// reads the stack and queue first variables
 			Variable firstQueueVar = new Variable(symbolQueue.read());
 			Variable topStackVar = variableStack.readTop();
-			System.out.println("Look-ahead = "+ firstQueueVar.getType());
-			System.out.println("Top stack = " + topStackVar.getType());
 
 			// Fetches the corresponding rule in the action table.
 			Rule rule = actionTable.getRule(topStackVar, firstQueueVar);
 
-			System.out.println("Fetched rule: " + rule.toString());
-			System.out.println("----------------------------------\n");
+			if (Parser.VERBOSE) {
+				System.out.println("----------------------------------");
+				System.out.println("Look-ahead = "+ firstQueueVar.getType());
+				System.out.println("Top stack = " + topStackVar.getType());
+				System.out.println("Fetched rule: " + rule.toString());
+				System.out.println("----------------------------------\n");
+			}
+			else {
+				System.out.print(rule.toString());
+			}
 
 			// calls the rule actions (might perform actions on the stack and symbol queue).
-			rule.action(variableStack, symbolQueue);
+			rule.action(variableStack, symbolQueue, tree);
 		}
 
 		// checks if the stack is not empty.
@@ -58,6 +68,17 @@ public class Parser {
 		}
 
 		// at this point everything passed
-		System.out.println("Program parsed successfully.");
+		if (Parser.VERBOSE) {
+			System.out.println("[Program parsed successfully.]\n");
+		}
+	}
+
+	/**
+	 * Writes the LaTeX source code of the parsed {@link ParseTree} at the given path.
+	 * @param path, the path where to write the file.
+	 */
+	public void saveTree(String path) {
+		LatexWriter writer = new LatexWriter(path);
+		writer.write(tree.toLaTeX());
 	}
 }

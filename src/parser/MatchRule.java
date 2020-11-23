@@ -6,14 +6,14 @@ package parser;
 public final class MatchRule extends Rule {
 
     /**
-     * See {@link Rule#action(StackWrapper, SymbolQueue)}.
+     * See {@link Rule#action(StackWrapper, SymbolQueue, ParseTree)}.
      *
      * Checks if the {@link Variable} at the top of the stack is the same as the {@link Variable} at the lookahead.
      * If the {@link Variable} matches, then removes the top variable of the {@link StackWrapper} and the {@link SymbolQueue}.
      * If the {@link Variable} doesn't match, then throws a {@link SyntaxException}.
      */
     @Override
-    public void action(StackWrapper stack, SymbolQueue list) throws SyntaxException {
+    public void action(StackWrapper stack, SymbolQueue list, ParseTree tree) throws SyntaxException {
         Variable stackVar = stack.remVar();
         Variable inputVar = list.remVar();
         if (!stackVar.getType().equals(inputVar.getType())) {
@@ -28,7 +28,12 @@ public final class MatchRule extends Rule {
      */
     @Override
     public String toString() {
-        return "Match Rule.";
+        if (Parser.VERBOSE) {
+            return "Match Rule.\n";
+        }
+        else {
+            return "";
+        }
     }
 
 }

@@ -41,7 +41,9 @@ public class StackWrapper {
      * @return the {@link Variable} on top of the stack
      */
     public Variable readTop() {
-        if(stack.isEmpty()){ throw new RuntimeException("Cannot read element from empty stack");}
+        if(stack.isEmpty()){
+            throw new RuntimeException("Cannot read element from empty stack");
+        }
         return stack.peek();
     }
 

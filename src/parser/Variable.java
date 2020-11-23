@@ -16,7 +16,7 @@ public class Variable {
     /**
      * Number of terminals (excluding variables).
      */
-    public final static int TERMINAL_COUNT = 25;
+    public final static int TERMINAL_COUNT = 26;
 
     /**
      * Enumeration to all variables and symbol types.
@@ -70,7 +70,8 @@ public class Variable {
         EQ(44),
         ELSE(45),
         COMMA(46),
-        DO(47);
+        DO(47),
+        EPS(48);
 
         int id;
 
@@ -183,6 +184,14 @@ public class Variable {
      */
     public Type getType() {
         return this.type;
+    }
+
+    /**
+     * Checks if the {@link Variable} is a terminal type or not.
+     * @return yes if the {@link Variable} is a terminal or not.
+     */
+    public boolean isTerminal() {
+        return this.type.id >= VARIABLE_COUNT;
     }
 
     @Override
