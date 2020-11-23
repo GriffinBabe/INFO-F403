@@ -51,8 +51,7 @@ public class Parser {
 				System.out.println("----------------------------------");
 				System.out.println("Look-ahead = "+ firstQueueVar.getType());
 				System.out.println("Top stack = " + topStackVar.getType());
-				System.out.println("Fetched rule: " + rule.toString());
-				System.out.println("----------------------------------\n");
+				System.out.print("Fetched rule: " + rule.toString());
 			}
 			else {
 				System.out.print(rule.toString());
@@ -60,6 +59,10 @@ public class Parser {
 
 			// calls the rule actions (might perform actions on the stack and symbol queue).
 			rule.action(variableStack, symbolQueue, tree);
+
+			if  (Parser.VERBOSE) {
+				System.out.println("----------------------------------\n");
+			}
 		}
 
 		// checks if the stack is not empty.
