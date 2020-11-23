@@ -1,3 +1,5 @@
+package scanner;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -6,7 +8,7 @@ import java.util.Collections;
 import java.util.Comparator;
 
 /**
- * Scanner class. Will initialize a stream to the source file and initialize the {@link LexicalAnalyzer} at construction.
+ * scanner.Scanner class. Will initialize a stream to the source file and initialize the {@link LexicalAnalyzer} at construction.
  *
  * All the symbols scanned by the lexical analyzer can be printed with the {@link #printTable()} class method.
  */
@@ -14,7 +16,7 @@ public class Scanner {
 
 
     /**
-     * ArrayList containing all the Symbol that were identified as variable names.
+     * ArrayList containing all the scanner.Symbol that were identified as variable names.
      */
     private ArrayList<Symbol> variables = new ArrayList<>();
     /**
@@ -69,7 +71,7 @@ public class Scanner {
      * in the standard error print and the program will exit with the
      * -1 state. The same happens for a stream exception.
      */
-    void printTable() {
+    public void printTable() {
         try {
             Symbol symbol = scanner.nextToken();
             while (symbol != null) {

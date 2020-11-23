@@ -1,5 +1,11 @@
+import parser.Parser;
+import parser.SyntaxException;
+import scanner.Scanner;
+
+import java.util.stream.StreamSupport;
+
 /**
- * Main class. Will initialize a stream to the source file and initialize the {@link LexicalAnalyzer} at construction.
+ * Main class. Will initialize a stream to the source file and initialize the {@link Scanner} at construction.
  * Continues by calling a parser.
  *
  */
@@ -10,7 +16,7 @@ class Main {
 	 * objects. Finally it calls the {@link Scanner#printTable()} function.
 	 * @param args must contain a path to the scanned source file.
 	 */
-	public static void main(String[] args) throws SyntaxException {
+	public static void main(String[] args) {
 		if (args.length != 1) {
 			System.out.println("Usage: java -jar part1.jar <source file>");
 			System.exit(1);
@@ -18,7 +24,14 @@ class Main {
 		Scanner scanner = new Scanner(args[0]);
 		scanner.printTable();
 		Parser parser = new Parser(scanner.getVariables());
-		parser.parseSequence();
+
+		try {
+			parser.parseSequence();
+		}
+		catch (SyntaxException e) {
+			System.out.println("Syntax error detected: " + e.getMessage());
+			System.exit(1);
+		}
 	}
 
 }

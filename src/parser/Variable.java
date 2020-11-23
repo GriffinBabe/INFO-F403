@@ -1,3 +1,8 @@
+package parser;
+
+import scanner.Scanner;
+import scanner.Symbol;
+
 /**
  * This class represents all the Variables and Terminals in the {@link SymbolQueue} and the {@link StackWrapper}.
  */
@@ -67,7 +72,7 @@ public class Variable {
         COMMA(46),
         DO(47);
 
-        int id = 0;
+        int id;
 
         Type(int id) {
             this.id = id;
@@ -80,7 +85,7 @@ public class Variable {
     private Type type = null;
 
     /**
-     * parser.Variable main contructor.
+     * {@link Variable} main constructor.
      * @param type, the {@link Type} of the {@link Variable}.
      */
     public Variable(Type type) {
@@ -88,8 +93,9 @@ public class Variable {
     }
 
     /**
-     * Converts a {@link Symbol} (used by the {@link Scanner}) into a {@link Variable}
-     * @param symbol
+     * {@link Variable} constructor?
+     * Converts a {@link Symbol} (used by the {@link Scanner}) into a {@link Variable}.
+     * @param symbol, the symbol to convert.
      */
     public Variable(Symbol symbol) {
         switch (symbol.getType()) {
@@ -177,5 +183,10 @@ public class Variable {
      */
     public Type getType() {
         return this.type;
+    }
+
+    @Override
+    public String toString() {
+        return this.type.toString();
     }
 }

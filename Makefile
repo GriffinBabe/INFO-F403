@@ -1,7 +1,7 @@
 all:
-	jflex src/LexicalAnalyzer.flex
+	jflex src/scanner/LexicalAnalyzer.flex
 	javac -d bin -cp src/ src/Main.java
-	jar cfe dist/Part1.jar Main -C bin .
+	jar cfe dist/Part2.jar Main -C bin .
 
 testing:
-		java -jar dist/Part1.jar test/Factorial.fs
+		java -jar dist/Part2.jar test/Factorial.fs

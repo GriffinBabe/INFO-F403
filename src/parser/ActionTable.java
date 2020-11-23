@@ -1,17 +1,19 @@
+package parser;
+
 import java.util.ArrayList;
 
 /**
  * The action table is the responsible for initializing and mapping the {@link Rule}s.
- * The ActionTable is prepared at it's constructor.
+ * The parser.ActionTable is prepared at it's constructor.
  * {@link Rule}s can be retrieved by the parser though the {@link #getRule(Variable, Variable)} method.
  */
 public class ActionTable {
 
     /**
-     * 2D array representing the ActionTable. Links a rule to all {@link Rule#action(StackWrapper, SymbolQueue)}
+     * 2D array representing the parser.ActionTable. Links a rule to all {@link Rule#action(StackWrapper, SymbolQueue)}
      * with the corresponding (top-stack, lookahead) pair.
      */
-    public Rule table[][] = null;
+    public Rule[][] table = null;
 
     /**
      * List containing all the grammar's {@link DerivationRule}.
@@ -30,7 +32,7 @@ public class ActionTable {
      * Finds the rule in the action table and returns it.
      * @param top, the variable on the top of the stack.
      * @param lookahead, the first lookahead variable.
-     * @reutn Rule, a rule to call {@link Rule#action(StackWrapper, SymbolQueue)}.
+     * @return Rule, a rule to call {@link Rule#action(StackWrapper, SymbolQueue)}.
      */
     public Rule getRule(Variable top, Variable lookahead) {
         return table[top.getType().id][lookahead.getType().id - Variable.VARIABLE_COUNT];

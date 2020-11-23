@@ -1,3 +1,5 @@
+package parser;
+
 /**
  * Matches the top {@link Variable} of the stack with the first {@link Variable} on the list.
  */
@@ -15,9 +17,18 @@ public final class MatchRule extends Rule {
         Variable stackVar = stack.remVar();
         Variable inputVar = list.remVar();
         if (!stackVar.getType().equals(inputVar.getType())) {
-            throw new SyntaxException("Variable with type: "+stackVar.getType().toString()
+            throw new SyntaxException("parser.Variable with type: "+stackVar.getType().toString()
                     +" doesn't watch variable of type: "+inputVar.getType().toString());
         }
+    }
+
+    /**
+     * See {@link Rule#toString()}
+     * @return
+     */
+    @Override
+    public String toString() {
+        return "Match Rule.";
     }
 
 }

@@ -21,10 +21,20 @@ public class Rule {
      * the empty {@link ActionTable#table} cells.
      *
      * @param stack, reference to the stack of the parser.
-     * @param list, reference to the list of symbols obtained by the {@link Scanner} in the parser.
+     * @param list, reference to the list of symbols obtained by the {@link scanner.Scanner} in the parser.
      * @throws SyntaxException, if this rule is called anyway, it will throw an exception.
      */
     public void action(StackWrapper stack, SymbolQueue list) throws SyntaxException {
-        throw new SyntaxException("Invalid rule returned by parser.ActionTable");
+        throw new SyntaxException("No rule found for top stack token: "+stack.readTop().toString()+
+                " and first scanned symbol: "+list.read().toString());
+    }
+
+    /**
+     * Overrides {@link Object#toString()}. Returns {@link Rule}'s information.
+     * @return a string containing the {@link Rule} information.
+     */
+    @Override
+    public String toString() {
+        return "Invalid rule. Syntax error detected.";
     }
 }

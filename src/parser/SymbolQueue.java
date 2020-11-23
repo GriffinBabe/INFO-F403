@@ -1,25 +1,29 @@
+package parser;
+
+import scanner.Symbol;
+
 import java.util.ArrayList;
 
 /**
- * Symbol LIFO queue.
+ * {@link Symbol} FIFO queue wrapper class.
  */
 public class SymbolQueue {
 
 	/**
 	 * List of all the tokens read by the scanner
 	 */
-	private ArrayList<Symbol> symbolList;
+	private final ArrayList<Symbol> symbolList;
 	/**
 	 * Index of lecture
 	 */
 	private int index = 0;
 
+	private int end = 0;
+
 	/**
 	 * Public constructor
 	 * @param arr List of all the tokens read by the scanner
 	 */
-    private int end = 0;
-
     public SymbolQueue(ArrayList<Symbol> arr) {
         symbolList = arr;
         this.end = symbolList.size();
@@ -30,6 +34,9 @@ public class SymbolQueue {
 	 * @return the previous look-ahead value
 	 */
     public Variable remVar() {
+    	if (index >= end) {
+    		throw new RuntimeException("Cannot remove variable on an empty queue.");
+		}
         Symbol symbol = symbolList.get(index);
         index++;
         return new Variable(symbol);
@@ -39,6 +46,9 @@ public class SymbolQueue {
 	 * @return Look-ahead value
 	 */
 	public Symbol read(){
+		if (index >= end) {
+			throw new RuntimeException("Cannot read on a empty queue.");
+		}
 		return symbolList.get(index);
 	}
 
