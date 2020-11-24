@@ -93,7 +93,7 @@ public final class DerivationRule extends Rule {
             return builder.toString();
         }
         else {
-            return String.valueOf(this.ruleID) + "\n";
+            return String.valueOf(this.ruleID) + " ";
         }
     }
 }

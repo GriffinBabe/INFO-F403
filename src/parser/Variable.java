@@ -23,60 +23,67 @@ public class Variable {
      */
     public enum Type {
 
-        V_PROGRAM(0),
-        V_PROGRAM_(1),
-        V_PROGRAM__(2),
-        V_CODE(3),
-        V_INSTRUCTION(4),
-        V_ASSIGN(5),
-        V_EXPRARITH(6),
-        V_EXPRARITH_(7),
-        V_B(8),
-        V_B_(9),
-        V_C(10),
-        V_IF(11),
-        V_COND_(12),
-        V_IF_(13),
-        V_IFBIS(14),
-        V_IFBIS_(15),
-        V_COND(16),
-        V_COMP(17),
-        V_WHILE(18),
-        V_WHILE_(19),
-        V_V1(20),
-        V_V2(21),
-        V_V3(22),
-        BEGINPROG(23),
-        PROGNAME(24),
-        ENDLINE(25),
-        VARNAME(26),
-        LPAREN(27),
-        RPAREN(28),
-        PLUS(29),
-        MINUS(30),
-        TIMES(31),
-        DIVIDE(32),
-        ASSIGN(33),
-        NUMBER(34),
-        IF(35),
-        THEN(36),
-        ENDIF(37),
-        WHILE(38),
-        ENDWHILE(39),
-        ENDPROG(40),
-        PRINT(41),
-        READ(42),
-        GT(43),
-        EQ(44),
-        ELSE(45),
-        COMMA(46),
-        DO(47),
-        EPS(48);
+        V_PROGRAM(0, "<Program>"),
+        V_PROGRAM_(1, "<Program'>"),
+        V_PROGRAM__(2, "<Program''>"),
+        V_CODE(3, "<Code>"),
+        V_INSTRUCTION(4, "<Instruction>"),
+        V_ASSIGN(5, "<Assign>"),
+        V_EXPRARITH(6, "<ExprArith>"),
+        V_EXPRARITH_(7, "<ExprArith'>"),
+        V_B(8, "<B>"),
+        V_B_(9, "<B'>"),
+        V_C(10, "<C>"),
+        V_IF(11, "<If>"),
+        V_COND_(12, "<Cond'>"),
+        V_IF_(13, "<If'>"),
+        V_IFBIS(14, "<Ifbis>"),
+        V_IFBIS_(15, "<Ifbis'>"),
+        V_COND(16, "<Cond>"),
+        V_COMP(17, "<Comp>"),
+        V_WHILE(18, "<While>"),
+        V_WHILE_(19, "<While'>"),
+        V_V1(20, "<V1>"),
+        V_V2(21, "<V2>"),
+        V_V3(22, "<V3>"),
+        BEGINPROG(23, "BEGINPROG"),
+        PROGNAME(24, "[ProgName]"),
+        ENDLINE(25, "[EndLine]"),
+        VARNAME(26, "[VarName]"),
+        LPAREN(27, "("),
+        RPAREN(28, ")"),
+        PLUS(29, "+"),
+        MINUS(30, "-"),
+        TIMES(31, "*"),
+        DIVIDE(32, "/"),
+        ASSIGN(33, ":="),
+        NUMBER(34, "[Number]"),
+        IF(35, "IF"),
+        THEN(36, "THEN"),
+        ENDIF(37, "ENDIF"),
+        WHILE(38, "WHILE"),
+        ENDWHILE(39, "ENDWHILE"),
+        ENDPROG(40, "ENDPROG"),
+        PRINT(41, "PRINT"),
+        READ(42, "READ"),
+        GT(43, ">"),
+        EQ(44, "="),
+        ELSE(45, "ELSE"),
+        COMMA(46, ","),
+        DO(47, "DO"),
+        EPS(48, "$\\epsilon$");
 
         int id;
 
-        Type(int id) {
+        String texString;
+
+        Type(int id, String texString) {
             this.id = id;
+            this.texString = texString;
+        }
+
+        public String toTexString() {
+            return this.texString;
         }
     }
 
@@ -197,5 +204,9 @@ public class Variable {
     @Override
     public String toString() {
         return this.type.toString();
+    }
+
+    public String toTexString() {
+        return this.type.toTexString();
     }
 }

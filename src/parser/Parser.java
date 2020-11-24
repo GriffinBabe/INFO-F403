@@ -65,6 +65,10 @@ public class Parser {
 			}
 		}
 
+		if (!Parser.VERBOSE) {
+			System.out.println();
+		}
+
 		// checks if the stack is not empty.
 		if (!variableStack.isEmpty()) {
 			throw new SyntaxException("Stack is non-empty at the end of the parsing.");

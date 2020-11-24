@@ -1,0 +1,14 @@
+\documentclass[border=5pt]{standalone}
+
+\usepackage{tikz}
+\usepackage{forest}
+
+\begin{document}
+
+\begin{forest}for tree={rectangle, draw, l sep=20pt}[{<Program>} [{BEGINPROG} ][{<Program'>} [{[ProgName]} ][{<Program''>} [{[EndLine]} ][{<Code>} [{<Instruction>} [{$\epsilon$} ]][{[EndLine]} ][{<Code>} [{<Instruction>} [{$\epsilon$} ]][{[EndLine]} ][{<Code>} [{<Instruction>} [{$\epsilon$} ]][{[EndLine]} ][{<Code>} [{<Instruction>} [{READ} ][{<V1>} [{(} ][{<V2>} [{[VarName]} ][{<V3>} [{)} ]]]]][{[EndLine]} ][{<Code>} [{<Instruction>} [{[VarName]} ][{<Assign>} [{:=} ][{<ExprArith>} [{<B>} [{<C>} [{[Number]} ]][{<B'>} [{$\epsilon$} ]]][{<ExprArith'>} [{$\epsilon$} ]]]]][{[EndLine]} ][{<Code>} [{<Instruction>} [{$\epsilon$} ]][{[EndLine]} ][{<Code>} [{<Instruction>} [{IF} ][{<If>} [{<Cond'>} [{(} ][{<Cond>} [{<ExprArith>} [{<B>} [{<C>} [{[VarName]} ]][{<B'>} [{$\epsilon$} ]]][{<ExprArith'>} [{$\epsilon$} ]]][{<Comp>} [{>} ]][{<ExprArith>} [{<B>} [{<C>} [{-} ][{<ExprArith>} [{<B>} [{<C>} [{[Number]} ]][{<B'>} [{$\epsilon$} ]]][{<ExprArith'>} [{$\epsilon$} ]]]][{<B'>} [{$\epsilon$} ]]][{<ExprArith'>} [{$\epsilon$} ]]]][{)} ]][{THEN} ][{<If'>} [{[EndLine]} ][{<Code>} [{<Instruction>} [{WHILE} ][{<While>} [{<Cond'>} [{(} ][{<Cond>} [{<ExprArith>} [{<B>} [{<C>} [{[VarName]} ]][{<B'>} [{$\epsilon$} ]]][{<ExprArith'>} [{$\epsilon$} ]]][{<Comp>} [{>} ]][{<ExprArith>} [{<B>} [{<C>} [{[Number]} ]][{<B'>} [{$\epsilon$} ]]][{<ExprArith'>} [{$\epsilon$} ]]]][{)} ]][{DO} ][{<While'>} [{[EndLine]} ][{<Code>} [{<Instruction>} [{[VarName]} ][{<Assign>} [{:=} ][{<ExprArith>} [{<B>} [{<C>} [{[VarName]} ]][{<B'>} [{*} ][{<C>} [{[VarName]} ]][{<B'>} [{$\epsilon$} ]]]][{<ExprArith'>} [{$\epsilon$} ]]]]][{[EndLine]} ][{<Code>} [{<Instruction>} [{[VarName]} ][{<Assign>} [{:=} ][{<ExprArith>} [{<B>} [{<C>} [{[VarName]} ]][{<B'>} [{$\epsilon$} ]]][{<ExprArith'>} [{-} ][{<B>} [{<C>} [{[Number]} ]][{<B'>} [{$\epsilon$} ]]][{<ExprArith'>} [{$\epsilon$} ]]]]]][{[EndLine]} ][{<Code>} [{$\epsilon$} ]]]][{ENDWHILE} ]]]][{[EndLine]} ][{<Code>} [{$\epsilon$} ]]][{<Ifbis>} [{ELSE} ][{<Ifbis'>} [{[EndLine]} ][{<Code>} [{<Instruction>} [{[VarName]} ][{<Assign>} [{:=} ][{<ExprArith>} [{<B>} [{<C>} [{-} ][{<ExprArith>} [{<B>} [{<C>} [{[Number]} ]][{<B'>} [{$\epsilon$} ]]][{<ExprArith'>} [{$\epsilon$} ]]]][{<B'>} [{$\epsilon$} ]]][{<ExprArith'>} [{$\epsilon$} ]]]]][{[EndLine]} ][{<Code>} [{$\epsilon$} ]]][{ENDIF} ]]]]]][{[EndLine]} ][{<Code>} [{<Instruction>} [{PRINT} ][{<V1>} [{(} ][{<V2>} [{[VarName]} ][{<V3>} [{)} ]]]]][{[EndLine]} ][{<Code>} [{$\epsilon$} ]]]]]]]]]][{ENDPROG} ]]]];
+\end{forest}
+
+\end{document}
+%% Local Variables:
+%% TeX-engine: pdflatex
+%% End:

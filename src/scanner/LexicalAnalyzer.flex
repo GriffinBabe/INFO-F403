@@ -24,7 +24,7 @@ LineComment = "//" {InputCharacter}* {LineTerminator}
 
 // Identifiers and literals
 VarName = [a-z][a-z0-9]*
-ProgName = [A-Z][A-Za-z0-9]*
+ProgName = [A-Z][A-Za-z0-9]*[a-z]+[A-Za-z0-9]*
 
 // Wrong literal (non-zero number that starts with 0)
 WrongNumber = [0][0-9]+
@@ -87,4 +87,4 @@ Number = [1-9][0-9]* | [0]
     {NonCommentRelated} { /* ignores */ }
 }
 
-[^]         { throw new Error("Illegal character <" +yytext()+ ">"); }
+[^]         { throw new Error("Illegal character <" +yytext()+ "> at line: "+(yyline+1)+" column: "+(yycolumn+1)); }

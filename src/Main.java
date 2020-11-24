@@ -32,7 +32,7 @@ class Main {
 			if (clp.latexOutput() != null) parser.saveTree(clp.latexOutput());
 		}
 		catch (SyntaxException e) {
-			System.out.println("Syntax error detected: " + e.getMessage());
+			System.err.println("Syntax error detected: " + e.getMessage());
 			System.exit(1);
 		}
 	}
