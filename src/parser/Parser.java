@@ -11,12 +11,29 @@ import java.util.ArrayList;
  */
 public class Parser {
 
+	/**
+	 * Set to true if the user wishes a more verbose std output.
+	 */
 	public static boolean VERBOSE = false;
 
+	/**
+	 * Reference to the PDA's stack.
+	 */
 	private final StackWrapper variableStack;
+
+	/**
+	 * Reference to the action Table. Used to fetch the rules that define the behaviour of the parser.
+	 */
 	private final ActionTable actionTable;
+
+	/**
+	 * Reference to the FIFO symbol queue. Contains all the symbols obtained by the {@link scanner.Scanner}.
+	 */
 	private final SymbolQueue symbolQueue;
 
+	/**
+	 * Reference to the parser derivation tree. Will be built in the {@link #parseSequence()} method.
+	 */
 	private final ParseTree tree;
 
 	/**
@@ -31,7 +48,14 @@ public class Parser {
 	}
 
 	/**
-	 * Public method starting the parsing
+	 * Public method starting the parsing.
+	 *
+	 * Until the {@link LexicalUnit#EOS} is not reached:
+	 *
+	 * {@link Parser} =fetches in=> {@link ActionTable}
+	 *   {@link Rule} <==returns=== {@link ActionTable}
+	 * calls {@link Rule#action(StackWrapper, SymbolQueue, ParseTree)}.
+	 *
 	 * @throws SyntaxException, if a syntax problem has been detected by the parser.
 	 */
 	public void parseSequence() throws SyntaxException {
@@ -57,7 +81,7 @@ public class Parser {
 				System.out.print(rule.toString());
 			}
 
-			// calls the rule actions (might perform actions on the stack and symbol queue).
+			// calls the rule actions (might perform actions on the stack, the symbol queue or the derivation tree).
 			rule.action(variableStack, symbolQueue, tree);
 
 			if  (Parser.VERBOSE) {

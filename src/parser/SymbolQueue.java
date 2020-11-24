@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 /**
  * {@link Symbol} FIFO queue wrapper class.
+ * Represents the input sequence returned by the {@link scanner.Scanner}.
  */
 public class SymbolQueue {
 

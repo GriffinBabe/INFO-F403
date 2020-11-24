@@ -16,7 +16,15 @@ import java.util.List;
  */
 
 public class ParseTree {
+
+    /**
+     * The head of this tree/sub-tree
+     */
     private Variable label; // The label of the root of the tree
+
+    /**
+     * The child sub-trees.
+     */
     private List<ParseTree> children; // Its children, which are trees themselves
 
     /**
@@ -45,6 +53,7 @@ public class ParseTree {
      *
      * @param expected, the type of the {@link #label} that we expect in the left-most node.
      * @param children, a variable number of children node to add.
+     * @return boolean, if the children were placed or not.
      */
     public boolean deriveLeftmost(Variable expected, ArrayList<Variable> children) {
         // this is a terminal. wrong case.
@@ -83,6 +92,9 @@ public class ParseTree {
         return isTerminal;
     }
 
+    /**
+     * @return true if the children {@link #children} is non empty.
+     */
     public boolean hasChildren() {
         return !children.isEmpty();
     }

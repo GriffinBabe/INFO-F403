@@ -4,7 +4,8 @@ import scanner.Scanner;
 import scanner.Symbol;
 
 /**
- * This class represents all the Variables and Terminals in the {@link SymbolQueue} and the {@link StackWrapper}.
+ * This class represents all the Variables and Terminals present in the {@link SymbolQueue}, the {@link StackWrapper}
+ * and the {@link ParseTree}.
  */
 public class Variable {
 
@@ -73,8 +74,14 @@ public class Variable {
         DO(47, "DO"),
         EPS(48, "$\\epsilon$");
 
+        /**
+         * If of the rule.
+         */
         int id;
 
+        /**
+         * LaTeX representation of the {@link Variable}.
+         */
         String texString;
 
         Type(int id, String texString) {
@@ -82,6 +89,9 @@ public class Variable {
             this.texString = texString;
         }
 
+        /**
+         * @return {@link Type#texString}.
+         */
         public String toTexString() {
             return this.texString;
         }
@@ -201,11 +211,17 @@ public class Variable {
         return this.type.id >= VARIABLE_COUNT;
     }
 
+    /**
+     * @return the {@link Type} variable's name.
+     */
     @Override
     public String toString() {
         return this.type.toString();
     }
 
+    /**
+     * @return the {@link Type} variable's LaTeX representation.
+     */
     public String toTexString() {
         return this.type.toTexString();
     }

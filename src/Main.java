@@ -4,15 +4,21 @@ import scanner.Scanner;
 import util.CommandLineParser;
 
 /**
- * Main class. Will initialize a stream to the source file and initialize the {@link Scanner} at construction.
- * Continues by calling a parser.
+ * Main class. Will start by parsing the command line arguments with {@link CommandLineParser},
+ * then initialize a stream to the source file and start scanning with a {@link Scanner} object.
+ * Continues by initializing a {@link Parser} and starts parsing the source file.
+ *
+ * If option "-v" is specified in the arguments, the {@link Parser#VERBOSE} will be set to true, giving
+ * a much more verbose and detailed output.
+ *
+ * If option "-wt [output.tex]" is specified, the {@link parser.ParseTree} built by the {@link Parser} will
+ * be saved in a LaTeX format to the specified output file with the {@link util.LatexWriter} class.
  *
  */
 class Main {
 
 	/**
-	 * Entry point. Checks if a source file is specified in the program arguments, then initializes a {@link Scanner}
-	 * objects. Finally it calls the {@link Scanner#printTable()} function.
+	 * Program entry point. See {@link Main}
 	 * @param args must contain a path to the scanned source file.
 	 */
 	public static void main(String[] args) {

@@ -3,7 +3,8 @@ package parser;
 import java.util.Stack;
 
 /**
- * Parser stack wrapper class
+ * Parser stack wrapper class.
+ * Represents the stack of the PDA.
  */
 public class StackWrapper {
 

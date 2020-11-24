@@ -10,7 +10,7 @@ import java.util.ArrayList;
 public class ActionTable {
 
     /**
-     * 2D array representing the parser.ActionTable. Links a rule to all {@link Rule#action(StackWrapper, SymbolQueue)}
+     * 2D array representing the parser.ActionTable. Links a {@link Rule#action(StackWrapper, SymbolQueue, ParseTree)}
      * with the corresponding (top-stack, lookahead) pair.
      */
     public Rule[][] table = null;
@@ -32,7 +32,7 @@ public class ActionTable {
      * Finds the rule in the action table and returns it.
      * @param top, the variable on the top of the stack.
      * @param lookahead, the first lookahead variable.
-     * @return Rule, a rule to call {@link Rule#action(StackWrapper, SymbolQueue)}.
+     * @return Rule, a rule to call {@link Rule#action(StackWrapper, SymbolQueue, ParseTree)}.
      */
     public Rule getRule(Variable top, Variable lookahead) {
         return table[top.getType().id][lookahead.getType().id - Variable.VARIABLE_COUNT];
@@ -211,7 +211,7 @@ public class ActionTable {
      * Populates the entire {@link #table} with Rules.
      * First sets an invalid rule in all the cells.
      * Then adds a {@link MatchRule} on the Terminal's diagonal.
-     * Finally, adds the {@link DerivationRule} in the correct cells.
+     * Finally, adds the {@link DerivationRule}s from the {@link #ruleList} to the correct cells.
      */
     private void populateRules() {
         // Populates the entire array with invalid rules

@@ -2,6 +2,8 @@ package parser;
 
 /**
  * Base class for all the rules.
+ *
+ * Rules define the behaviour of the parser.
  * The rules are obtained in the parser through the {@link ActionTable} and are executed with the base
  * {@link #action(StackWrapper, SymbolQueue, ParseTree)} method.
  */
@@ -17,7 +19,7 @@ public class Rule {
      *
      * This method is overridden in the derived classes.
      *
-     * This method itself should normally never be called, as it is an rule that fills
+     * This method itself should normally never be called, as it is a rule that fills
      * the empty {@link ActionTable#table} cells.
      *
      * @param stack, reference to the stack of the parser.
