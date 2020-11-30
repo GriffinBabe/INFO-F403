@@ -6,6 +6,8 @@ out/
 # Doc is out of the repository but it must be provided in the final work!
 doc/
 .idea/
-src/LexicalAnalyzer.java
-src/LexicalAnalyzer.java~
+src/scanner/LexicalAnalyzer.java
+src/scanner/LexicalAnalyzer.java~
 INFO-F403.iml
+*.tex
+*.pdf
