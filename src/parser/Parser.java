@@ -56,7 +56,7 @@ public class Parser {
 	 *   {@link Rule} <==returns=== {@link ActionTable}
 	 * calls {@link Rule#action(StackWrapper, SymbolQueue, ParseTree)}.
 	 *
-	 * @throws SyntaxException, if a syntax problem has been detected by the parser.
+	 * @throw SyntaxException if a syntax problem has been detected by the parser.
 	 */
 	public void parseSequence() throws SyntaxException {
 		// Pushes the initial stack variable.

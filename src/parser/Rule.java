@@ -25,7 +25,7 @@ public class Rule {
      * @param stack, reference to the stack of the parser.
      * @param list, reference to the list of symbols obtained by the {@link scanner.Scanner} in the parser.
      * @param tree, reference to the parser's {@link ParseTree}.
-     * @throws SyntaxException, if this rule is called anyway, it will throw an exception.
+     * @throw SyntaxException if this rule is called anyway, it will throw an exception.
      */
     public void action(StackWrapper stack, SymbolQueue list, ParseTree tree) throws SyntaxException {
         throw new SyntaxException("No rule found for top stack token: "+stack.readTop().toString()+
