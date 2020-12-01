@@ -4,8 +4,15 @@ import parser.ParseTree;
 
 public class CodeSymbol extends Symbol {
 
+    /**
+     * Reference to the line's {@link InstructionSymbol}.
+     */
     private InstructionSymbol instruction;
-    private CodeSymbol nextCode;
+
+    /**
+     * Next code line might stay null
+     */
+    private CodeSymbol nextCode = null;
 
     @Override
     public void set(ParseTree tree, CompilerTable table) {
@@ -14,6 +21,12 @@ public class CodeSymbol extends Symbol {
 
     @Override
     public String toLLVM() {
-        return null;
+        StringBuilder sb = new StringBuilder();
+        sb.append(instruction);
+        sb.append('\n');
+        if (nextCode != null) {
+            sb.append(nextCode.toLLVM());
+        }
+        return sb.toString();
     }
 }

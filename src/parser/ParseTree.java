@@ -99,6 +99,10 @@ public class ParseTree {
         return !children.isEmpty();
     }
 
+    public Variable getLabel() {
+        return label;
+    }
+
     /**
      * Writes the tree as LaTeX code
      */

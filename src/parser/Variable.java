@@ -111,6 +111,16 @@ public class Variable {
     }
 
     /**
+     * Variable name, used in case the type of the variable is VARNAME
+     */
+    private String varname = null;
+
+    /**
+     * Number, used in case the type of the variable is NUMBER
+     */
+    private Integer number = null;
+
+    /**
      * {@link Variable} constructor?
      * Converts a {@link Symbol} (used by the {@link Scanner}) into a {@link Variable}.
      * @param symbol, the symbol to convert.
@@ -134,12 +144,14 @@ public class Variable {
                 break;
             case VARNAME:
                 this.type = Type.VARNAME;
+                this.varname = (String) symbol.getValue();
                 break;
             case ASSIGN:
                 this.type = Type.ASSIGN;
                 break;
             case NUMBER:
                 this.type = Type.NUMBER;
+                this.number = (Integer) symbol.getValue();
                 break;
             case LPAREN:
                 this.type = Type.LPAREN;
@@ -201,6 +213,14 @@ public class Variable {
      */
     public Type getType() {
         return this.type;
+    }
+
+    public String getVarname() {
+        return varname;
+    }
+
+    public Integer getNumber() {
+        return number;
     }
 
     /**
