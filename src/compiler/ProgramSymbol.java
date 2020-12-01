@@ -15,10 +15,10 @@ public class ProgramSymbol extends Symbol {
     /**
      * List of instructions to execute.
      */
-    ArrayList<Symbol> instructions;
+    CodeSymbol code;
 
     @Override
-    public void set(ParseTree tree) {
+    public void set(ParseTree tree, CompilerTable table) {
         
     }
 
@@ -26,9 +26,7 @@ public class ProgramSymbol extends Symbol {
     public String toLLVM() {
         StringBuilder sb = new StringBuilder();
         sb.append(HARDCODED_PREFIX);
-        for (Symbol s : this.instructions) {
-            sb.append(s.toLLVM());
-        }
+        sb.append(code.toLLVM());
         sb.append(HARDCODED_SUFFIX);
         return sb.toString();
     }

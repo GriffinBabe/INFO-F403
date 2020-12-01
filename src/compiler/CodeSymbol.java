@@ -2,12 +2,10 @@ package compiler;
 
 import parser.ParseTree;
 
-import java.util.ArrayList;
+public class CodeSymbol extends Symbol {
 
-public class WhileSymbol extends Symbol {
-
-    private ConditionSymbol symbol;
-    private ArrayList<InstructionSymbol> body;
+    private InstructionSymbol instruction;
+    private CodeSymbol nextCode;
 
     @Override
     public void set(ParseTree tree, CompilerTable table) {
@@ -16,5 +14,6 @@ public class WhileSymbol extends Symbol {
 
     @Override
     public String toLLVM() {
+        return null;
     }
 }

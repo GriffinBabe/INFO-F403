@@ -2,6 +2,7 @@ package compiler;
 
 import parser.ParseTree;
 import parser.Variable;
+import util.CommandLineParser;
 
 public abstract class Symbol {
 
@@ -9,7 +10,7 @@ public abstract class Symbol {
      * Sets all the needed symbols from the {@link ParseTree}.
      * @param tree
      */
-    public abstract void set(ParseTree tree);
+    public abstract void set(ParseTree tree, CompilerTable table);
 
     /**
      * Returns the LLVM
