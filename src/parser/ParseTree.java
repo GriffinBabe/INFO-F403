@@ -18,6 +18,7 @@ import java.util.ListIterator;
 
 public class ParseTree {
 
+    private List<Variable.Type> valid_terminal = new ArrayList<>();
     /**
      * The head of this tree/sub-tree
      */
@@ -116,7 +117,6 @@ public class ParseTree {
      * Removes redundancy from tree to obtain an AST
      */
     public void trimTree() {
-        List<Variable.Type> valid_terminal = new ArrayList<>();
         valid_terminal.add(Variable.Type.MINUS);
         valid_terminal.add(Variable.Type.VARNAME);
         valid_terminal.add(Variable.Type.PLUS);
@@ -139,19 +139,16 @@ public class ParseTree {
             List<ParseTree> childrenC_copy = new ArrayList<>(nextChild.children);
             for (ParseTree nextGChild : childrenC_copy) {
                 if (nextGChild.label.getType().equals(Variable.Type.MINUS) || nextGChild.label.getType().equals(Variable.Type.PLUS) || nextGChild.label.getType().equals(Variable.Type.TIMES) || nextGChild.label.getType().equals(Variable.Type.DIVIDE)) {
-                    if(!(nextGChild.label.getType().equals(Variable.Type.MINUS) && nextChild.label.getType().equals(Variable.Type.V_C))) {
+                    if(nextGChild.label.getType().equals(Variable.Type.MINUS) && nextChild.label.getType().equals(Variable.Type.V_C)) {
+                        nextChild.setLabel(nextGChild.label);
+                        this.children.get(getIndex(nextChild)).children.remove(nextGChild);
+                    }
+                    else{
                         setLabel(nextGChild.label); //ajuste le tree pour que l'opération dépende de la branche de droite et de gauche
                         this.children.get(getIndex(nextChild)).children.remove(nextGChild); //supprime l'ancien opérateur
                     }
                 } else if (!nextGChild.hasChildren()) {
-                    boolean correct = false;
-                    for (Variable.Type vt : valid_terminal) {
-                        if (nextGChild.label.getType().equals(vt)) {
-                            correct = true;
-                            break;
-                        }
-                    }
-                    if (!correct) {
+                    if (!isValidVar(nextGChild)) {
                         this.children.get(getIndex(nextChild)).children.remove(nextGChild);
                     }
                 }
@@ -166,15 +163,26 @@ public class ParseTree {
         }
     }
 
+    public boolean isValidVar(ParseTree child){
+        for (Variable.Type vt : valid_terminal) {
+            if (child.label.getType().equals(vt)) {
+                return true;
+            }
+         }
+        return false;
+    }
     /**
      * recursively removes useless intermediates variables
      */
     public void cleanTree(){
         if(this.children.size() == 1){
             while(this.children.get(0).children.size() == 1){
+                if(isValidVar(this.children.get(0))){
+                    break;
+                }
                 this.children = this.children.get(0).children;
             }
-            //todo : still some intermediates states to remove
+            //todo : still some intermediates states to remove and clean code
         }
         for (ParseTree nextChild : this.children){
             nextChild.cleanTree();
