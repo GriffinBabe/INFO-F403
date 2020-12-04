@@ -78,7 +78,9 @@ public class ParseTree {
         }
         return false;
     }
-
+    public void setLabel(Variable label){
+        this.label = label;
+    }
     /**
      * Checks if this part of the three is a terminal (there are no child nodes and the label is a terminal).
      * @return true if it is a leaf, false otherwise
@@ -99,6 +101,21 @@ public class ParseTree {
         return !children.isEmpty();
     }
 
+    /**
+     * Check if one of its grand-children are arithmetic operators, if yes switch them to obtain an AST
+     */
+    public void switchOperatorGrandChildren(){
+        for(ParseTree c : children){
+            for(ParseTree cp : c.children){
+                if(cp.label.getType().equals(Variable.Type.MINUS)||cp.label.getType().equals(Variable.Type.PLUS)||cp.label.getType().equals(Variable.Type.TIMES)||cp.label.getType().equals(Variable.Type.DIVIDE)){
+                    setLabel(cp.label); //ajuste le tree pour que l'opération dépende de la branche de droite et de gauche
+                    cp.setLabel(new Variable(Variable.Type.EPS)); //remplace l'ancien opérator par un type qu'on peut omettre
+                    break;
+                }
+            }
+            c.switchOperatorGrandChildren(); // all children doing it recursively
+        }
+    }
     /**
      * Writes the tree as LaTeX code
      */

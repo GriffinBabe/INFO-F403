@@ -1,7 +1,9 @@
+import parser.ParseTree;
 import parser.Parser;
 import parser.SyntaxException;
 import scanner.Scanner;
 import util.CommandLineParser;
+import util.LatexWriter;
 
 /**
  * Main class. Will start by parsing the command line arguments with {@link CommandLineParser},
@@ -41,6 +43,12 @@ class Main {
 			System.err.println("Syntax error detected: " + e.getMessage());
 			System.exit(1);
 		}
+		//Temp
+		ParseTree parsedTree = parser.getTree();
+		parsedTree.switchOperatorGrandChildren();
+		LatexWriter writer = new LatexWriter("output_AST.tex");
+		writer.write(parsedTree.toLaTeX());
+		//!\
 	}
 
 }
