@@ -133,13 +133,16 @@ public class ParseTree {
         valid_terminal.add(Variable.Type.ELSE);
         valid_terminal.add(Variable.Type.NUMBER);
 
+
         List<ParseTree> children_copy = new ArrayList<>(this.children);
         for (ParseTree nextChild : children_copy) {
             List<ParseTree> childrenC_copy = new ArrayList<>(nextChild.children);
             for (ParseTree nextGChild : childrenC_copy) {
                 if (nextGChild.label.getType().equals(Variable.Type.MINUS) || nextGChild.label.getType().equals(Variable.Type.PLUS) || nextGChild.label.getType().equals(Variable.Type.TIMES) || nextGChild.label.getType().equals(Variable.Type.DIVIDE)) {
-                    setLabel(nextGChild.label); //ajuste le tree pour que l'opération dépende de la branche de droite et de gauche
-                    this.children.get(getIndex(nextChild)).children.remove(nextGChild); //supprime l'ancien opérateur
+                    if(!(nextGChild.label.getType().equals(Variable.Type.MINUS) && nextChild.label.getType().equals(Variable.Type.V_C))) {
+                        setLabel(nextGChild.label); //ajuste le tree pour que l'opération dépende de la branche de droite et de gauche
+                        this.children.get(getIndex(nextChild)).children.remove(nextGChild); //supprime l'ancien opérateur
+                    }
                 } else if (!nextGChild.hasChildren()) {
                     boolean correct = false;
                     for (Variable.Type vt : valid_terminal) {
@@ -171,7 +174,7 @@ public class ParseTree {
             while(this.children.get(0).children.size() == 1){
                 this.children = this.children.get(0).children;
             }
-
+            //todo : still some intermediates states to remove
         }
         for (ParseTree nextChild : this.children){
             nextChild.cleanTree();
