@@ -2,6 +2,7 @@ package parser;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ListIterator;
 
 /**
  * A skeleton class to represent parse trees. The arity is not fixed: a node can
@@ -88,9 +89,6 @@ public class ParseTree {
     public boolean isTerminal() {
         boolean isTerminal = this.label.isTerminal();
         // additional check for debugging
-        if (isTerminal && !children.isEmpty()) {
-            throw new RuntimeException("Terminal node has children in three.");
-        }
         return isTerminal;
     }
 
@@ -101,25 +99,71 @@ public class ParseTree {
         return !children.isEmpty();
     }
 
+    public int getIndex(ParseTree children){
+        for(int i = 0 ; i < this.children.size() ; i++){
+            if(this.children.get(i).equals(children)){
+                return i;
+            }
+        }
+        return 0;
+    }
+
     /**
-     * Check if one of its grand-children are arithmetic operators, if yes switch them to obtain an AST
+     * Removes redundancy from tree to obtain an AST
      */
-    public void switchOperatorGrandChildren(){
-        for(ParseTree c : children){
-            for(ParseTree cp : c.children){
-                if(cp.label.getType().equals(Variable.Type.MINUS)||cp.label.getType().equals(Variable.Type.PLUS)||cp.label.getType().equals(Variable.Type.TIMES)||cp.label.getType().equals(Variable.Type.DIVIDE)){
-                    setLabel(cp.label); //ajuste le tree pour que l'opération dépende de la branche de droite et de gauche
-                    cp.setLabel(new Variable(Variable.Type.EPS)); //remplace l'ancien opérator par un type qu'on peut omettre
-                    break;
+    public void cleanTree() {
+        List<Variable.Type> valid_terminal = new ArrayList<>();
+        valid_terminal.add(Variable.Type.MINUS);
+        valid_terminal.add(Variable.Type.VARNAME);
+        valid_terminal.add(Variable.Type.PLUS);
+        valid_terminal.add(Variable.Type.TIMES);
+        valid_terminal.add(Variable.Type.DIVIDE);
+        valid_terminal.add(Variable.Type.WHILE);
+        valid_terminal.add(Variable.Type.IF);
+        valid_terminal.add(Variable.Type.LPAREN);
+        valid_terminal.add(Variable.Type.RPAREN);
+        valid_terminal.add(Variable.Type.PRINT);
+        valid_terminal.add(Variable.Type.READ);
+        valid_terminal.add(Variable.Type.GT);
+        valid_terminal.add(Variable.Type.EQ);
+        valid_terminal.add(Variable.Type.ELSE);
+        valid_terminal.add(Variable.Type.NUMBER);
+
+
+
+        List<ParseTree> children_copy = new ArrayList<>(this.children);
+        for (ListIterator<ParseTree> iter = children_copy.listIterator(); iter.hasNext(); ) {
+            ParseTree nextChild = iter.next();
+            List<ParseTree> childrenC_copy = new ArrayList<>(nextChild.children);
+            for(ListIterator<ParseTree> iterc = childrenC_copy.listIterator(); iterc.hasNext();) {
+                ParseTree nextGChild = iterc.next();
+                if(nextGChild.label.getType().equals(Variable.Type.MINUS)||nextGChild.label.getType().equals(Variable.Type.PLUS)||nextGChild.label.getType().equals(Variable.Type.TIMES)||nextGChild.label.getType().equals(Variable.Type.DIVIDE)){
+                    setLabel(nextGChild.label); //ajuste le tree pour que l'opération dépende de la branche de droite et de gauche
+                    this.children.get(getIndex(nextChild)).children.remove(nextGChild); //supprime l'ancien opérateur
+                }
+                else if (!nextGChild.hasChildren()) {
+                    boolean correct = false;
+                    for(Variable.Type vt : valid_terminal){
+                        if(nextGChild.label.getType().equals(vt)){
+                            correct = true;
+                            break;
+                        }
+                    }
+                    if(!correct){
+                        this.children.get(getIndex(nextChild)).children.remove(nextGChild);
+                    }
                 }
             }
-            c.switchOperatorGrandChildren(); // all children doing it recursively
+            if(!nextChild.isTerminal() && !nextChild.hasChildren()){
+                this.children.remove(nextChild);
+            }
+            nextChild.cleanTree();
         }
     }
     /**
      * Writes the tree as LaTeX code
      */
-    public String toLaTexTree() {
+    public String toLaTexTree(){
         StringBuilder treeTeX = new StringBuilder();
         treeTeX.append("[");
         treeTeX.append("{" + label.toTexString() + "}");
