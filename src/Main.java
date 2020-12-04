@@ -45,6 +45,7 @@ class Main {
 		}
 		//Temp
 		ParseTree parsedTree = parser.getTree();
+		parsedTree.trimTree();
 		parsedTree.cleanTree();
 		LatexWriter writer = new LatexWriter("output_AST.tex");
 		writer.write(parsedTree.toLaTeX());
