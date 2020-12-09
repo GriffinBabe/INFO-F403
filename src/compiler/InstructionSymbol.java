@@ -1,4 +1,4 @@
 package compiler;
 
-public class InstructionSymbol extends Symbol {
+public abstract class InstructionSymbol extends Symbol {
 }

@@ -269,4 +269,12 @@ public class ParseTree {
         return "\\documentclass[border=5pt]{standalone}\n\n\\usepackage{tikz}\n\\usepackage{forest}\n\n\\begin{document}\n\n"
                 + toForestPicture() + "\n\n\\end{document}\n%% Local Variables:\n%% TeX-engine: pdflatex\n%% End:";
     }
+
+    public Variable getLabel() {
+        return label;
+    }
+
+    public ArrayList<ParseTree> getChildren() {
+        return children;
+    }
 }
