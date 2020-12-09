@@ -27,4 +27,16 @@ public class AST {
     public void setHead(Symbol head) {
         this.head = head;
     }
+
+    public Symbol getHead() {
+        return head;
+    }
+
+    public AST getLeft() {
+        return children.get(0);
+    }
+
+    public AST getRight() {
+        return children.get(1);
+    }
 }

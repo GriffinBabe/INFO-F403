@@ -274,7 +274,7 @@ public class ParseTree {
         return label;
     }
 
-    public ArrayList<ParseTree> getChildren() {
+    public List<ParseTree> getChildren() {
         return children;
     }
 }

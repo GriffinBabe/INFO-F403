@@ -2,12 +2,12 @@ package compiler;
 
 import parser.ParseTree;
 
-public class AssignSymbol extends InstructionSymbol {
+public class VariableSymbol extends Symbol {
 
-    private VariableSymbol variable = null;
+    private String variableName;
 
-    public void setVariableSymbol(VariableSymbol symbol) {
-        this.variable = symbol;
+    public VariableSymbol(String name) {
+        this.variableName = name;
     }
 
     @Override

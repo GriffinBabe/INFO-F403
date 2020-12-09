@@ -13,24 +13,52 @@ public class ASTBuilder {
      */
     public AST buildAST(ParseTree tree) {
         AST subTree = new AST();
-        Variable treeHead = tree.getLabel();
 
         // build the sub threes (normally only two per tree)
+        // checks if a sub tree is not null
+        boolean hasChildren = false;
         for (ParseTree subParseTree : tree.getChildren()) {
-            subTree.addChild(buildAST(subParseTree));
+            boolean isChildNonNull = subTree.addChild(buildAST(subParseTree));
+            if (isChildNonNull) {
+                hasChildren = true;
+            }
         }
 
-        // build the head of the three
-        buildHead(treeHead, subTree);
-
-        return subTree;
+        return buildHead(tree, subTree);
     }
 
-    private void buildHead(Variable head, AST tree) {
+    /**
+     * Builds the head and returns the tree.
+     * @param parseTree the corresponding parse tree.
+     * @param tree the build AST.
+     * @return
+     */
+    private AST buildHead(ParseTree parseTree, AST tree) {
+        Symbol symbol, right, left;
+
+        Variable head = parseTree.getLabel();
+        right = tree.getRight().getHead();
+        left = tree.getLeft().getHead();
         switch (head.getType()) {
             case V_PROGRAM:
                 tree.setHead(new ProgramSymbol());
-                break;
+                return tree;
+            case V_CODE:
+                symbol = new CodeSymbol();
+                tree.setHead(symbol);
+                return tree;
+            case V_ASSIGN:
+                symbol = new AssignSymbol();
+                tree.setHead(symbol);
+                return tree;
+            case V_INSTRUCTION:
+                if (right instanceof AssignSymbol) {
+                    // in that case the left is the variable we want to attach to the assign symbol
+                    ((AssignSymbol) right).setVariableSymbol((VariableSymbol) left);
+                    return tree.getRight();
+                }
+                // in the other case we return a 
+                return tree.getLeft();
             default:
                 break;
         }
