@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.999992 (TeX Live 2020) (preloaded format=xelatex 2020.4.7)  10 DEC 2020 17:22
+This is XeTeX, Version 3.14159265-2.6-0.999992 (TeX Live 2020) (preloaded format=xelatex 2020.4.7)  10 DEC 2020 18:30
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -554,7 +554,7 @@ Package: inlinedef 2008/07/10 v1.0 Inlined expansions within definitions
 \forest@externalize@max@outer@n=\count296
 \forest@externalize@inner@n=\count297
 )
-No file ast_out.aux.
+(./ast_out.aux)
 \openout1 = `ast_out.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 6.
@@ -568,7 +568,7 @@ LaTeX Font Info:    ... okay on input line 6.
 LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 6.
 LaTeX Font Info:    Trying to load font information for TS1+cmr on input line 6
 .
-(/usr/local/texlive/2020/texmf-dist/tex/latex/base/ts1cmr.fd
+ (/usr/local/texlive/2020/texmf-dist/tex/latex/base/ts1cmr.fd
 File: ts1cmr.fd 2019/12/16 v2.5j Standard LaTeX font definitions
 )
 LaTeX Font Info:    ... okay on input line 6.
@@ -585,12 +585,12 @@ Missing character: There is no ; in font nullfont!
 
 ] (./ast_out.aux) ) 
 Here is how much of TeX's memory you used:
- 22305 strings out of 479418
- 550034 string characters out of 5884586
- 789186 words of memory out of 5000000
- 39550 multiletter control sequences out of 15000+600000
+ 24006 strings out of 479418
+ 577374 string characters out of 5884586
+ 812428 words of memory out of 5000000
+ 41249 multiletter control sequences out of 15000+600000
  532346 words of font info for 25 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
- 123i,7n,153p,1583b,999s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 153i,7n,174p,1583b,1769s stack positions out of 5000i,500n,10000p,200000b,80000s
 
 Output written on ast_out.pdf (1 page).

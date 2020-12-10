@@ -3,12 +3,12 @@ package compiler.symbol;
 import compiler.CompilerTable;
 import parser.ParseTree;
 
-public class VariableSymbol extends ExpressionSymbol {
+public class NumberSymbol extends ExpressionSymbol {
 
-    private String variableName;
+    private Integer value;
 
-    public VariableSymbol(String name) {
-        this.variableName = name;
+    public NumberSymbol(Integer value) {
+        this.value = value;
     }
 
     @Override
@@ -23,6 +23,6 @@ public class VariableSymbol extends ExpressionSymbol {
 
     @Override
     public String toTexString() {
-        return "<Var: " + variableName + ">";
+        return "<Num: " + value + ">";
     }
 }

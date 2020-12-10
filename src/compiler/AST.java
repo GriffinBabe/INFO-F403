@@ -4,6 +4,7 @@ import compiler.symbol.Symbol;
 import parser.ParseTree;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class AST {
 
@@ -51,6 +52,13 @@ public class AST {
         catch (IndexOutOfBoundsException exception) {
             return null;
         }
+    }
+
+    /**
+     * Swapes the left child with the right child.
+     */
+    public void swapChildren() {
+        Collections.swap(children, 0, 1);
     }
 
     public boolean hasChildren() {

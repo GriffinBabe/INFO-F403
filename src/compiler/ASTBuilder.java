@@ -52,6 +52,11 @@ public class ASTBuilder {
             case V_CODE:
                 symbol = new CodeSymbol();
                 if (left != null) {
+                    // in that case this code tree is empty (probably an empty line)
+                    // so we ignore and pass to the next one.
+                    if (left.getHead() instanceof CodeSymbol) {
+                        return left;
+                    }
                     ((CodeSymbol) symbol).setInstruction((InstructionSymbol) left.getHead());
                     if (right != null) {
                         ((CodeSymbol) symbol).setNextCode((CodeSymbol) right.getHead());
@@ -65,17 +70,29 @@ public class ASTBuilder {
                 tree.setHead(symbol);
                 return tree;
             case V_INSTRUCTION:
-                if (right.getHead() instanceof AssignSymbol) {
+                if (left == null) {
+                    // empty EPS
+                    return null;
+                }
+                else if (right.getHead() instanceof AssignSymbol) {
                     // in that case the left is the variable we want to attach to the assign symbol
                     ((AssignSymbol) right.getHead()).setVariableSymbol((VariableSymbol) left.getHead());
+                    right.addChild(tree.getLeft());
+                    // we need to swap as the natural shape of our ParseTree will first fit in the assign symbol
+                    // the number then the variable name.
+                    right.swapChildren();
                     return tree.getRight();
                 }
                 else if (left.getHead() instanceof PrintSymbol) {
+                    // the left is PRINT and the right is the variable
                     ((PrintSymbol) left.getHead()).setToPrint(((VariableSymbol) right.getHead()));
+                    left.addChild(tree.getRight());
                     return tree.getLeft();
                 }
                 else if (left.getHead() instanceof ReadSymbol) {
+                    // the left is READ and the right is the symbol
                     ((ReadSymbol) left.getHead()).setToRead((VariableSymbol) right.getHead());
+                    left.addChild(tree.getRight());
                     return tree.getLeft();
                 }
                 // in the other case we return a child
@@ -91,6 +108,11 @@ public class ASTBuilder {
             case VARNAME:
                 String variableName = (String) parseTree.getLabel().getValue();
                 symbol = new VariableSymbol(variableName);
+                tree.setHead(symbol);
+                return tree;
+            case NUMBER:
+                Integer number = (Integer) parseTree.getLabel().getValue();
+                symbol = new NumberSymbol(number);
                 tree.setHead(symbol);
                 return tree;
             default:
