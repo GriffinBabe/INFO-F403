@@ -67,6 +67,8 @@ public class ASTBuilder {
                 return tree.getLeft();
             case V_ASSIGN:
                 symbol = new AssignSymbol();
+                // set the relation between the variable and the arithmetic expression
+                ((AssignSymbol) symbol).setExpression((ExpressionSymbol) left.getHead());
                 tree.setHead(symbol);
                 return tree;
             case V_INSTRUCTION:
@@ -76,7 +78,7 @@ public class ASTBuilder {
                 }
                 else if (right.getHead() instanceof AssignSymbol) {
                     // in that case the left is the variable we want to attach to the assign symbol
-                    ((AssignSymbol) right.getHead()).setVariableSymbol((VariableSymbol) left.getHead());
+                    ((AssignSymbol) right.getHead()).setVariable((VariableSymbol) left.getHead());
                     right.addChild(tree.getLeft());
                     // we need to swap as the natural shape of our ParseTree will first fit in the assign symbol
                     // the number then the variable name.

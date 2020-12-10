@@ -7,8 +7,14 @@ public class AssignSymbol extends InstructionSymbol {
 
     private VariableSymbol variable = null;
 
-    public void setVariableSymbol(VariableSymbol symbol) {
+    private ExpressionSymbol expression = null;
+
+    public void setVariable(VariableSymbol symbol) {
         this.variable = symbol;
+    }
+
+    public void setExpression(ExpressionSymbol expression) {
+        this.expression = expression;
     }
 
     @Override
