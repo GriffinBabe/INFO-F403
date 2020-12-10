@@ -1,5 +1,6 @@
-package compiler;
+package compiler.symbol;
 
+import compiler.CompilerTable;
 import parser.ParseTree;
 
 public class CodeSymbol extends Symbol {
@@ -7,8 +8,12 @@ public class CodeSymbol extends Symbol {
     private InstructionSymbol instruction;
     private CodeSymbol nextCode;
 
-    void setNextCode(CodeSymbol symbol) {
+    public void setNextCode(CodeSymbol symbol) {
         this.nextCode = nextCode;
+    }
+
+    public void setInstruction(InstructionSymbol instruction) {
+        this.instruction = instruction;
     }
 
     @Override
@@ -19,5 +24,10 @@ public class CodeSymbol extends Symbol {
     @Override
     public String toLLVM() {
         return null;
+    }
+
+    @Override
+    public String toTexString() {
+        return "<Code>";
     }
 }

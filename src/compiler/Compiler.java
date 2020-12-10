@@ -1,16 +1,31 @@
 package compiler;
 
+import compiler.symbol.ProgramSymbol;
 import parser.ParseTree;
 
 public class Compiler {
-    
+
     private ProgramSymbol program;
-    
-    public Compiler(ParseTree tree) {
-        this.build(tree);
+
+    boolean built = false;
+
+    public Compiler() {
     }
-    
-    private void build(ParseTree tree) {
-        // TODO timplement this
+
+    /**
+     * Builds the tree and sets the adapted symbols to compile the program
+     * @param tree
+     */
+    public AST build(ParseTree tree) {
+        ASTBuilder builder = new ASTBuilder();
+        AST astTree = builder.buildAST(tree);
+        return astTree;
+    }
+
+    public void compile() throws RuntimeException {
+        if (!built) {
+            throw new RuntimeException("Cannot compile before building the AST.");
+        }
+
     }
 }

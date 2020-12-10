@@ -19,6 +19,8 @@ public class Variable {
      */
     public final static int TERMINAL_COUNT = 26;
 
+    private Object value = null;
+
     /**
      * Enumeration to all variables and symbol types.
      */
@@ -134,12 +136,14 @@ public class Variable {
                 break;
             case VARNAME:
                 this.type = Type.VARNAME;
+                this.value = symbol.getValue();
                 break;
             case ASSIGN:
                 this.type = Type.ASSIGN;
                 break;
             case NUMBER:
                 this.type = Type.NUMBER;
+                this.value = symbol.getValue();
                 break;
             case LPAREN:
                 this.type = Type.LPAREN;
@@ -225,4 +229,17 @@ public class Variable {
     public String toTexString() {
         return this.type.toTexString();
     }
+
+    /**
+     * @return true if the type is a VARNAME
+     */
+    public boolean isVarname() { return this.type == Type.VARNAME; }
+
+    /**
+     * @return true if the type is a NUMBER
+     */
+    public boolean isNumber() { return this.type == Type.NUMBER; }
+
+    public Object getValue() { return this.value; }
+
 }

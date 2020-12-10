@@ -1,8 +1,7 @@
-package compiler;
+package compiler.symbol;
 
+import compiler.CompilerTable;
 import parser.ParseTree;
-import parser.Variable;
-import util.CommandLineParser;
 
 public abstract class Symbol {
 
@@ -18,11 +17,5 @@ public abstract class Symbol {
      */
     public abstract String toLLVM();
 
-    /**
-     * Returns the corresponding {@link Symbol} from the given {@link Variable}
-     */
-    public static Symbol fromVariable(Variable var) {
-        // TODO: Hard code this once every symbol has been coded
-        return null;
-    }
+    public abstract String toTexString();
 }

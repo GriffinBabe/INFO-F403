@@ -1,8 +1,7 @@
-package compiler;
+package compiler.symbol;
 
+import compiler.CompilerTable;
 import parser.ParseTree;
-
-import java.util.ArrayList;
 
 public class ProgramSymbol extends Symbol {
 
@@ -19,7 +18,7 @@ public class ProgramSymbol extends Symbol {
 
     @Override
     public void set(ParseTree tree, CompilerTable table) {
-        
+
     }
 
     @Override
@@ -29,5 +28,10 @@ public class ProgramSymbol extends Symbol {
         sb.append(code.toLLVM());
         sb.append(HARDCODED_SUFFIX);
         return sb.toString();
+    }
+
+    @Override
+    public String toTexString() {
+        return "<Program>";
     }
 }

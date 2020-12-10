@@ -11,3 +11,4 @@ src/scanner/LexicalAnalyzer.java~
 INFO-F403.iml
 *.tex
 *.pdf
+*.aux

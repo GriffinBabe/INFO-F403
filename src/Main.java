@@ -1,3 +1,5 @@
+import compiler.AST;
+import compiler.Compiler;
 import parser.ParseTree;
 import parser.Parser;
 import parser.SyntaxException;
@@ -43,13 +45,12 @@ class Main {
 			System.err.println("Syntax error detected: " + e.getMessage());
 			System.exit(1);
 		}
-		//Temp
-		ParseTree parsedTree = parser.getTree();
-		parsedTree.trimTree();
-		parsedTree.cleanTree();
-		LatexWriter writer = new LatexWriter("output_AST.tex");
-		writer.write(parsedTree.toLaTeX());
-		//!\
+
+		Compiler compiler = new Compiler();
+		AST ast = compiler.build(parser.getTree());
+
+		LatexWriter writer = new LatexWriter("ast_out.tex");
+		writer.write(ast.toLaTeX());
 	}
 
 }

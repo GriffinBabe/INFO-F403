@@ -1,5 +1,6 @@
-package compiler;
+package compiler.symbol;
 
+import compiler.CompilerTable;
 import parser.ParseTree;
 
 public class AssignSymbol extends InstructionSymbol {
@@ -18,5 +19,10 @@ public class AssignSymbol extends InstructionSymbol {
     @Override
     public String toLLVM() {
         return null;
+    }
+
+    @Override
+    public String toTexString() {
+        return "<Assign>";
     }
 }
