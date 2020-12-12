@@ -3,7 +3,7 @@ package compiler.symbol;
 import compiler.CompilerTable;
 import parser.ParseTree;
 
-public class MinusSymbol extends ExpressionSymbol {
+public class MultiplicationSymbol extends ExpressionSymbol {
 
     @Override
     public void set(ParseTree tree, CompilerTable table) {
@@ -17,6 +17,6 @@ public class MinusSymbol extends ExpressionSymbol {
 
     @Override
     public String toTexString() {
-        return "<Minus>";
+        return "<Mult>";
     }
 }

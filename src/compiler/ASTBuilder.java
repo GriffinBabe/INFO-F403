@@ -101,6 +101,7 @@ public class ASTBuilder {
                 }
                 // in the other case we return a child
                 return tree.getLeft();
+            case V_B: // same as V_EXPRARITH
             case V_EXPRARITH:
                 if (right == null) {
                     return left;
@@ -116,6 +117,7 @@ public class ASTBuilder {
                 right.addChild(left);
                 right.swapChildren();
                 return tree.getRight();
+            case V_B_: // same as V_EXPRARITH_
             case V_EXPRARITH_:
                 if (left == null) {
                     // empty eps
@@ -169,6 +171,14 @@ public class ASTBuilder {
             case MINUS:
                 // TODO: make the unary minus rule
                 symbol = new MinusSymbol();
+                tree.setHead(symbol);
+                return tree;
+            case TIMES:
+                symbol = new MultiplicationSymbol();
+                tree.setHead(symbol);
+                return tree;
+            case DIVIDE:
+                symbol = new DivideSymbol();
                 tree.setHead(symbol);
                 return tree;
             default:
