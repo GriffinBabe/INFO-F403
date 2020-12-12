@@ -146,6 +146,23 @@ public class ASTBuilder {
                 }
                 // left is an arithmetic operator
                 return tree.getLeft();
+            case V_C:
+                // no minus on the left so there is no unary minus
+                if (right == null) {
+                    return tree.getLeft();
+                }
+                if (left.getHead() instanceof MinusSymbol) {
+                    // there is an unary minus
+                    // the minus sybmol on the left sub tree is discarded
+                    // and the node is returned as an ast with a Unary head.
+                    UnarySymbol unary = new UnarySymbol();
+                    unary.setLeft((ExpressionSymbol) right.getHead());
+                    tree.setHead(unary);
+                    // removes the left children as the minus in now an unary minus
+                    tree.removeChild(0);
+                    return tree;
+                }
+                return tree.getLeft();
             case READ:
                 symbol = new ReadSymbol();
                 tree.setHead(symbol);

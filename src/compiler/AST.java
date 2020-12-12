@@ -78,6 +78,10 @@ public class AST {
         }
     }
 
+    public void removeChild(int index) {
+        children.remove(index);
+    }
+
     /**
      * Swapes the left child with the right child.
      */
