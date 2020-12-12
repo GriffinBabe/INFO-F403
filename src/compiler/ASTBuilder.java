@@ -41,9 +41,11 @@ public class ASTBuilder {
      */
     private AST buildHead(ParseTree parseTree, AST tree) {
         Symbol symbol;
+        ExpressionSymbol leftExpression, rightExpression, thirdExpression;
         Variable head = parseTree.getLabel();
         AST right = tree.getRight();
         AST left = tree.getLeft();
+        AST third = tree.getThird();
 
         switch (head.getType()) {
             case V_PROGRAM:
@@ -99,6 +101,49 @@ public class ASTBuilder {
                 }
                 // in the other case we return a child
                 return tree.getLeft();
+            case V_EXPRARITH:
+                if (right == null) {
+                    return left;
+                }
+                // right node is an actual algebraic operator
+                rightExpression = (ExpressionSymbol) right.getHead();
+                // left node is either a number either a varname
+                leftExpression = (ExpressionSymbol) left.getHead();
+
+                rightExpression.setLeft(leftExpression);
+
+                // adds the subtrees
+                right.addChild(left);
+                right.swapChildren();
+                return tree.getRight();
+            case V_EXPRARITH_:
+                if (left == null) {
+                    // empty eps
+                    return null;
+                }
+                // the algebraic operator symbol
+                leftExpression = (ExpressionSymbol) left.getHead();
+                // a number or a varname symbol
+                rightExpression = (ExpressionSymbol) right.getHead();
+
+                // checks if there are following algebraic operations
+                if (third == null) {
+                    // in that case this subtree is the end of the operations
+                    leftExpression.setRight(rightExpression);
+                    // adds the subtree
+                    left.addChild(right);
+                }
+                else {
+                    // in that case there is another sub operation
+                    thirdExpression = (ExpressionSymbol) third.getHead();
+                    leftExpression.setRight(thirdExpression);
+                    thirdExpression.setLeft(rightExpression);
+                    left.addChild(third);
+                    third.addChild(right);
+                    third.swapChildren();
+                }
+                // left is an arithmetic operator
+                return tree.getLeft();
             case READ:
                 symbol = new ReadSymbol();
                 tree.setHead(symbol);
@@ -115,6 +160,15 @@ public class ASTBuilder {
             case NUMBER:
                 Integer number = (Integer) parseTree.getLabel().getValue();
                 symbol = new NumberSymbol(number);
+                tree.setHead(symbol);
+                return tree;
+            case PLUS:
+                symbol = new AdditionSymbol();
+                tree.setHead(symbol);
+                return tree;
+            case MINUS:
+                // TODO: make the unary minus rule
+                symbol = new MinusSymbol();
                 tree.setHead(symbol);
                 return tree;
             default:

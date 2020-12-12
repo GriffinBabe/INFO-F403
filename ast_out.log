@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.999992 (TeX Live 2020) (preloaded format=xelatex 2020.4.7)  10 DEC 2020 18:30
+This is XeTeX, Version 3.14159265-2.6-0.999992 (TeX Live 2020) (preloaded format=xelatex 2020.4.7)  12 DEC 2020 13:21
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -585,12 +585,12 @@ Missing character: There is no ; in font nullfont!
 
 ] (./ast_out.aux) ) 
 Here is how much of TeX's memory you used:
- 24006 strings out of 479418
- 577374 string characters out of 5884586
- 812428 words of memory out of 5000000
- 41249 multiletter control sequences out of 15000+600000
+ 24655 strings out of 479418
+ 588262 string characters out of 5884586
+ 823427 words of memory out of 5000000
+ 41898 multiletter control sequences out of 15000+600000
  532346 words of font info for 25 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
- 153i,7n,174p,1583b,1769s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 173i,7n,188p,1583b,2173s stack positions out of 5000i,500n,10000p,200000b,80000s
 
 Output written on ast_out.pdf (1 page).

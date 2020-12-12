@@ -36,6 +36,11 @@ public class AST {
         return head;
     }
 
+    /**
+     * Returns the first subtree.
+     * In the final form of the AST there are at most 2 children per node.
+     * @return the first subtree in the {@link #children} list, or null if it doesn't exists.
+     */
     public AST getLeft() {
         try {
             return children.get(0);
@@ -45,9 +50,28 @@ public class AST {
         }
     }
 
+    /**
+     * Returns the second subtree.
+     * In the final form of the AST there are at most 2 children per node.
+     * @return the second subtree in the {@link #children} list, on null if it doesn't exists.
+     */
     public AST getRight() {
         try {
             return children.get(1);
+        }
+        catch (IndexOutOfBoundsException exception) {
+            return null;
+        }
+    }
+
+    /**
+     * Returns the third subtree.
+     * This is only used in the {@link ASTBuilder} class as the final form of the AST holds maximum 2 children per node.
+     * @return the third subtree in the {@link #children} list, or null if doesn't exists.
+     */
+    public AST getThird() {
+        try {
+            return children.get(2);
         }
         catch (IndexOutOfBoundsException exception) {
             return null;
