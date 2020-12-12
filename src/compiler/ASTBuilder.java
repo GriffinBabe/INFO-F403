@@ -163,6 +163,38 @@ public class ASTBuilder {
                     return tree;
                 }
                 return tree.getLeft();
+            case V_IF:
+                // if symbol is created on the variable instead of terminal as it is easier
+                IfSymbol ifSymbol = new IfSymbol();
+                ifSymbol.setCompare((CompareSymbol) left.getHead());
+
+                // IfBlockSymbol contains all the blocks of code to execute upon verification or not
+                IfBlockSymbol ifBlockSymbol = (IfBlockSymbol) right.getHead();
+                ifSymbol.setBlocks(ifBlockSymbol);
+
+                tree.setHead(ifSymbol);
+                return tree;
+            case V_IF_:
+                IfBlockSymbol ifBlock = new IfBlockSymbol();
+                ifBlock.setVerifiedBody((CodeSymbol) left.getHead());
+
+                if (right != null) {
+                    ifBlock.setUnverifiedBody((CodeSymbol) right.getHead());
+                }
+                tree.setHead(ifBlock);
+                return tree;
+            case V_COND:
+                // on the left there is an expression, on the middle there is a comparison and on the right
+                // there is another epxression
+                CompareSymbol compare = (CompareSymbol) right.getHead();
+                leftExpression = (ExpressionSymbol) left.getHead();
+                rightExpression = (ExpressionSymbol) third.getHead();
+                // prepares the compare symbol, sets the head to the comparison and returns it
+                compare.setLeft(leftExpression);
+                compare.setRight(rightExpression);
+                tree.setHead(compare);
+                tree.removeChild(1); // remove the compare symbol as now it is in the head
+                return tree;
             case READ:
                 symbol = new ReadSymbol();
                 tree.setHead(symbol);
@@ -196,6 +228,14 @@ public class ASTBuilder {
                 return tree;
             case DIVIDE:
                 symbol = new DivideSymbol();
+                tree.setHead(symbol);
+                return tree;
+            case GT:
+                symbol = new GreaterSymbol();
+                tree.setHead(symbol);
+                return tree;
+            case EQ:
+                symbol = new EqualSymbol();
                 tree.setHead(symbol);
                 return tree;
             default:
