@@ -3,7 +3,7 @@ package compiler.symbol;
 import compiler.CompilerTable;
 import parser.ParseTree;
 
-public class IfBlockSymbol extends Symbol {
+public class IfBlockSymbol extends CompilerSymbol {
 
     /**
      * Instruction chain that will be executed upon a verified condition

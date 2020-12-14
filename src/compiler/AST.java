@@ -1,13 +1,13 @@
 package compiler;
 
-import compiler.symbol.Symbol;
+import compiler.symbol.CompilerSymbol;
 import parser.ParseTree;
 
 import java.util.ArrayList;
 import java.util.Collections;
 
 /**
- * Tree data structure that contains {@link Symbol} nodes, necessary for the program compilation.
+ * Tree data structure that contains {@link CompilerSymbol} nodes, necessary for the program compilation.
  * The {@link AST} is built in the  {@link ASTBuilder} class, by parsing the {@link ParseTree} in
  * a recursive method.
  */
@@ -16,7 +16,7 @@ public class AST {
     /**
      * The value of the node. Will be later compiled in LLVM code.
      */
-    private Symbol head = null;
+    private CompilerSymbol head = null;
 
     /**
      * The sub-trees of this three.
@@ -30,10 +30,10 @@ public class AST {
 
     /**
      * AST constructor, specify the head symbol.
-     * @param symbol, the {@link #head} to set.
+     * @param compilerSymbol, the {@link #head} to set.
      */
-    public AST(Symbol symbol) {
-        this.head = symbol;
+    public AST(CompilerSymbol compilerSymbol) {
+        this.head = compilerSymbol;
     }
 
     /**
@@ -54,14 +54,14 @@ public class AST {
      * Sets the {@link #head} of this tree node.
      * @param head, the head to set.
      */
-    public void setHead(Symbol head) {
+    public void setHead(CompilerSymbol head) {
         this.head = head;
     }
 
     /**
      * @return the {@link #head} of this tree node.
      */
-    public Symbol getHead() {
+    public CompilerSymbol getHead() {
         return head;
     }
 

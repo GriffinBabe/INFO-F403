@@ -3,7 +3,7 @@ package compiler.symbol;
 import compiler.CompilerTable;
 import parser.ParseTree;
 
-public class CodeSymbol extends Symbol {
+public class CodeSymbol extends CompilerSymbol {
 
     private InstructionSymbol instruction;
     private CodeSymbol nextCode;

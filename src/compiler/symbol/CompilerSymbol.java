@@ -3,7 +3,7 @@ package compiler.symbol;
 import compiler.CompilerTable;
 import parser.ParseTree;
 
-public abstract class Symbol {
+public abstract class CompilerSymbol {
 
     /**
      * Sets all the needed symbols from the {@link ParseTree}.

@@ -41,7 +41,7 @@ public class ASTBuilder {
      * @return
      */
     private static AST buildHead(ParseTree parseTree, AST tree) {
-        Symbol symbol;
+        CompilerSymbol compilerSymbol;
         ExpressionSymbol leftExpression, rightExpression, thirdExpression;
         Variable head = parseTree.getLabel();
         AST right = tree.getRight();
@@ -53,26 +53,26 @@ public class ASTBuilder {
                 tree.setHead(new ProgramSymbol());
                 return tree;
             case V_CODE:
-                symbol = new CodeSymbol();
+                compilerSymbol = new CodeSymbol();
                 if (left != null) {
                     // in that case this code tree is empty (probably an empty line)
                     // so we ignore and pass to the next one.
                     if (left.getHead() instanceof CodeSymbol) {
                         return left;
                     }
-                    ((CodeSymbol) symbol).setInstruction((InstructionSymbol) left.getHead());
+                    ((CodeSymbol) compilerSymbol).setInstruction((InstructionSymbol) left.getHead());
                     if (right != null) {
-                        ((CodeSymbol) symbol).setNextCode((CodeSymbol) right.getHead());
+                        ((CodeSymbol) compilerSymbol).setNextCode((CodeSymbol) right.getHead());
                     }
-                    tree.setHead(symbol);
+                    tree.setHead(compilerSymbol);
                     return tree;
                 }
                 return left;
             case V_ASSIGN:
-                symbol = new AssignSymbol();
+                compilerSymbol = new AssignSymbol();
                 // set the relation between the variable and the arithmetic expression
-                ((AssignSymbol) symbol).setExpression((ExpressionSymbol) left.getHead());
-                tree.setHead(symbol);
+                ((AssignSymbol) compilerSymbol).setExpression((ExpressionSymbol) left.getHead());
+                tree.setHead(compilerSymbol);
                 return tree;
             case V_INSTRUCTION:
                 if (left == null) {
@@ -207,47 +207,47 @@ public class ASTBuilder {
                 tree.removeChild(1); // remove the compare symbol as now it is in the head
                 return tree;
             case READ:
-                symbol = new ReadSymbol();
-                tree.setHead(symbol);
+                compilerSymbol = new ReadSymbol();
+                tree.setHead(compilerSymbol);
                 return tree;
             case PRINT:
-                symbol = new PrintSymbol();
-                tree.setHead(symbol);
+                compilerSymbol = new PrintSymbol();
+                tree.setHead(compilerSymbol);
                 return tree;
             case VARNAME:
                 String variableName = (String) parseTree.getLabel().getValue();
-                symbol = new VariableSymbol(variableName);
-                tree.setHead(symbol);
+                compilerSymbol = new VariableSymbol(variableName);
+                tree.setHead(compilerSymbol);
                 return tree;
             case NUMBER:
                 Integer number = Integer.parseInt(parseTree.getLabel().getValue());
-                symbol = new NumberSymbol(number);
-                tree.setHead(symbol);
+                compilerSymbol = new NumberSymbol(number);
+                tree.setHead(compilerSymbol);
                 return tree;
             case PLUS:
-                symbol = new AdditionSymbol();
-                tree.setHead(symbol);
+                compilerSymbol = new AdditionSymbol();
+                tree.setHead(compilerSymbol);
                 return tree;
             case MINUS:
                 // TODO: make the unary minus rule
-                symbol = new MinusSymbol();
-                tree.setHead(symbol);
+                compilerSymbol = new MinusSymbol();
+                tree.setHead(compilerSymbol);
                 return tree;
             case TIMES:
-                symbol = new MultiplicationSymbol();
-                tree.setHead(symbol);
+                compilerSymbol = new MultiplicationSymbol();
+                tree.setHead(compilerSymbol);
                 return tree;
             case DIVIDE:
-                symbol = new DivideSymbol();
-                tree.setHead(symbol);
+                compilerSymbol = new DivideSymbol();
+                tree.setHead(compilerSymbol);
                 return tree;
             case GT:
-                symbol = new GreaterSymbol();
-                tree.setHead(symbol);
+                compilerSymbol = new GreaterSymbol();
+                tree.setHead(compilerSymbol);
                 return tree;
             case EQ:
-                symbol = new EqualSymbol();
-                tree.setHead(symbol);
+                compilerSymbol = new EqualSymbol();
+                tree.setHead(compilerSymbol);
                 return tree;
             default:
                 // ignore and return the only left child

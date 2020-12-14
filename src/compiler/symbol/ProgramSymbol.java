@@ -3,7 +3,7 @@ package compiler.symbol;
 import compiler.CompilerTable;
 import parser.ParseTree;
 
-public class ProgramSymbol extends Symbol {
+public class ProgramSymbol extends CompilerSymbol {
 
     // TODO Set hardcoded prefix
     private static String HARDCODED_PREFIX = "";
