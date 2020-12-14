@@ -57,7 +57,7 @@ public class ParseTree {
      * @param children, a variable number of children node to add.
      * @return boolean, if the children were placed or not.
      */
-    public boolean deriveLeftmost(Variable expected, ArrayList<Variable> children) {
+    public boolean deriveLeftmost(Variable expected, List<Variable> children) {
         // this is a terminal. wrong case.
         if (this.isTerminal()) {
             return false;

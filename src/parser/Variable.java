@@ -7,7 +7,7 @@ import scanner.Symbol;
  * This class represents all the Variables and Terminals present in the {@link SymbolQueue}, the {@link StackWrapper}
  * and the {@link ParseTree}.
  */
-public class Variable {
+public class Variable implements Cloneable {
 
     /**
      * Number of variables (excluding terminals).
@@ -252,5 +252,16 @@ public class Variable {
      */
     public void setValue(String value) {
         this.value = value;
+    }
+
+    /**
+     * Performs a deep copy of the object. Necessary to have distinct varname and number variable objects in the parse
+     * tree (so they can hold their individual values).
+     * @return a copy of the Variable.
+     * @throws CloneNotSupportedException if the clone is not supported.
+     */
+    @Override
+    protected Object clone() throws CloneNotSupportedException {
+        return super.clone();
     }
 }

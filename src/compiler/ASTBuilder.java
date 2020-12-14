@@ -20,10 +20,6 @@ public class ASTBuilder {
     public static AST buildAST(ParseTree tree) {
         AST subTree = new AST();
 
-        if (tree.getLabel().getType() == Variable.Type.VARNAME) {
-            System.out.println("Stop here");
-        }
-
         // build the sub threes (normally only two per tree)
         // checks if a sub tree is not null
         boolean hasChildren = false;

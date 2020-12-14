@@ -2,6 +2,7 @@ package parser;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.ListIterator;
 
 /**
@@ -54,12 +55,27 @@ public final class DerivationRule extends Rule {
             throw new SyntaxException("parser.parser.Variable type on the top of the stack "+topVar.getType().toString()+" doesn't" +
                     " correspond to the rule's expected type "+expectedType.toString()+".");
         }
+        // need to do a deep copy of the variables as having the reference to the same variables in all the tree
+        // is problematic for the Varname and Number variable values.
+        List<Variable> deepCopyVariables = new ArrayList<>();
+        for (Variable var : replacingVariables) {
+            try {
+                Variable clone = (Variable) var.clone();
+                deepCopyVariables.add(clone);
+            }
+            catch (CloneNotSupportedException e) {
+                // should not happen in this case.
+                System.err.println("Couldn't perform deep copy of variable object.");
+                System.exit(1);
+            }
+        }
+
         // adds to the stack the replacing variables in reverse order, as from the stack nature
-        ListIterator<Variable> itr = replacingVariables.listIterator(replacingVariables.size());
+        ListIterator<Variable> itr = deepCopyVariables.listIterator(deepCopyVariables.size());
         while (itr.hasPrevious()) {
             stack.pushVar(itr.previous());
         }
-        if (replacingVariables.isEmpty()) {
+        if (deepCopyVariables.isEmpty()) {
             // adds an epsilon to the tree.
             Variable epsilon = new Variable(Variable.Type.EPS);
             ArrayList<Variable> tempVariables = new ArrayList<>();
@@ -68,7 +84,7 @@ public final class DerivationRule extends Rule {
         }
         else {
             // adds the replacing variables to the tree
-            tree.deriveLeftmost(new Variable(expectedType), replacingVariables);
+            tree.deriveLeftmost(new Variable(expectedType), deepCopyVariables);
         }
     }
 
