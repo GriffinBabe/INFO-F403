@@ -3,8 +3,6 @@ package compiler.symbol;
 import compiler.CompilerTable;
 import parser.ParseTree;
 
-import java.util.ArrayList;
-
 public class WhileSymbol extends InstructionSymbol {
 
     CodeSymbol verifiedBody;

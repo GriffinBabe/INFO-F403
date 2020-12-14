@@ -2,7 +2,6 @@ package parser;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.ListIterator;
 
 /**
  * A skeleton class to represent parse trees. The arity is not fixed: a node can

@@ -2,7 +2,6 @@ package compiler.symbol;
 
 import compiler.CompilerTable;
 import parser.ParseTree;
-import parser.Variable;
 
 public class ReadSymbol extends InstructionSymbol {
 
