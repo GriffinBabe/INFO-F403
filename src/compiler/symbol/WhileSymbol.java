@@ -5,9 +5,11 @@ import parser.ParseTree;
 
 import java.util.ArrayList;
 
-public class WhileSymbol extends Symbol {
+public class WhileSymbol extends InstructionSymbol {
 
-    private ArrayList<InstructionSymbol> body;
+    CodeSymbol verifiedBody;
+
+    CompareSymbol compareSymbol;
 
     @Override
     public void set(ParseTree tree, CompilerTable table) {
@@ -23,4 +25,13 @@ public class WhileSymbol extends Symbol {
     public String toTexString() {
         return "<While>";
     }
+
+    public void setVerifiedBody(CodeSymbol verifiedBody) {
+        this.verifiedBody = verifiedBody;
+    }
+
+    public void setCompareSymbol(CompareSymbol compareSymbol) {
+        this.compareSymbol = compareSymbol;
+    }
+
 }

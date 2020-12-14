@@ -5,6 +5,8 @@ import parser.ParseTree;
 
 public class UnarySymbol extends ExpressionSymbol {
 
+    protected ExpressionSymbol left;
+
     @Override
     public void set(ParseTree tree, CompilerTable table) {
 
@@ -18,5 +20,9 @@ public class UnarySymbol extends ExpressionSymbol {
     @Override
     public String toTexString() {
         return "<Unary>";
+    }
+
+    public void setLeft(ExpressionSymbol left) {
+        this.left = left;
     }
 }

@@ -35,6 +35,6 @@ public class IfBlockSymbol extends Symbol {
 
     @Override
     public String toTexString() {
-        return null;
+        return "<IfBlock>";
     }
 }

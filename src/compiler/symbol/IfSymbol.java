@@ -3,7 +3,7 @@ package compiler.symbol;
 import compiler.CompilerTable;
 import parser.ParseTree;
 
-public class IfSymbol extends Symbol {
+public class IfSymbol extends InstructionSymbol {
 
     /**
      * Symbol containing the verified or unverified block.
@@ -27,7 +27,7 @@ public class IfSymbol extends Symbol {
 
     @Override
     public String toTexString() {
-        return null;
+        return "<If>";
     }
 
 

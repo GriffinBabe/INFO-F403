@@ -1,11 +1,19 @@
 package compiler;
 
 /**
- * Manage the names and labels assignation
+ * Manages the names and labels assignation in the final LLVM source code.
+ * Temporary register variables must be unique, such as labels for the while and if assignments.
  */
 public class CompilerTable {
 
+    /**
+     * The number of temporary registers variables already assigned in the LLVM source code.
+     */
     private int registerCount = 0;
+
+    /**
+     * The number of label used for if and while blocks.
+     */
     private int labelCount = 0;
 
     /**

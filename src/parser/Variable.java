@@ -19,7 +19,7 @@ public class Variable {
      */
     public final static int TERMINAL_COUNT = 26;
 
-    private Object value = null;
+    private String value = null;
 
     /**
      * Enumeration to all variables and symbol types.
@@ -136,14 +136,14 @@ public class Variable {
                 break;
             case VARNAME:
                 this.type = Type.VARNAME;
-                this.value = symbol.getValue();
+                this.value = (String) symbol.getValue();
                 break;
             case ASSIGN:
                 this.type = Type.ASSIGN;
                 break;
             case NUMBER:
                 this.type = Type.NUMBER;
-                this.value = symbol.getValue();
+                this.value = (String) symbol.getValue();
                 break;
             case LPAREN:
                 this.type = Type.LPAREN;
@@ -240,6 +240,17 @@ public class Variable {
      */
     public boolean isNumber() { return this.type == Type.NUMBER; }
 
-    public Object getValue() { return this.value; }
+    /**
+     * Returns the {@link #value}.
+     * @return the value, might be null if this variable holds no value.
+     */
+    public String getValue() { return this.value; }
 
+    /**
+     * Sets the {@link #value}.
+     * @param value, the value to set.
+     */
+    public void setValue(String value) {
+        this.value = value;
+    }
 }

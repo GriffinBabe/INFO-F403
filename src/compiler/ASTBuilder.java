@@ -4,6 +4,11 @@ import compiler.symbol.*;
 import parser.ParseTree;
 import parser.Variable;
 
+/**
+ * Utility class that builds an {@link AST} by parsing a {@link ParseTree} recursively and follow hardcoded rules in the
+ * {@link #buildHead(ParseTree, AST)} method. The robustness is granted by the consistent given input (we know in fact
+ * that the ParseTree is well built as this step of the compilation).
+ */
 public class ASTBuilder {
 
     /**
@@ -12,7 +17,7 @@ public class ASTBuilder {
      * @param tree, the sub tree that is currently being build.
      * @return the completed sub tree.
      */
-    public AST buildAST(ParseTree tree) {
+    public static AST buildAST(ParseTree tree) {
         AST subTree = new AST();
 
         if (tree.getLabel().getType() == Variable.Type.VARNAME) {
@@ -34,12 +39,12 @@ public class ASTBuilder {
     }
 
     /**
-     * Builds the head and returns the tree.
+     * Builds the head by following hardcoded rules and returns the tree.
      * @param parseTree the corresponding parse tree.
      * @param tree the build AST.
      * @return
      */
-    private AST buildHead(ParseTree parseTree, AST tree) {
+    private static AST buildHead(ParseTree parseTree, AST tree) {
         Symbol symbol;
         ExpressionSymbol leftExpression, rightExpression, thirdExpression;
         Variable head = parseTree.getLabel();
@@ -66,7 +71,7 @@ public class ASTBuilder {
                     tree.setHead(symbol);
                     return tree;
                 }
-                return tree.getLeft();
+                return left;
             case V_ASSIGN:
                 symbol = new AssignSymbol();
                 // set the relation between the variable and the arithmetic expression
@@ -78,6 +83,10 @@ public class ASTBuilder {
                     // empty EPS
                     return null;
                 }
+                else if (left.getHead() instanceof IfSymbol ||
+                        left.getHead() instanceof WhileSymbol) {
+                    return left;
+                }
                 else if (right.getHead() instanceof AssignSymbol) {
                     // in that case the left is the variable we want to attach to the assign symbol
                     ((AssignSymbol) right.getHead()).setVariable((VariableSymbol) left.getHead());
@@ -85,38 +94,38 @@ public class ASTBuilder {
                     // we need to swap as the natural shape of our ParseTree will first fit in the assign symbol
                     // the number then the variable name.
                     right.swapChildren();
-                    return tree.getRight();
+                    return right;
                 }
                 else if (left.getHead() instanceof PrintSymbol) {
                     // the left is PRINT and the right is the variable
                     ((PrintSymbol) left.getHead()).setToPrint(((VariableSymbol) right.getHead()));
                     left.addChild(tree.getRight());
-                    return tree.getLeft();
+                    return left;
                 }
                 else if (left.getHead() instanceof ReadSymbol) {
                     // the left is READ and the right is the symbol
                     ((ReadSymbol) left.getHead()).setToRead((VariableSymbol) right.getHead());
                     left.addChild(tree.getRight());
-                    return tree.getLeft();
+                    return left;
                 }
                 // in the other case we return a child
-                return tree.getLeft();
+                return left;
             case V_B: // same as V_EXPRARITH
             case V_EXPRARITH:
                 if (right == null) {
                     return left;
                 }
                 // right node is an actual algebraic operator
-                rightExpression = (ExpressionSymbol) right.getHead();
+                OperatorSymbol rightOperator = (OperatorSymbol) right.getHead();
                 // left node is either a number either a varname
                 leftExpression = (ExpressionSymbol) left.getHead();
 
-                rightExpression.setLeft(leftExpression);
+                rightOperator.setLeft(leftExpression);
 
                 // adds the subtrees
                 right.addChild(left);
                 right.swapChildren();
-                return tree.getRight();
+                return right;
             case V_B_: // same as V_EXPRARITH_
             case V_EXPRARITH_:
                 if (left == null) {
@@ -124,32 +133,32 @@ public class ASTBuilder {
                     return null;
                 }
                 // the algebraic operator symbol
-                leftExpression = (ExpressionSymbol) left.getHead();
+                OperatorSymbol leftOperator = (OperatorSymbol) left.getHead();
                 // a number or a varname symbol
                 rightExpression = (ExpressionSymbol) right.getHead();
 
                 // checks if there are following algebraic operations
                 if (third == null) {
                     // in that case this subtree is the end of the operations
-                    leftExpression.setRight(rightExpression);
+                    leftOperator.setRight(rightExpression);
                     // adds the subtree
                     left.addChild(right);
                 }
                 else {
                     // in that case there is another sub operation
                     thirdExpression = (ExpressionSymbol) third.getHead();
-                    leftExpression.setRight(thirdExpression);
-                    thirdExpression.setLeft(rightExpression);
+                    leftOperator.setRight(thirdExpression);
+                    leftOperator.setLeft(rightExpression);
                     left.addChild(third);
                     third.addChild(right);
                     third.swapChildren();
                 }
                 // left is an arithmetic operator
-                return tree.getLeft();
+                return left;
             case V_C:
                 // no minus on the left so there is no unary minus
                 if (right == null) {
-                    return tree.getLeft();
+                    return left;
                 }
                 if (left.getHead() instanceof MinusSymbol) {
                     // there is an unary minus
@@ -162,7 +171,7 @@ public class ASTBuilder {
                     tree.removeChild(0);
                     return tree;
                 }
-                return tree.getLeft();
+                return left;
             case V_IF:
                 // if symbol is created on the variable instead of terminal as it is easier
                 IfSymbol ifSymbol = new IfSymbol();
@@ -182,6 +191,12 @@ public class ASTBuilder {
                     ifBlock.setUnverifiedBody((CodeSymbol) right.getHead());
                 }
                 tree.setHead(ifBlock);
+                return tree;
+            case V_WHILE:
+                WhileSymbol whileSymbol = new WhileSymbol();
+                whileSymbol.setCompareSymbol((CompareSymbol) left.getHead());
+                whileSymbol.setVerifiedBody((CodeSymbol) right.getHead());
+                tree.setHead(whileSymbol);
                 return tree;
             case V_COND:
                 // on the left there is an expression, on the middle there is a comparison and on the right
@@ -209,7 +224,7 @@ public class ASTBuilder {
                 tree.setHead(symbol);
                 return tree;
             case NUMBER:
-                Integer number = (Integer) parseTree.getLabel().getValue();
+                Integer number = Integer.parseInt(parseTree.getLabel().getValue());
                 symbol = new NumberSymbol(number);
                 tree.setHead(symbol);
                 return tree;
@@ -241,8 +256,8 @@ public class ASTBuilder {
             default:
                 // ignore and return the only left child
                 if (tree.getRight() != null)
-                    return tree.getRight();
-                return tree.getLeft();
+                    return right;
+                return left;
         }
 
     }

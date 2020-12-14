@@ -12,3 +12,4 @@ INFO-F403.iml
 *.tex
 *.pdf
 *.aux
+*.log

@@ -3,7 +3,7 @@ package compiler.symbol;
 import compiler.CompilerTable;
 import parser.ParseTree;
 
-public class DivideSymbol extends ExpressionSymbol {
+public class DivideSymbol extends OperatorSymbol {
     @Override
     public void set(ParseTree tree, CompilerTable table) {
 

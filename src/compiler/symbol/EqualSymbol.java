@@ -17,6 +17,6 @@ public class EqualSymbol extends CompareSymbol {
 
     @Override
     public String toTexString() {
-        return null;
+        return "<EQ>";
     }
 }

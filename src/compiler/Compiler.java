@@ -1,31 +1,47 @@
 package compiler;
 
-import compiler.symbol.ProgramSymbol;
 import parser.ParseTree;
+import util.LatexWriter;
 
+/**
+ * Compilation step main class. This will first build the {@link AST} from the {@link ASTBuilder} static methods, then
+ * create the LLVM source code from compiler symbols methods.
+ */
 public class Compiler {
 
-    private ProgramSymbol program;
+    private AST astTree = null;
 
     boolean built = false;
 
-    public Compiler() {
+    /**
+     * Builds the abstract syntax of the compiler (necessary before calling the {@link #saveTree(String)}
+     * or the {@link #compile()} methods).
+     */
+    public void build(ParseTree tree) {
+        this.astTree = ASTBuilder.buildAST(tree);
+        this.built = true;
     }
 
     /**
-     * Builds the tree and sets the adapted symbols to compile the program
-     * @param tree
+     * Compiles the program into LLVM code from the {@link #astTree}.
+     * @return the LLVM source code.
      */
-    public AST build(ParseTree tree) {
-        ASTBuilder builder = new ASTBuilder();
-        AST astTree = builder.buildAST(tree);
-        return astTree;
+    public String compile() {
+        if (!built) {
+            throw new RuntimeException("Cannot compile before building the AST. Please call the build method before");
+        }
+        return null;
     }
 
-    public void compile() throws RuntimeException {
+    /**
+     * Saves the {@link #astTree} into a LaTeX format. Source code is generated from {@link AST#toLaTeX()}.
+     * @param path the path where to save the source code.
+     */
+    public void saveTree(String path) {
         if (!built) {
-            throw new RuntimeException("Cannot compile before building the AST.");
+            throw new RuntimeException("Cannot save the AST before building it. Please call the build method before.");
         }
-
+        LatexWriter latexWriter = new LatexWriter(path);
+        latexWriter.write(astTree.toLaTeX());
     }
 }

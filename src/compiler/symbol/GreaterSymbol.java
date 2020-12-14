@@ -17,6 +17,6 @@ public class GreaterSymbol extends CompareSymbol {
 
     @Override
     public String toTexString() {
-        return null;
+        return "<GT>";
     }
 }

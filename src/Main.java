@@ -1,11 +1,8 @@
-import compiler.AST;
 import compiler.Compiler;
-import parser.ParseTree;
 import parser.Parser;
 import parser.SyntaxException;
 import scanner.Scanner;
 import util.CommandLineParser;
-import util.LatexWriter;
 
 /**
  * Main class. Will start by parsing the command line arguments with {@link CommandLineParser},
@@ -16,6 +13,9 @@ import util.LatexWriter;
  * a much more verbose and detailed output.
  *
  * If option "-wt [output.tex]" is specified, the {@link parser.ParseTree} built by the {@link Parser} will
+ * be saved in a LaTeX format to the specified output file with the {@link util.LatexWriter} class.
+ *
+ * If option "-wast [output.tex]" is specified, the {@link compiler.AST} built by the {@link compiler.ASTBuilder} will
  * be saved in a LaTeX format to the specified output file with the {@link util.LatexWriter} class.
  *
  */
@@ -39,7 +39,7 @@ class Main {
 		Parser parser = new Parser(scanner.getVariables());
 		try {
 			parser.parseSequence();
-			if (clp.latexOutput() != null) parser.saveTree(clp.latexOutput());
+			if (clp.getLatexOutput() != null) parser.saveTree(clp.getLatexOutput());
 		}
 		catch (SyntaxException e) {
 			System.err.println("Syntax error detected: " + e.getMessage());
@@ -47,10 +47,11 @@ class Main {
 		}
 
 		Compiler compiler = new Compiler();
-		AST ast = compiler.build(parser.getTree());
+		compiler.build(parser.getTree());
 
-		LatexWriter writer = new LatexWriter("ast_out.tex");
-		writer.write(ast.toLaTeX());
+		if (clp.getAstLatexOutput() != null) {
+			compiler.saveTree(clp.getAstLatexOutput());
+		}
 	}
 
 }

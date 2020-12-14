@@ -3,7 +3,7 @@ package util;
 /**
  * Little and unorthodox (we should have prepared a grammar for that too :) ) command line parser.
  *
- * Will check in the command line parser for the "-v" (verbose) and "-wt output.tex"
+ * Will check in the command line parser for the "-v" (verbose), "-wt output.tex" and "-wast output.tex".
  * (LaTeX {@link parser.ParseTree} output), and gather the Fortran-S source file.
  *
  * At least the Fortran-S source file must be specified.
@@ -13,6 +13,7 @@ public class CommandLineParser {
     private String latexOutput = null;
     private boolean verbose = false;
     private String inputSource = null;
+    private String astLatexOutput = null;
 
     /**
      * Parses the command line arguments. See {@link CommandLineParser}.
@@ -27,6 +28,9 @@ public class CommandLineParser {
                     break;
                 case "-wt":
                     this.latexOutput = argSplit[++i];
+                    break;
+                case "-wast":
+                    this.astLatexOutput = argSplit[++i];
                     break;
                 default:
                     this.inputSource = str;
@@ -43,8 +47,16 @@ public class CommandLineParser {
      * Returns the path of the desired LaTeX output file.
      * @return null if no LaTeX output is desired, a path if the output IS desired.
      */
-    public String latexOutput() {
+    public String getLatexOutput() {
         return latexOutput;
+    }
+
+    /**
+     * Returns the path of the desired LaTeX output file for the Abstract Syntax Tree {@link compiler.AST}.
+     * @return null if not LaTeX output is desired, a path if the output IS desired.
+     */
+    public String getAstLatexOutput() {
+        return astLatexOutput;
     }
 
     /**
