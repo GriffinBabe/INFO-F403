@@ -17,6 +17,7 @@ import java.util.List;
 
 public class ParseTree {
 
+    private List<Variable.Type> valid_terminal = new ArrayList<>();
     /**
      * The head of this tree/sub-tree
      */
@@ -55,7 +56,7 @@ public class ParseTree {
      * @param children, a variable number of children node to add.
      * @return boolean, if the children were placed or not.
      */
-    public boolean deriveLeftmost(Variable expected, ArrayList<Variable> children) {
+    public boolean deriveLeftmost(Variable expected, List<Variable> children) {
         // this is a terminal. wrong case.
         if (this.isTerminal()) {
             return false;
@@ -78,7 +79,9 @@ public class ParseTree {
         }
         return false;
     }
-
+    public void setLabel(Variable label){
+        this.label = label;
+    }
     /**
      * Checks if this part of the three is a terminal (there are no child nodes and the label is a terminal).
      * @return true if it is a leaf, false otherwise
@@ -86,9 +89,6 @@ public class ParseTree {
     public boolean isTerminal() {
         boolean isTerminal = this.label.isTerminal();
         // additional check for debugging
-        if (isTerminal && !children.isEmpty()) {
-            throw new RuntimeException("Terminal node has children in three.");
-        }
         return isTerminal;
     }
 
@@ -104,9 +104,22 @@ public class ParseTree {
     }
 
     /**
+     * @param children
+     * @return Index of children in the children list
+     */
+    public int getIndex(ParseTree children){
+        for(int i = 0 ; i < this.children.size() ; i++){
+            if(this.children.get(i).equals(children)){
+                return i;
+            }
+        }
+        return 0;
+    }
+
+    /**
      * Writes the tree as LaTeX code
      */
-    public String toLaTexTree() {
+    public String toLaTexTree(){
         StringBuilder treeTeX = new StringBuilder();
         treeTeX.append("[");
         treeTeX.append("{" + label.toTexString() + "}");
@@ -183,5 +196,13 @@ public class ParseTree {
     public String toLaTeX() {
         return "\\documentclass[border=5pt]{standalone}\n\n\\usepackage{tikz}\n\\usepackage{forest}\n\n\\begin{document}\n\n"
                 + toForestPicture() + "\n\n\\end{document}\n%% Local Variables:\n%% TeX-engine: pdflatex\n%% End:";
+    }
+
+    public Variable getLabel() {
+        return label;
+    }
+
+    public List<ParseTree> getChildren() {
+        return children;
     }
 }

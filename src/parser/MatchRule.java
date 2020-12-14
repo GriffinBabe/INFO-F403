@@ -16,6 +16,11 @@ public final class MatchRule extends Rule {
     public void action(StackWrapper stack, SymbolQueue list, ParseTree tree) throws SyntaxException {
         Variable stackVar = stack.remVar();
         Variable inputVar = list.remVar();
+        // the stackVar is normally the same as in the parse tree, we can therefore assign the value
+        if (inputVar.getType() == Variable.Type.VARNAME ||
+            inputVar.getType() == Variable.Type.NUMBER) {
+            stackVar.setValue(inputVar.getValue());
+        }
         if (!stackVar.getType().equals(inputVar.getType())) {
             throw new SyntaxException("parser.Variable with type: "+stackVar.getType().toString()
                     +" doesn't watch variable of type: "+inputVar.getType().toString());

@@ -112,4 +112,11 @@ public class Parser {
 		LatexWriter writer = new LatexWriter(path);
 		writer.write(tree.toLaTeX());
 	}
+
+	/**
+	 * @return the starting node of the parse tree
+	 */
+	public ParseTree getTree(){
+		return this.tree;
+	}
 }

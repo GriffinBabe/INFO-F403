@@ -1,5 +1,6 @@
-package compiler;
+package compiler.symbol;
 
+import compiler.CompilerTable;
 import parser.ParseTree;
 
 public class CodeSymbol extends Symbol {
@@ -28,5 +29,10 @@ public class CodeSymbol extends Symbol {
             sb.append(nextCode.toLLVM());
         }
         return sb.toString();
+    }
+
+    @Override
+    public String toTexString() {
+        return "<EQ>";
     }
 }

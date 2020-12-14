@@ -7,7 +7,7 @@ import scanner.Symbol;
  * This class represents all the Variables and Terminals present in the {@link SymbolQueue}, the {@link StackWrapper}
  * and the {@link ParseTree}.
  */
-public class Variable {
+public class Variable implements Cloneable {
 
     /**
      * Number of variables (excluding terminals).
@@ -18,6 +18,8 @@ public class Variable {
      * Number of terminals (excluding variables).
      */
     public final static int TERMINAL_COUNT = 26;
+
+    private String value = null;
 
     /**
      * Enumeration to all variables and symbol types.
@@ -144,14 +146,14 @@ public class Variable {
                 break;
             case VARNAME:
                 this.type = Type.VARNAME;
-                this.varname = (String) symbol.getValue();
+                this.value = (String) symbol.getValue();
                 break;
             case ASSIGN:
                 this.type = Type.ASSIGN;
                 break;
             case NUMBER:
                 this.type = Type.NUMBER;
-                this.number = (Integer) symbol.getValue();
+                this.value = (String) symbol.getValue();
                 break;
             case LPAREN:
                 this.type = Type.LPAREN;
@@ -244,5 +246,40 @@ public class Variable {
      */
     public String toTexString() {
         return this.type.toTexString();
+    }
+
+    /**
+     * @return true if the type is a VARNAME
+     */
+    public boolean isVarname() { return this.type == Type.VARNAME; }
+
+    /**
+     * @return true if the type is a NUMBER
+     */
+    public boolean isNumber() { return this.type == Type.NUMBER; }
+
+    /**
+     * Returns the {@link #value}.
+     * @return the value, might be null if this variable holds no value.
+     */
+    public String getValue() { return this.value; }
+
+    /**
+     * Sets the {@link #value}.
+     * @param value, the value to set.
+     */
+    public void setValue(String value) {
+        this.value = value;
+    }
+
+    /**
+     * Performs a deep copy of the object. Necessary to have distinct varname and number variable objects in the parse
+     * tree (so they can hold their individual values).
+     * @return a copy of the Variable.
+     * @throws CloneNotSupportedException if the clone is not supported.
+     */
+    @Override
+    protected Object clone() throws CloneNotSupportedException {
+        return super.clone();
     }
 }
