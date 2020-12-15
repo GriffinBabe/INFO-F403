@@ -15,7 +15,6 @@ public class NumberSymbol extends ExpressionSymbol {
     @Override
     public String toLLVM(CompilerTable table, String... returnRegisters) {
         StringBuilder sb = new StringBuilder();
-        sb.append(returnRegisters[0]).append(" = alloca i32\n");
         sb.append("store i32 ").append(this.value).append(", i32* ").append(returnRegisters[0]).append("\n");
         return sb.toString();
     }
