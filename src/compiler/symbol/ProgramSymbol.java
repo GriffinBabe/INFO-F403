@@ -78,4 +78,8 @@ public class ProgramSymbol extends CompilerSymbol {
     public String toTexString() {
         return "<Program>";
     }
+
+    public void setCode(CodeSymbol code){
+        this.code = code;
+    }
 }

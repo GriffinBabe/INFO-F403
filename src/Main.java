@@ -48,6 +48,7 @@ class Main {
 
 		Compiler compiler = new Compiler();
 		compiler.build(parser.getTree());
+		compiler.compile();
 
 		if (clp.getAstLatexOutput() != null) {
 			compiler.saveTree(clp.getAstLatexOutput());

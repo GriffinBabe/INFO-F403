@@ -30,6 +30,10 @@ public class Compiler {
         if (!built) {
             throw new RuntimeException("Cannot compile before building the AST. Please call the build method before");
         }
+        else{
+            String file = this.astTree.getHead().toLLVM(new CompilerTable(), "patate");
+            System.out.println(file);
+        }
         return null;
     }
 

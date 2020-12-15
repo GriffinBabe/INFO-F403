@@ -50,7 +50,11 @@ public class ASTBuilder {
 
         switch (head.getType()) {
             case V_PROGRAM:
-                tree.setHead(new ProgramSymbol());
+                ProgramSymbol v_p = new ProgramSymbol();
+                tree.setHead(v_p);
+                //temp
+                v_p.setCode((CodeSymbol)left.getHead()) ;
+                //
                 return tree;
             case V_CODE:
                 compilerSymbol = new CodeSymbol();
@@ -161,7 +165,7 @@ public class ASTBuilder {
                     // the minus sybmol on the left sub tree is discarded
                     // and the node is returned as an ast with a Unary head.
                     UnarySymbol unary = new UnarySymbol();
-                    unary.setRight((ExpressionSymbol) right.getHead());
+                    unary.setLeft((ExpressionSymbol) left.getHead());
                     tree.setHead(unary);
                     // removes the left children as the minus in now an unary minus
                     tree.removeChild(0);
