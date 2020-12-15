@@ -6,8 +6,8 @@ import parser.Variable;
 
 /**
  * Utility class that builds an {@link AST} by parsing a {@link ParseTree} recursively and follow hardcoded rules in the
- * {@link #buildHead(ParseTree, AST)} method. The robustness is granted by the consistent given input (we know in fact
- * that the ParseTree is well built as this step of the compilation).
+ * {@link #buildHead(ParseTree, AST)} method. The robustness is granted by the consistent-ness of the given input
+ * (we know in fact that the ParseTree is always well built at this step of the compilation).
  */
 public class ASTBuilder {
 

@@ -2,6 +2,9 @@ package compiler.symbol;
 
 import compiler.CompilerTable;
 
+/**
+ * Root compiler unit symbol, defines the base functions used for the READ() and PRINT() and sets the main function.
+ */
 public class ProgramSymbol extends CompilerSymbol {
 
     /**
@@ -52,13 +55,13 @@ public class ProgramSymbol extends CompilerSymbol {
             "  entry:\n";
 
     /**
-     * Contains the end of the main function. Source code is from the practical sessions.
+     * Contains the end of the main function. Source code is from the course's practical sessions.
      */
     private static String HARDCODED_SUFFIX = "  ret i32 0\n" +
             "}";
 
     /**
-     * First code line to execute
+     * First line of code to be called. Following lines are called inside the code symbol.
      */
     CodeSymbol code;
 
@@ -66,7 +69,7 @@ public class ProgramSymbol extends CompilerSymbol {
     public String toLLVM(CompilerTable table, String... returnRegisters) {
         StringBuilder sb = new StringBuilder();
         sb.append(HARDCODED_PREFIX);
-        sb.append(code.toLLVM());
+        sb.append(code.toLLVM(table, returnRegisters));
         sb.append(HARDCODED_SUFFIX);
         return sb.toString();
     }
