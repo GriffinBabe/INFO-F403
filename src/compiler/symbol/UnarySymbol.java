@@ -22,7 +22,7 @@ public class UnarySymbol extends ExpressionSymbol {
         return "<Unary>";
     }
 
-    public void setLeft(ExpressionSymbol right) {
+    public void setRight(ExpressionSymbol right) {
         this.right = right;
     }
 }

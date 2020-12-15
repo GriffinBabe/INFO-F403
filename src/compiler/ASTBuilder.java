@@ -161,7 +161,7 @@ public class ASTBuilder {
                     // the minus sybmol on the left sub tree is discarded
                     // and the node is returned as an ast with a Unary head.
                     UnarySymbol unary = new UnarySymbol();
-                    unary.setLeft((ExpressionSymbol) right.getHead());
+                    unary.setRight((ExpressionSymbol) right.getHead());
                     tree.setHead(unary);
                     // removes the left children as the minus in now an unary minus
                     tree.removeChild(0);
