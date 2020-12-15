@@ -17,7 +17,16 @@ public class VariableSymbol extends ExpressionSymbol {
 
     @Override
     public String toLLVM(CompilerTable table, String... returnRegisters) {
-        return null;
+        StringBuilder sb = new StringBuilder();
+        //if the variable has already been initialized, load it into the given register
+        if (table.isAllocated(this.variableName)) {
+            sb.append(returnRegisters[0]).append(" = alloca i32\n");
+            sb.append("%").append(returnRegisters[0]).append(" = load i32, i32* ").append("%").append(this.variableName).append("\n");
+            return sb.toString();
+        }
+        else{
+            return null;
+        }
     }
 
     @Override
