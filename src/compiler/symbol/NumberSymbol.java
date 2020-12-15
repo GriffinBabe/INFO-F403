@@ -2,6 +2,8 @@ package compiler.symbol;
 
 import compiler.CompilerTable;
 
+import java.util.Arrays;
+
 public class NumberSymbol extends ExpressionSymbol {
 
     private Integer value;
@@ -12,7 +14,10 @@ public class NumberSymbol extends ExpressionSymbol {
 
     @Override
     public String toLLVM(CompilerTable table, String... returnRegisters) {
-        return null;
+        StringBuilder sb = new StringBuilder();
+        sb.append("%").append(returnRegisters[0]).append(" = alloca i32\n");
+        sb.append("store i32 ").append(this.value).append(", i32* ").append("%").append(returnRegisters[0]).append("\n");
+        return sb.toString();
     }
 
     @Override
