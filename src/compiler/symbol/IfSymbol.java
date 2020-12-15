@@ -1,7 +1,6 @@
 package compiler.symbol;
 
 import compiler.CompilerTable;
-import parser.ParseTree;
 
 public class IfSymbol extends InstructionSymbol {
 
@@ -16,12 +15,7 @@ public class IfSymbol extends InstructionSymbol {
     private CompareSymbol compare;
 
     @Override
-    public void set(ParseTree tree, CompilerTable table) {
-
-    }
-
-    @Override
-    public String toLLVM() {
+    public String toLLVM(CompilerTable table, String... returnRegisters) {
         return null;
     }
 

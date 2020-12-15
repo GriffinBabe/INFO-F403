@@ -1,7 +1,6 @@
 package compiler.symbol;
 
 import compiler.CompilerTable;
-import parser.ParseTree;
 
 public class CodeSymbol extends CompilerSymbol {
 
@@ -17,12 +16,7 @@ public class CodeSymbol extends CompilerSymbol {
     }
 
     @Override
-    public void set(ParseTree tree, CompilerTable table) {
-
-    }
-
-    @Override
-    public String toLLVM() {
+    public String toLLVM(CompilerTable table, String... returnRegisters) {
         return null;
     }
 

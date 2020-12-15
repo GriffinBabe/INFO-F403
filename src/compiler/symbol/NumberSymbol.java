@@ -1,7 +1,6 @@
 package compiler.symbol;
 
 import compiler.CompilerTable;
-import parser.ParseTree;
 
 public class NumberSymbol extends ExpressionSymbol {
 
@@ -12,12 +11,7 @@ public class NumberSymbol extends ExpressionSymbol {
     }
 
     @Override
-    public void set(ParseTree tree, CompilerTable table) {
-
-    }
-
-    @Override
-    public String toLLVM() {
+    public String toLLVM(CompilerTable table, String... returnRegisters) {
         return null;
     }
 

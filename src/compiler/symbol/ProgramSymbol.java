@@ -1,7 +1,6 @@
 package compiler.symbol;
 
 import compiler.CompilerTable;
-import parser.ParseTree;
 
 public class ProgramSymbol extends CompilerSymbol {
 
@@ -64,11 +63,7 @@ public class ProgramSymbol extends CompilerSymbol {
     CodeSymbol code;
 
     @Override
-    public void set(ParseTree tree, CompilerTable table) {
-    }
-
-    @Override
-    public String toLLVM() {
+    public String toLLVM(CompilerTable table, String... returnRegisters) {
         StringBuilder sb = new StringBuilder();
         sb.append(HARDCODED_PREFIX);
         sb.append(code.toLLVM());
