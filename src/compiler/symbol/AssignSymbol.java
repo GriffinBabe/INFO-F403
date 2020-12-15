@@ -18,7 +18,17 @@ public class AssignSymbol extends InstructionSymbol {
 
     @Override
     public String toLLVM(CompilerTable table, String... returnRegisters) {
-        return null;
+        StringBuilder sb = new StringBuilder();
+        String varName = this.variable.getVariableName();
+        String arithRegister = table.nextRegister(); //register storing the arithmetic value
+        if (!table.isAllocated(varName)) {
+            table.setAllocated(varName);
+        }
+        sb.append("%").append(varName).append(" = alloca i32\n"); //allocate memory to the variable initialized
+        sb.append("store i32 %").append(varName).append(", i32* ").append("%").append(arithRegister).append("\n");
+        // assign the arithmetic value to the variable memory space
+
+        return sb.toString();
     }
 
     @Override
