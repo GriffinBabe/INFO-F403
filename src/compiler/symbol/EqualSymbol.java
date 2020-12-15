@@ -3,17 +3,7 @@ package compiler.symbol;
 import compiler.CompilerTable;
 import parser.ParseTree;
 
-public class CodeSymbol extends Symbol {
-
-    /**
-     * Reference to the line's {@link InstructionSymbol}.
-     */
-    private InstructionSymbol instruction;
-
-    /**
-     * Next code line might stay null
-     */
-    private CodeSymbol nextCode = null;
+public class EqualSymbol extends CompareSymbol {
 
     @Override
     public void set(ParseTree tree, CompilerTable table) {
@@ -22,13 +12,7 @@ public class CodeSymbol extends Symbol {
 
     @Override
     public String toLLVM() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(instruction);
-        sb.append('\n');
-        if (nextCode != null) {
-            sb.append(nextCode.toLLVM());
-        }
-        return sb.toString();
+        return null;
     }
 
     @Override

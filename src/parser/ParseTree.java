@@ -99,10 +99,6 @@ public class ParseTree {
         return !children.isEmpty();
     }
 
-    public Variable getLabel() {
-        return label;
-    }
-
     /**
      * @param children
      * @return Index of children in the children list
