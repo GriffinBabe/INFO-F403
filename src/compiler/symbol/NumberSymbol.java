@@ -23,4 +23,6 @@ public class NumberSymbol extends ExpressionSymbol {
     public String toTexString() {
         return "<Num: " + value + ">";
     }
+
+    public Integer getValue(){ return this.value;}
 }
