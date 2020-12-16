@@ -23,9 +23,9 @@ public class AssignSymbol extends InstructionSymbol {
         String arithRegister = table.nextRegister(); //register storing the arithmetic value
         if (!table.isAllocated(varName)) {
             table.setAllocated(varName);
+            sb.append("%").append(varName).append(" = alloca i32\n");
         }
         sb.append(this.expression.toLLVM(table,arithRegister)); //arithmetic expression
-        sb.append("%").append(varName).append(" = alloca i32\n"); //allocate memory to the variable initialized
         sb.append("store i32 ").append(arithRegister).append(" , i32* ").append("%").append(varName).append("\n");
         // assign the arithmetic value to the variable memory space
 
