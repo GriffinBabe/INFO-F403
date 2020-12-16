@@ -27,7 +27,7 @@ public class GreaterSymbol extends CompareSymbol {
 
         // 4. Append the comparison to the StringBuilder.
         // %returnTemp = icmp eq i32 %tempLeft, %tempRight
-        sb.append(retTemp).append(" = icmp gt i32 ").append(leftTemp).append(", ").append(rightTemp).append("\n");
+        sb.append(retTemp).append(" = icmp sgt i32 ").append(leftTemp).append(", ").append(rightTemp).append("\n");
         return sb.toString();
     }
 

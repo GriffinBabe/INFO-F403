@@ -37,7 +37,7 @@ public class CompilerTable {
      * @return the next valid label name
      */
     public String nextLabel() {
-        String s = "label_" + labelCount;
+        String s = "label" + labelCount;
         labelCount++;
         return s;
     }

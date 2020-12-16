@@ -27,7 +27,7 @@ public class PrintSymbol extends InstructionSymbol {
         // 1. load the variable in the VariableSymbol#toLLVM(...)
         sb.append(toPrint.toLLVM(table, loadedVariable));
         // 2. calls the println() method on this local variable.
-        sb.append("call void @println(i32 %").append(loadedVariable).append(")\n");
+        sb.append("call void @println(i32 ").append(loadedVariable).append(")\n");
 
         return sb.toString();
     }
