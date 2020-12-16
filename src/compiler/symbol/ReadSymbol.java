@@ -27,7 +27,7 @@ public class ReadSymbol extends InstructionSymbol {
         String variableName = toRead.getVariableName();
 
         // reads a number from the standard input stream and stores it in a temporary variable
-        sb.append("%").append(tempVar).append(" = call i32 @readInt()\n");
+        sb.append(tempVar).append(" = call i32 @readInt()\n");
 
         // if not allocated yet, allocates it
         if (!table.isAllocated(variableName)) {
@@ -36,7 +36,7 @@ public class ReadSymbol extends InstructionSymbol {
         }
 
         // stores the read temporary variable into a memory variable
-        sb.append("store i32 %").append(tempVar).append(", i32* %").append(variableName).append("\n");
+        sb.append("store i32 ").append(tempVar).append(", i32* %").append(variableName).append("\n");
         return sb.toString();
     }
 
