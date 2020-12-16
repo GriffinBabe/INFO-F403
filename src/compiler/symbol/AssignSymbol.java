@@ -20,7 +20,6 @@ public class AssignSymbol extends InstructionSymbol {
     public String toLLVM(CompilerTable table, String... returnRegisters) {
         StringBuilder sb = new StringBuilder();
         String varName = this.variable.getVariableName();
-        String arithRegister = table.nextRegister(); //register storing the arithmetic value
         if (!table.isAllocated(varName)) {
             table.setAllocated(varName);
             sb.append("%").append(varName).append(" = alloca i32\n");
@@ -29,6 +28,7 @@ public class AssignSymbol extends InstructionSymbol {
             sb.append("store i32 ").append(((NumberSymbol) this.expression).getValue().toString()).append(" , i32* ").append("%").append(varName).append("\n");
         }
         else {
+            String arithRegister = table.nextRegister(); //register storing the arithmetic value
             sb.append(this.expression.toLLVM(table, arithRegister)); //arithmetic expression
             sb.append("store i32 ").append(arithRegister).append(" , i32* ").append("%").append(varName).append("\n");
             // assign the arithmetic value to the variable memory space
