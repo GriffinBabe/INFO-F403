@@ -60,16 +60,15 @@ public class Compiler {
                             int registerNum = Integer.parseInt(sp.substring(1));
                             registersOccurrence.add("%" + registerNum);
                             sb.append("%").append(registersOccurrence.indexOf(sp));
-                        } catch (NumberFormatException ignored) { sb.append(sp); }
+                        } catch (NumberFormatException ignored) { sb.append(sp); } // the variable isn't a numerical register
                     }
                     else if(sp.substring(0,1).equals("%")){
-                        System.out.println("register not starting line");
                         try {
                             int registerNum = registersOccurrence.indexOf(sp);
                             if(registerNum >= 0){ //if doesn't exist in the array indexOf returns -1
                                 sb.append("%").append(registerNum);
                             }
-                            else{
+                            else{ //if the variable isn't a numerical register
                                 sb.append(sp);
                             }
                         } catch (NumberFormatException ignored) {  }

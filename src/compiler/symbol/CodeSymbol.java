@@ -25,7 +25,7 @@ public class CodeSymbol extends CompilerSymbol {
      * @param symbol, the next code symbol
      */
     public void setNextCode(CodeSymbol symbol) {
-        this.nextCode = nextCode;
+        this.nextCode = symbol;
     }
 
     /**

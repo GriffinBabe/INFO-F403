@@ -20,7 +20,7 @@ public class VariableSymbol extends ExpressionSymbol {
         StringBuilder sb = new StringBuilder();
         //if the variable has already been initialized, load it into the given register
         if (table.isAllocated(this.variableName)) {
-            sb.append("%").append(returnRegisters[0]).append(" = load i32, i32* ").append("%").append(this.variableName).append("\n");
+            sb.append(returnRegisters[0]).append(" = load i32, i32* ").append("%").append(this.variableName).append("\n");
             return sb.toString();
         }
         else{
