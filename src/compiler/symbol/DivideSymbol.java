@@ -22,7 +22,7 @@ public class DivideSymbol extends OperatorSymbol {
             elem2 = table.nextRegister();
             sb.append(right.toLLVM(table,elem2));
         }
-        sb.append(returnRegisters[0]).append(" = udiv i32 ").append(elem1).append(" , ").append(elem2).append("\n");
+        sb.append(returnRegisters[0]).append(" = sdiv i32 ").append(elem1).append(" , ").append(elem2).append("\n");
         return sb.toString();
     }
 
