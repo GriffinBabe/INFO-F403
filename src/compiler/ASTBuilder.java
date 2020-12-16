@@ -160,13 +160,11 @@ public class ASTBuilder {
                     return left;
                 }if(left.getHead() instanceof MinusSymbol) {
                     tree.removeChild(0);
-                    System.out.println("oups");
                     // there is an unary minus
                     // the minus sybmol on the left sub tree is discarded
                     // and the node is returned as an ast with a Unary head.
                     UnarySymbol unary = new UnarySymbol();
                     tree.setHead(unary);
-                    System.out.println(left.getHead().toString());
                     unary.setLeft((ExpressionSymbol) right.getHead());
                     return tree;
                 }

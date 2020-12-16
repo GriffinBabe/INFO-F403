@@ -3,6 +3,9 @@ package compiler;
 import parser.ParseTree;
 import util.LatexWriter;
 
+import java.util.ArrayList;
+import java.util.StringTokenizer;
+
 /**
  * Compilation step main class. This will first build the {@link AST} from the {@link ASTBuilder} static methods, then
  * create the LLVM source code from compiler symbols methods.
@@ -32,11 +35,59 @@ public class Compiler {
         }
         else{
             String file = this.astTree.getHead().toLLVM(new CompilerTable(), "patate");
-            System.out.println(file);
+            System.out.println(reOrder(file));
         }
         return null;
     }
 
+    /**
+     * @param output : initial llvm output
+     * @return the output with reordered registers
+     */
+    public String reOrder(String output){
+        StringBuilder sb = new StringBuilder(); //store the new output
+        ArrayList<String> registersOccurrence = new ArrayList<>(); //store the registers occurrences
+        String[] splited = output.split("\n"); //split the output line by line
+        boolean main = false; //boolean indicating if we are in the main function
+        for (String ch : splited) {
+            String[] espaced = ch.split(" "); //split the line in spaced tokens
+            Boolean newline = true; //boolean indicating if the newline has been reached
+            for(String sp : espaced){
+                if(sp.equals("@main()")){ main = true; }
+                if(main && sp.length()>1){
+                    if(newline && sp.substring(0,1).equals("%")) {
+                        try {
+                            int registerNum = Integer.parseInt(sp.substring(1));
+                            registersOccurrence.add("%" + registerNum);
+                            sb.append("%").append(registersOccurrence.indexOf(sp));
+                        } catch (NumberFormatException ignored) { sb.append(sp); }
+                    }
+                    else if(sp.substring(0,1).equals("%")){
+                        System.out.println("register not starting line");
+                        try {
+                            int registerNum = registersOccurrence.indexOf(sp);
+                            if(registerNum >= 0){ //if doesn't exist in the array indexOf returns -1
+                                sb.append("%").append(registerNum);
+                            }
+                            else{
+                                sb.append(sp);
+                            }
+                        } catch (NumberFormatException ignored) {  }
+                    }
+                    else{
+                        sb.append(sp);
+                    }
+                }
+                else{
+                    sb.append(sp);
+                }
+                sb.append(" ");
+                newline = false;
+            }
+            sb.append("\n");
+        }
+        return sb.toString();
+    }
     /**
      * Saves the {@link #astTree} into a LaTeX format. Source code is generated from {@link AST#toLaTeX()}.
      * @param path the path where to save the source code.
