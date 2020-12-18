@@ -4,7 +4,7 @@ package util;
  * Little and unorthodox (we should have prepared a grammar for that too :) ) command line parser.
  *
  * Will check in the command line parser for the "-v" (verbose), "-wt output.tex" and "-wast output.tex".
- * (LaTeX {@link parser.ParseTree} output), and gather the Fortran-S source file.
+ * (LaTeX {@link parser.ParseTree} output), gather the Fortran-S source file and gather the compiler LLVM output file.
  *
  * At least the Fortran-S source file must be specified.
  */
@@ -13,6 +13,7 @@ public class CommandLineParser {
     private String latexOutput = null;
     private boolean verbose = false;
     private String inputSource = null;
+    private String outputPath = null;
     private String astLatexOutput = null;
 
     /**
@@ -33,12 +34,18 @@ public class CommandLineParser {
                     this.astLatexOutput = argSplit[++i];
                     break;
                 default:
-                    this.inputSource = str;
+                    if (this.inputSource == null) {
+                        this.inputSource = str;
+                    }
+                    else {
+                         this.outputPath = str;
+                    }
+                    break;
             }
         }
         // Problem if input source is still null
-        if (inputSource == null) {
-            System.err.println("Usage: java -jar Part2.jar [-v] [-wt output.tex] source.fs");
+        if (inputSource == null || outputPath == null) {
+            System.err.println("Usage: java -jar Part2.jar [-v] [-wt output.tex] <source.fs> <compiled.ll>");
             System.exit(1);
         }
     }
@@ -71,5 +78,9 @@ public class CommandLineParser {
      */
     public String getInputSource() {
         return inputSource;
+    }
+
+    public String getOutputPath() {
+        return outputPath;
     }
 }

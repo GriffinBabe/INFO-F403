@@ -2,7 +2,7 @@ package parser;
 
 import scanner.LexicalUnit;
 import scanner.Symbol;
-import util.LatexWriter;
+import util.OutputFileWriter;
 
 import java.util.ArrayList;
 
@@ -109,7 +109,7 @@ public class Parser {
 	 * @param path, the path where to write the file.
 	 */
 	public void saveTree(String path) {
-		LatexWriter writer = new LatexWriter(path);
+		OutputFileWriter writer = new OutputFileWriter(path);
 		writer.write(tree.toLaTeX());
 	}
 

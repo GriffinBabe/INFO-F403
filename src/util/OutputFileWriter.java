@@ -5,9 +5,9 @@ import java.io.IOException;
 
 /**
  * A simple file writer.
- * Write the latex source with the {@link #write(String)} method.
+ * Write the latex source or the LLVM source code with the {@link #write(String)} method.
  */
-public class LatexWriter {
+public class OutputFileWriter {
 
     /**
      * Path where to output the latex file.
@@ -18,7 +18,7 @@ public class LatexWriter {
      * Base constructor.
      * @param path, the path where to output the latex file.
      */
-    public LatexWriter(String path) {
+    public OutputFileWriter(String path) {
         this.path = path;
     }
 
@@ -28,7 +28,7 @@ public class LatexWriter {
      */
     public void write(String texSource) {
         try {
-            FileWriter writer = new FileWriter(path);
+            java.io.FileWriter writer = new java.io.FileWriter(path);
             writer.write(texSource);
             writer.close();
         }

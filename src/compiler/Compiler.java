@@ -1,10 +1,9 @@
 package compiler;
 
 import parser.ParseTree;
-import util.LatexWriter;
+import util.OutputFileWriter;
 
 import java.util.ArrayList;
-import java.util.StringTokenizer;
 
 /**
  * Compilation step main class. This will first build the {@link AST} from the {@link ASTBuilder} static methods, then
@@ -13,8 +12,10 @@ import java.util.StringTokenizer;
 public class Compiler {
 
     private AST astTree = null;
+    private String compiledCode = null;
 
-    boolean built = false;
+    private boolean built = false;
+    private boolean compiled = false;
 
     /**
      * Builds the abstract syntax of the compiler (necessary before calling the {@link #saveTree(String)}
@@ -34,8 +35,9 @@ public class Compiler {
             throw new RuntimeException("Cannot compile before building the AST. Please call the build method before");
         }
         else{
-            String file = this.astTree.getHead().toLLVM(new CompilerTable(), "patate");
-            System.out.println(reOrder(file));
+            this.compiledCode = this.astTree.getHead().toLLVM(new CompilerTable(), "patate");
+            this.compiledCode = reOrder(this.compiledCode);
+            this.compiled = true;
         }
         return null;
     }
@@ -51,7 +53,7 @@ public class Compiler {
         boolean main = false; //boolean indicating if we are in the main function
         for (String ch : splited) {
             String[] espaced = ch.split(" "); //split the line in spaced tokens
-            Boolean newline = true; //boolean indicating if the newline has been reached
+            boolean newline = true; //boolean indicating if the newline has been reached
             for(String sp : espaced){
                 if(sp.equals("@main()")){ main = true; }
                 if(main && sp.length()>1){
@@ -95,7 +97,16 @@ public class Compiler {
         if (!built) {
             throw new RuntimeException("Cannot save the AST before building it. Please call the build method before.");
         }
-        LatexWriter latexWriter = new LatexWriter(path);
-        latexWriter.write(astTree.toLaTeX());
+        OutputFileWriter outputFileWriter = new OutputFileWriter(path);
+        outputFileWriter.write(astTree.toLaTeX());
+    }
+
+    public void saveOutput(String path) {
+        if (!compiled) {
+            throw new RuntimeException("Cannot save the output LLVM code before compiling it. Please call the compile" +
+                    "method before.");
+        }
+        OutputFileWriter outputFileWriter = new OutputFileWriter(path);
+        outputFileWriter.write(this.compiledCode);
     }
 }

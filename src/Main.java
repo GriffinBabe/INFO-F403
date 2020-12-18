@@ -3,6 +3,7 @@ import parser.Parser;
 import parser.SyntaxException;
 import scanner.Scanner;
 import util.CommandLineParser;
+import util.OutputFileWriter;
 
 /**
  * Main class. Will start by parsing the command line arguments with {@link CommandLineParser},
@@ -13,10 +14,10 @@ import util.CommandLineParser;
  * a much more verbose and detailed output.
  *
  * If option "-wt [output.tex]" is specified, the {@link parser.ParseTree} built by the {@link Parser} will
- * be saved in a LaTeX format to the specified output file with the {@link util.LatexWriter} class.
+ * be saved in a LaTeX format to the specified output file with the {@link OutputFileWriter} class.
  *
  * If option "-wast [output.tex]" is specified, the {@link compiler.AST} built by the {@link compiler.ASTBuilder} will
- * be saved in a LaTeX format to the specified output file with the {@link util.LatexWriter} class.
+ * be saved in a LaTeX format to the specified output file with the {@link OutputFileWriter} class.
  *
  */
 class Main {
@@ -49,6 +50,7 @@ class Main {
 		Compiler compiler = new Compiler();
 		compiler.build(parser.getTree());
 		compiler.compile();
+		compiler.saveOutput(clp.getOutputPath());
 
 		if (clp.getAstLatexOutput() != null) {
 			compiler.saveTree(clp.getAstLatexOutput());
