@@ -4,6 +4,8 @@ import parser.ParseTree;
 import util.OutputFileWriter;
 
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Compilation step main class. This will first build the {@link AST} from the {@link ASTBuilder} static methods, then
@@ -42,10 +44,6 @@ public class Compiler {
         return null;
     }
 
-    /**
-     * @param output : initial llvm output
-     * @return the output with reordered registers
-     */
     public String reOrder(String output){
         StringBuilder sb = new StringBuilder(); //store the new output
         ArrayList<String> registersOccurrence = new ArrayList<>(); //store the registers occurrences

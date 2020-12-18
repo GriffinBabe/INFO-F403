@@ -20,7 +20,7 @@ public class IfSymbol extends InstructionSymbol {
     @Override
     public String toLLVM(CompilerTable table, String... returnRegisters) {
         StringBuilder sb = new StringBuilder();
-        String compareReturn = table.nextLabel();
+        String compareReturn = table.nextRegister();
         sb.append(compare.toLLVM(table, compareReturn));
 
         String verifiedLabel = table.nextLabel();
@@ -29,7 +29,7 @@ public class IfSymbol extends InstructionSymbol {
         sb.append("br i1 ").append(compareReturn).append(", label %").append(verifiedLabel).append(", label %")
                 .append(unverifiedLabel).append("\n");
 
-        sb.append(blocks.toLLVM(table, returnRegisters));
+        sb.append(blocks.toLLVM(table, verifiedLabel, unverifiedLabel));
         return sb.toString();
     }
 

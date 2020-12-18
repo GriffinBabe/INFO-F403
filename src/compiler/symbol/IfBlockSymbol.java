@@ -42,7 +42,7 @@ public class IfBlockSymbol extends CompilerSymbol {
     public String toLLVM(CompilerTable table, String... returnRegisters) {
         // doneBody is the body after the verified and unverified bodies.
         String verifiedLabel, unverifiedLabel, doneBody;
-        if (returnRegisters.length > 2) {
+        if (returnRegisters.length >= 2) {
             verifiedLabel = returnRegisters[0];
             unverifiedLabel = returnRegisters[1];
         }
@@ -60,8 +60,10 @@ public class IfBlockSymbol extends CompilerSymbol {
         sb.append("br label %").append(doneBody).append("\n");
 
         // unverified body
-        sb.append(unverifiedLabel).append(":\n");
-        sb.append(unverifiedBody.toLLVM(table));
+        if (unverifiedBody != null) {
+            sb.append(unverifiedLabel).append(":\n");
+            sb.append(unverifiedBody.toLLVM(table));
+        }
 
         // finished body
         sb.append(doneBody).append(":\n");

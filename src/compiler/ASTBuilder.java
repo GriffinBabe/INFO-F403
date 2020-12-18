@@ -157,9 +157,7 @@ public class ASTBuilder {
                 // left is an arithmetic operator
                 return left;
             case V_C:
-                if (right == null){
-                    return left;
-                }if(left.getHead() instanceof MinusSymbol) {
+                if(left.getHead() instanceof MinusSymbol) {
                     tree.removeChild(0);
                     // there is an unary minus
                     // the minus sybmol on the left sub tree is discarded
