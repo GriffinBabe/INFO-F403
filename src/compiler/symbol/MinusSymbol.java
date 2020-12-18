@@ -4,6 +4,7 @@ import compiler.CompilerTable;
 
 public class MinusSymbol extends OperatorSymbol {
 
+    @SuppressWarnings("DuplicatedCode")
     @Override
     public String toLLVM(CompilerTable table, String... returnRegisters) {
         StringBuilder sb = new StringBuilder();

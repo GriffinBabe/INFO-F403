@@ -22,7 +22,7 @@ public class AssignSymbol extends InstructionSymbol {
         String varName = this.variable.getVariableName();
         if (!table.isAllocated(varName)) {
             table.setAllocated(varName);
-            sb.append("%").append(varName).append(" = alloca i32\n");
+            sb.append("%").append(varName).append(" = alloca i32, align 4\n");
         }
         if(this.expression instanceof NumberSymbol){
             sb.append("store i32 ").append(((NumberSymbol) this.expression).getValue().toString()).append(" , i32* ").append("%").append(varName).append("\n");

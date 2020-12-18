@@ -147,6 +147,7 @@ public class ASTBuilder {
                 else {
                     // in that case there is another sub operation
                     thirdExpression = (ExpressionSymbol) third.getHead();
+                    ((OperatorSymbol) thirdExpression).setLeft(rightExpression);
                     leftOperator.setRight(thirdExpression);
                     leftOperator.setLeft(rightExpression);
                     left.addChild(third);

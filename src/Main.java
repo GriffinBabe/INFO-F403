@@ -19,6 +19,9 @@ import util.OutputFileWriter;
  * If option "-wast [output.tex]" is specified, the {@link compiler.AST} built by the {@link compiler.ASTBuilder} will
  * be saved in a LaTeX format to the specified output file with the {@link OutputFileWriter} class.
  *
+ * The program will always output the compiled source file. The path must be specified after the input file in the
+ * command line arguments.
+ *
  */
 class Main {
 
@@ -49,12 +52,13 @@ class Main {
 
 		Compiler compiler = new Compiler();
 		compiler.build(parser.getTree());
-		compiler.compile();
-		compiler.saveOutput(clp.getOutputPath());
-
 		if (clp.getAstLatexOutput() != null) {
 			compiler.saveTree(clp.getAstLatexOutput());
 		}
+
+		compiler.compile();
+		compiler.saveOutput(clp.getOutputPath());
+
 	}
 
 }

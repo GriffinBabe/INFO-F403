@@ -21,6 +21,7 @@ public class ProgramSymbol extends CompilerSymbol {
             "  %3 = call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([4 x i8], [4 x i8]* @.strP, i32 0, i32 0), i32 %2)\n" +
             "  ret void\n" +
             "}\n" +
+            "declare i32 @printf(i8*, ...) #1\n" +
             "declare i32 @getchar()\n" +
             "\n" +
             "define i32 @readInt() {\n" +
