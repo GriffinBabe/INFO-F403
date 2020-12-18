@@ -1,6 +1,7 @@
 package compiler.symbol;
 
 import compiler.CompilerTable;
+import compiler.TempVariable;
 
 /**
  * Symbol that holds a variable. While there are multiple operations that can be performed on a variable, the toLLVM()
@@ -16,7 +17,7 @@ public class VariableSymbol extends ExpressionSymbol {
     }
 
     @Override
-    public String toLLVM(CompilerTable table, String... returnRegisters) {
+    public String toLLVM(CompilerTable table, TempVariable... returnRegisters) {
         StringBuilder sb = new StringBuilder();
         //if the variable has already been initialized, load it into the given register
         if (table.isAllocated(this.variableName)) {

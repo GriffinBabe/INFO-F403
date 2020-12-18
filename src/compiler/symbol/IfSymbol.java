@@ -1,6 +1,7 @@
 package compiler.symbol;
 
 import compiler.CompilerTable;
+import compiler.TempVariable;
 
 /**
  * IfSymbol makes the comparison of two variables and then calls the appropriate code block.
@@ -18,18 +19,19 @@ public class IfSymbol extends InstructionSymbol {
     private CompareSymbol compare;
 
     @Override
-    public String toLLVM(CompilerTable table, String... returnRegisters) {
+    public String toLLVM(CompilerTable table, TempVariable... returnRegisters) {
         StringBuilder sb = new StringBuilder();
-        String compareReturn = table.nextRegister();
+        TempVariable compareReturn = table.nextRegister();
         sb.append(compare.toLLVM(table, compareReturn));
 
-        String verifiedLabel = table.nextLabel();
-        String unverifiedLabel = table.nextLabel();
+        TempVariable verifiedLabel = table.nextLabel();
+        TempVariable unverifiedLabel = table.nextLabel();
 
         sb.append("br i1 ").append(compareReturn).append(", label %").append(verifiedLabel).append(", label %")
-                .append(unverifiedLabel).append("\n");
+                    .append(unverifiedLabel).append("\n");
 
         sb.append(blocks.toLLVM(table, verifiedLabel, unverifiedLabel));
+
         return sb.toString();
     }
 

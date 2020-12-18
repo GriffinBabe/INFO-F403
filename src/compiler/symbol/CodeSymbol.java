@@ -1,6 +1,7 @@
 package compiler.symbol;
 
 import compiler.CompilerTable;
+import compiler.TempVariable;
 
 /**
  * Chain of compiler instructions units.
@@ -37,7 +38,7 @@ public class CodeSymbol extends CompilerSymbol {
     }
 
     @Override
-    public String toLLVM(CompilerTable table, String... returnRegisters) {
+    public String toLLVM(CompilerTable table, TempVariable... returnRegisters) {
         StringBuilder sb = new StringBuilder();
         sb.append(instruction.toLLVM(table, returnRegisters));
         if (nextCode != null) {

@@ -1,6 +1,7 @@
 package compiler.symbol;
 
 import compiler.CompilerTable;
+import compiler.TempVariable;
 
 /**
  * IfBlockSymbol holds a reference for the verified block of code and the unverified block of code of a IF instruction.
@@ -34,14 +35,14 @@ public class IfBlockSymbol extends CompilerSymbol {
     }
 
     /**
-     * See {@link CompilerSymbol#toLLVM(CompilerTable, String...)}.
+     * See {@link CompilerSymbol#toLLVM(CompilerTable, TempVariable...)}.
      * @param returnRegisters is expected to have the name of the label for the verified code and the name of the label
      *                        for the unverified code.
      */
     @Override
-    public String toLLVM(CompilerTable table, String... returnRegisters) {
+    public String toLLVM(CompilerTable table, TempVariable... returnRegisters) {
         // doneBody is the body after the verified and unverified bodies.
-        String verifiedLabel, unverifiedLabel, doneBody;
+        TempVariable verifiedLabel, unverifiedLabel, doneBody;
         if (returnRegisters.length >= 2) {
             verifiedLabel = returnRegisters[0];
             unverifiedLabel = returnRegisters[1];
@@ -60,14 +61,21 @@ public class IfBlockSymbol extends CompilerSymbol {
         sb.append("br label %").append(doneBody).append("\n");
 
         // unverified body
+        sb.append(unverifiedLabel).append(":\n");
         if (unverifiedBody != null) {
-            sb.append(unverifiedLabel).append(":\n");
             sb.append(unverifiedBody.toLLVM(table));
+        }
+        else {
+            sb.append("br label %").append(doneBody).append("\n");
         }
 
         // finished body
         sb.append(doneBody).append(":\n");
         return sb.toString();
+    }
+
+    public CodeSymbol getUnverifiedBody() {
+        return unverifiedBody;
     }
 
     @Override

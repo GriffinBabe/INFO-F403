@@ -13,3 +13,6 @@ INFO-F403.iml
 *.pdf
 *.aux
 *.log
+*.ll
+*.bc
+

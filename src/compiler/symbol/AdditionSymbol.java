@@ -1,23 +1,24 @@
 package compiler.symbol;
 
 import compiler.CompilerTable;
+import compiler.TempVariable;
 
 public class AdditionSymbol extends OperatorSymbol {
 
     @SuppressWarnings("DuplicatedCode")
     @Override
-    public String toLLVM(CompilerTable table, String... returnRegisters) {
+    public String toLLVM(CompilerTable table, TempVariable... returnRegisters) {
         StringBuilder sb = new StringBuilder();
-        String elem1; String elem2;
+        TempVariable elem1; TempVariable elem2;
         if(left instanceof NumberSymbol){
-            elem1 = ((NumberSymbol) left).getValue().toString();
+            elem1 = new TempVariable(((NumberSymbol) left).getValue());
         }
         else{
             elem1 = table.nextRegister();
             sb.append(left.toLLVM(table,elem1));
         }
         if(right instanceof NumberSymbol){
-            elem2 = ((NumberSymbol) right).getValue().toString();
+            elem2 = new TempVariable(((NumberSymbol) right).getValue());
         }
         else{
             elem2 = table.nextRegister();

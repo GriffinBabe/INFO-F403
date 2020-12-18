@@ -1,6 +1,7 @@
 package compiler.symbol;
 
 import compiler.CompilerTable;
+import compiler.TempVariable;
 
 /**
  * Root compiler unit symbol, defines the base functions used for the READ() and PRINT() and sets the main function.
@@ -67,7 +68,7 @@ public class ProgramSymbol extends CompilerSymbol {
     CodeSymbol code;
 
     @Override
-    public String toLLVM(CompilerTable table, String... returnRegisters) {
+    public String toLLVM(CompilerTable table, TempVariable... returnRegisters) {
         StringBuilder sb = new StringBuilder();
         sb.append(HARDCODED_PREFIX);
         sb.append(code.toLLVM(table, returnRegisters));

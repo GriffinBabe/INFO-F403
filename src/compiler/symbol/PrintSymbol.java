@@ -1,6 +1,7 @@
 package compiler.symbol;
 
 import compiler.CompilerTable;
+import compiler.TempVariable;
 
 /**
  * Prints in the standard output stream a variable.
@@ -20,9 +21,9 @@ public class PrintSymbol extends InstructionSymbol {
     }
 
     @Override
-    public String toLLVM(CompilerTable table, String... returnRegisters) {
+    public String toLLVM(CompilerTable table, TempVariable... returnRegisters) {
         StringBuilder sb = new StringBuilder();
-        String loadedVariable = table.nextRegister();
+        TempVariable loadedVariable = table.nextRegister();
 
         // 1. load the variable in the VariableSymbol#toLLVM(...)
         sb.append(toPrint.toLLVM(table, loadedVariable));

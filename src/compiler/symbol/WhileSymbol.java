@@ -1,6 +1,7 @@
 package compiler.symbol;
 
 import compiler.CompilerTable;
+import compiler.TempVariable;
 
 /**
  * While symbol. Holds a reference to the verified body, called when the condition is verified, and a reference to the
@@ -19,15 +20,16 @@ public class WhileSymbol extends InstructionSymbol {
     CompareSymbol compareSymbol;
 
     @Override
-    public String toLLVM(CompilerTable table, String... returnRegisters) {
+    public String toLLVM(CompilerTable table, TempVariable... returnRegisters) {
         StringBuilder sb = new StringBuilder();
-        String compareLabel = table.nextLabel();
-        String bodyLabel = table.nextLabel();
-        String endLabel = table.nextLabel();
+        TempVariable compareLabel = table.nextLabel();
+        TempVariable bodyLabel = table.nextLabel();
+        TempVariable endLabel = table.nextLabel();
 
-        String compareReturn = table.nextRegister();
+        TempVariable compareReturn = table.nextRegister();
 
         // 1. Creates a new label and performs a comparison
+        sb.append("br label %").append(compareLabel).append("\n");
         sb.append(compareLabel).append(":\n");
         sb.append(compareSymbol.toLLVM(table, compareReturn));
         // 2. jumps on the body symbol if the comparison is ok, jumps on the endlabel if not ok

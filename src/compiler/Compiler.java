@@ -37,8 +37,8 @@ public class Compiler {
             throw new RuntimeException("Cannot compile before building the AST. Please call the build method before");
         }
         else{
-            this.compiledCode = this.astTree.getHead().toLLVM(new CompilerTable(), "patate");
-            this.compiledCode = reOrder(this.compiledCode);
+            this.compiledCode = this.astTree.getHead().toLLVM(new CompilerTable());
+            // this.compiledCode = reOrder(this.compiledCode);
             this.compiled = true;
         }
         return null;

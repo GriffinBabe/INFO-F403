@@ -1,13 +1,21 @@
 package compiler;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Manages the names and labels assignation in the final LLVM source code.
  * Temporary register variables must be unique, such as labels for the while and if assignments.
  */
 public class CompilerTable {
+
+    /**
+     * Maps the link between the registered count and printed count.
+     */
+    private Map<Integer, Integer> usageIds = new HashMap<>();
+    private int usageCount = 0;
 
     /**
      * The number of temporary registers variables already assigned in the LLVM source code.
@@ -27,19 +35,19 @@ public class CompilerTable {
     /**
      * @return the next valid register name
      */
-    public String nextRegister() {
-        String s = "%" + registerCount;
+    public TempVariable nextRegister() {
+        TempVariable variable = new TempVariable(this, registerCount);
         registerCount++;
-        return s;
+        return variable;
     }
 
     /**
      * @return the next valid label name
      */
-    public String nextLabel() {
-        String s = "label" + labelCount;
+    public TempVariable nextLabel() {
+        TempVariable variable = new TempVariable("label" + labelCount);
         labelCount++;
-        return s;
+        return variable;
     }
 
     /**
@@ -60,5 +68,17 @@ public class CompilerTable {
             System.out.println("Warning: variable "+varname+" is already allocated.");
         }
         variables.add(varname);
+    }
+
+    public int getUsageId(int creationId) {
+        Integer value = creationId;
+        if (!usageIds.containsKey(value)) {
+            usageIds.put(value, usageCount);
+            usageCount++;
+            return usageCount - 1;
+        }
+        else {
+            return usageIds.get(value);
+        }
     }
 }

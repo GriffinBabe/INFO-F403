@@ -1,6 +1,7 @@
 package compiler.symbol;
 
 import compiler.CompilerTable;
+import compiler.TempVariable;
 
 /**
  * Reads a number in the standard input stream and assigns it to a new or existing variable.
@@ -21,9 +22,9 @@ public class ReadSymbol extends InstructionSymbol {
     }
 
     @Override
-    public String toLLVM(CompilerTable table, String... returnRegisters) {
+    public String toLLVM(CompilerTable table, TempVariable... returnRegisters) {
         StringBuilder sb = new StringBuilder();
-        String tempVar = table.nextRegister();
+        TempVariable tempVar = table.nextRegister();
         String variableName = toRead.getVariableName();
 
         // reads a number from the standard input stream and stores it in a temporary variable

@@ -1,6 +1,7 @@
 package compiler.symbol;
 
 import compiler.CompilerTable;
+import compiler.TempVariable;
 
 public class AssignSymbol extends InstructionSymbol {
 
@@ -17,7 +18,7 @@ public class AssignSymbol extends InstructionSymbol {
     }
 
     @Override
-    public String toLLVM(CompilerTable table, String... returnRegisters) {
+    public String toLLVM(CompilerTable table, TempVariable... returnRegisters) {
         StringBuilder sb = new StringBuilder();
         String varName = this.variable.getVariableName();
         if (!table.isAllocated(varName)) {
@@ -28,7 +29,7 @@ public class AssignSymbol extends InstructionSymbol {
             sb.append("store i32 ").append(((NumberSymbol) this.expression).getValue().toString()).append(" , i32* ").append("%").append(varName).append("\n");
         }
         else {
-            String arithRegister = table.nextRegister(); //register storing the arithmetic value
+            TempVariable arithRegister = table.nextRegister(); //register storing the arithmetic value
             sb.append(this.expression.toLLVM(table, arithRegister)); //arithmetic expression
             sb.append("store i32 ").append(arithRegister).append(" , i32* ").append("%").append(varName).append("\n");
             // assign the arithmetic value to the variable memory space
