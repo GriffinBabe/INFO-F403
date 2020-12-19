@@ -3,8 +3,17 @@ package compiler.symbol;
 import compiler.CompilerTable;
 import compiler.TempVariable;
 
+/**
+ * Performs a multiplication between two {@link ExpressionSymbol} and saves the result in the specified {@link TempVariable}.
+ */
 public class MultiplicationSymbol extends OperatorSymbol {
 
+    /**
+     * See {@link CompilerSymbol#toLLVM(CompilerTable, TempVariable...)}.
+     * @param table, reference to the {@link CompilerTable}.
+     * @param returnRegisters, the list of registers to use (in that case in which register to save the multiplication result)
+     * @return the compiled code.
+     */
     @Override
     public String toLLVM(CompilerTable table, TempVariable... returnRegisters) {
         StringBuilder sb = new StringBuilder();

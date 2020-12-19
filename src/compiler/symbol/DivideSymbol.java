@@ -3,8 +3,17 @@ package compiler.symbol;
 import compiler.CompilerTable;
 import compiler.TempVariable;
 
+/**
+ * Performs a division between two {@link ExpressionSymbol} and saves the result in the specified {@link TempVariable}.
+ */
 public class DivideSymbol extends OperatorSymbol {
 
+    /**
+     * See {@link CompilerSymbol#toLLVM(CompilerTable, TempVariable...)}.
+     * @param table, reference to the {@link CompilerTable}.
+     * @param returnRegisters, the list of registers to use (in that case in which register to save the division result)
+     * @return the compiled code.
+     */
     @SuppressWarnings("DuplicatedCode")
     @Override
     public String toLLVM(CompilerTable table, TempVariable... returnRegisters) {

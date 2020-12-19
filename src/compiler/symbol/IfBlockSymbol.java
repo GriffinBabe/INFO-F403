@@ -36,8 +36,9 @@ public class IfBlockSymbol extends CompilerSymbol {
 
     /**
      * See {@link CompilerSymbol#toLLVM(CompilerTable, TempVariable...)}.
-     * @param returnRegisters is expected to have the name of the label for the verified code and the name of the label
-     *                        for the unverified code.
+     * @param table, reference to the {@link CompilerTable}
+     * @param returnRegisters, the list of registers to use (in that case in the name of the code blocks labels)
+     * @return the compiled code.
      */
     @Override
     public String toLLVM(CompilerTable table, TempVariable... returnRegisters) {

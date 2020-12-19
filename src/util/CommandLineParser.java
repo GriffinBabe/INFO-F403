@@ -3,7 +3,7 @@ package util;
 /**
  * Little and unorthodox (we should have prepared a grammar for that too :) ) command line parser.
  *
- * Will check in the command line parser for the "-v" (verbose), "-wt output.tex" and "-wast output.tex".
+ * Will check in the command line parser for the "-v" (verbose), "-exec", "-wt output.tex" and "-wast output.tex".
  * (LaTeX {@link parser.ParseTree} output), gather the Fortran-S source file and gather the compiler LLVM output file.
  *
  * At least the Fortran-S source file must be specified.
@@ -82,10 +82,16 @@ public class CommandLineParser {
         return inputSource;
     }
 
+    /**
+     * @return if specified, returns the path where to write the LLVM code to a file, else returns null.
+     */
     public String getOutputPath() {
         return outputPath;
     }
 
+    /**
+     * @return true if the program must be executed internally.
+     */
     public boolean isExecute() {
         return execute;
     }

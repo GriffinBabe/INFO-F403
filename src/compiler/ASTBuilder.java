@@ -12,8 +12,8 @@ import parser.Variable;
 public class ASTBuilder {
 
     /**
-     * Recursive function that will build the tree by first building the child sub trees and then by setting and
-     * configuring the head symbol.
+     * Recursive function that will first built the sub trees and then accordingly build the head. This method performs
+     * a parallel bottom-top run of the built {@link AST} tree and the related {@link ParseTree}.
      * @param tree, the sub tree that is currently being build.
      * @return the completed sub tree.
      */
@@ -36,9 +36,11 @@ public class ASTBuilder {
 
     /**
      * Builds the head by following hardcoded rules and returns the tree.
+     * This will perform modifications in the {@link AST} depending of the {@link ParseTree} head value
+     * ({@link Variable.Type}).
      * @param parseTree the corresponding parse tree.
      * @param tree the build AST.
-     * @return
+     * @return the built AST, the sub-AST if this is skipped, or null if this is an ignored terminal.
      */
     private static AST buildHead(ParseTree parseTree, AST tree) {
         CompilerSymbol compilerSymbol;

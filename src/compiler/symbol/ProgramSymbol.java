@@ -67,6 +67,12 @@ public class ProgramSymbol extends CompilerSymbol {
      */
     CodeSymbol code;
 
+    /**
+     * See {@link CompilerSymbol#toLLVM(CompilerTable, TempVariable...)}.
+     * @param table, reference to the {@link CompilerTable}.
+     * @param returnRegisters, the list of registers to use.
+     * @return the compiled code.
+     */
     @Override
     public String toLLVM(CompilerTable table, TempVariable... returnRegisters) {
         StringBuilder sb = new StringBuilder();
@@ -81,6 +87,10 @@ public class ProgramSymbol extends CompilerSymbol {
         return "<Program>";
     }
 
+    /**
+     * Sets the root {@link CodeSymbol} to use.
+     * @param code a {@link CodeSymbol}.
+     */
     public void setCode(CodeSymbol code){
         this.code = code;
     }

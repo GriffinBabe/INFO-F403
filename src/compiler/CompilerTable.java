@@ -12,13 +12,20 @@ import java.util.Map;
 public class CompilerTable {
 
     /**
-     * Maps the link between the registered count and printed count.
+     * Maps the link between the variables ID created during the compilation and the corresponding outputted order.
+     * This map is used in the {@link #getUsageId(int)} method.
      */
     private Map<Integer, Integer> usageIds = new HashMap<>();
+
+    /**
+     * Register output order.
+     * Used in the {@link #getUsageId(int)} method.
+     */
     private int usageCount = 0;
 
     /**
      * The number of temporary registers variables already assigned in the LLVM source code.
+     * Used in the {@link #getUsageId(int)} method.
      */
     private int registerCount = 0;
 
@@ -28,12 +35,12 @@ public class CompilerTable {
     private int labelCount = 0;
 
     /**
-     * List of variables name allocated in the memory.
+     * List of variables name already allocated in the memory.
      */
     List<String> variables = new ArrayList<>();
 
     /**
-     * @return the next valid register name
+     * @return a register with a new creation id.
      */
     public TempVariable nextRegister() {
         TempVariable variable = new TempVariable(this, registerCount);
@@ -53,6 +60,7 @@ public class CompilerTable {
     /**
      * Checks if variable is already created in the memory.
      * @param varname, the variable name to check.
+     * @return true if already exists, false otherwise.
      */
     public boolean isAllocated(String varname) {
         return variables.stream().anyMatch(var -> var.equals(varname));
@@ -70,6 +78,11 @@ public class CompilerTable {
         variables.add(varname);
     }
 
+    /**
+     * Returns the corresponding output order number. Used in the {@link TempVariable} objects.
+     * @param creationId the unique ID of the {@link TempVariable} creation.
+     * @return the corresponding output order number.
+     */
     public int getUsageId(int creationId) {
         Integer value = creationId;
         if (!usageIds.containsKey(value)) {

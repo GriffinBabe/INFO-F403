@@ -11,7 +11,8 @@ public class EqualSymbol extends CompareSymbol {
 
     /**
      * See {@link CompilerSymbol#toLLVM(CompilerTable, TempVariable...)}.
-     * @param returnRegisters is expected to be the name of the return value.
+     * @param returnRegisters the list of registers to use (expected to hold the {@link TempVariable} used as return)
+     * @param table, reference to the {@link CompilerTable}.
      */
     @SuppressWarnings("DuplicatedCode")
     @Override

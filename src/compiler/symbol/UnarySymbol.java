@@ -3,10 +3,22 @@ package compiler.symbol;
 import compiler.CompilerTable;
 import compiler.TempVariable;
 
+/**
+ * Unary symbol, will load a {@link ExpressionSymbol} value and multiply it by -1.
+ */
 public class UnarySymbol extends ExpressionSymbol {
 
+    /**
+     * The expression to inverse.
+     */
     protected ExpressionSymbol left;
 
+    /**
+     * See {@link CompilerSymbol#toLLVM(CompilerTable, TempVariable...)}.
+     * @param table, reference to the {@link CompilerTable}.
+     * @param returnRegisters, the list of registers to use (in that case in which register to save the multiplication result)
+     * @return the compiled code.
+     */
     @Override
     public String toLLVM(CompilerTable table, TempVariable... returnRegisters) {
         StringBuilder sb = new StringBuilder();
@@ -29,6 +41,10 @@ public class UnarySymbol extends ExpressionSymbol {
         return "<Unary>";
     }
 
+    /**
+     * Sets the {@link #left} expression to set.
+     * @param left a {@link ExpressionSymbol}.
+     */
     public void setLeft(ExpressionSymbol left) {
         this.left = left;
     }

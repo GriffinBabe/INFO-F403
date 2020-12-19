@@ -18,6 +18,12 @@ public class IfSymbol extends InstructionSymbol {
      */
     private CompareSymbol compare;
 
+    /**
+     * See {@link CompilerSymbol#toLLVM(CompilerTable, TempVariable...)}.
+     * @param table, reference to the {@link CompilerTable}.
+     * @param returnRegisters, the list of registers to use.
+     * @return the compiled code.
+     */
     @Override
     public String toLLVM(CompilerTable table, TempVariable... returnRegisters) {
         StringBuilder sb = new StringBuilder();
@@ -41,10 +47,18 @@ public class IfSymbol extends InstructionSymbol {
     }
 
 
+    /**
+     * Sets the comparison.
+     * @param compare a {@link CompareSymbol}.
+     */
     public void setCompare(CompareSymbol compare) {
         this.compare = compare;
     }
 
+    /**
+     * Sets the {@link IfBlockSymbol}, containing the code blocks to execute upon verification or non-verification.
+     * @param blocks a {@link IfBlockSymbol}.
+     */
     public void setBlocks(IfBlockSymbol blocks) {
         this.blocks = blocks;
     }

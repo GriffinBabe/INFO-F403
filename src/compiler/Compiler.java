@@ -5,20 +5,38 @@ import util.OutputFileWriter;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 
 /**
  * Compilation step main class. This will first build the {@link AST} from the {@link ASTBuilder} static methods, then
  * create the LLVM source code from compiler symbols methods.
+ *
+ * This class can also write the source code to a file or execute the code in a subprocess.
  */
 public class Compiler {
 
+    /**
+     * Reference to the root {@link AST}.
+     */
     private AST astTree = null;
+
+    /**
+     * LLVM compiled code.
+     */
     private String compiledCode = null;
 
+    /**
+     * Set to true when the AST tree has been built. This is required for the compilation step.
+     */
     private boolean built = false;
+
+    /**
+     * Set to true when the LLVM code has been compiled. This is requires for the execution step.
+     */
     private boolean compiled = false;
 
+    /**
+     * Temporary variable, where the LLVM code will be put before being internally executed.
+     */
     private static String TEMP_PATH = "as_code.temp";
 
     /**
@@ -55,6 +73,10 @@ public class Compiler {
         outputFileWriter.write(astTree.toLaTeX());
     }
 
+    /**
+     * Saves the compiled LLVM code into the specified file.
+     * @param path the path where to write the file.
+     */
     public void saveOutput(String path) {
         if (!compiled) {
             throw new RuntimeException("Cannot save the output LLVM code before compiling it. Please call the compile" +
@@ -64,6 +86,13 @@ public class Compiler {
         outputFileWriter.write(this.compiledCode);
     }
 
+    /**
+     * Executes the compiled LLVM code into a subprocess with the lli program. lli is required to be installed
+     * in the system.
+     * @return the program return status value.
+     * @throws IOException if there is a problem with the temporary file.
+     * @throws InterruptedException if there is an interruption into the subprocess.
+     */
     public int execute() throws IOException, InterruptedException {
         if (!compiled) {
             throw new RuntimeException("Cannot execute the LLVM code before compiling it. Please call the compile" +

@@ -9,7 +9,7 @@ import java.util.Collections;
 /**
  * Tree data structure that contains {@link CompilerSymbol} nodes, necessary for the program compilation.
  * The {@link AST} is built in the  {@link ASTBuilder} class, by parsing the {@link ParseTree} in
- * a recursive method.
+ * a recursive bottom to top method.
  */
 public class AST {
 

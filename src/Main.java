@@ -21,8 +21,10 @@ import java.io.IOException;
  * If option "-wast [output.tex]" is specified, the {@link compiler.AST} built by the {@link compiler.ASTBuilder} will
  * be saved in a LaTeX format to the specified output file with the {@link OutputFileWriter} class.
  *
- * The program will always output the compiled source file. The path must be specified after the input file in the
- * command line arguments.
+ * If option "-exec" is specified, the program will execute the compiled LLVM code using a subprocess. (lli program
+ * must be installed in the system).
+ *
+ * By default, the program will output the compiled LLVM code in the standard output stream.
  *
  */
 class Main {

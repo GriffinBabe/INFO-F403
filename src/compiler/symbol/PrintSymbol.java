@@ -20,6 +20,12 @@ public class PrintSymbol extends InstructionSymbol {
         this.toPrint = toPrint;
     }
 
+    /**
+     * See {@link CompilerSymbol#toLLVM(CompilerTable, TempVariable...)}.
+     * @param table, reference to the {@link CompilerTable}.
+     * @param returnRegisters, the list of registers to use.
+     * @return the compiled code.
+     */
     @Override
     public String toLLVM(CompilerTable table, TempVariable... returnRegisters) {
         StringBuilder sb = new StringBuilder();

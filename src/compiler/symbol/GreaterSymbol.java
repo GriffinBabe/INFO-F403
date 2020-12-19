@@ -3,8 +3,17 @@ package compiler.symbol;
 import compiler.CompilerTable;
 import compiler.TempVariable;
 
+/**
+ * Performs a comparison between two {@link ExpressionSymbol} and returns the value into a specified {@link TempVariable}.
+ */
 public class GreaterSymbol extends CompareSymbol {
 
+    /**
+     * See {@link CompilerSymbol#toLLVM(CompilerTable, TempVariable...)}.
+     * @param table, reference to the {@link CompilerTable}.
+     * @param returnRegisters, the list of registers to use (in that case in which register to save the comparison result)
+     * @return the compiled code.
+     */
     @SuppressWarnings("DuplicatedCode")
     @Override
     public String toLLVM(CompilerTable table, TempVariable... returnRegisters) {

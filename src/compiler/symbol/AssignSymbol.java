@@ -3,6 +3,10 @@ package compiler.symbol;
 import compiler.CompilerTable;
 import compiler.TempVariable;
 
+/**
+ * Will assign the value of a temporary register to a memory variable. If the variable hasn't been initialized yet,
+ * allocates it in the memory.
+ */
 public class AssignSymbol extends InstructionSymbol {
 
     private VariableSymbol variable = null;
@@ -17,6 +21,12 @@ public class AssignSymbol extends InstructionSymbol {
         this.expression = expression;
     }
 
+    /**
+     * See {@link CompilerSymbol#toLLVM(CompilerTable, TempVariable...)}.
+     * @param table, tracks the used temporary variables (registers) and allocated variables.
+     * @param returnRegisters, the list of registers to use (not used in that case).
+     * @return the compiled code.
+     */
     @Override
     public String toLLVM(CompilerTable table, TempVariable... returnRegisters) {
         StringBuilder sb = new StringBuilder();

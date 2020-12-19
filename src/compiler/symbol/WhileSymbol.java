@@ -15,10 +15,16 @@ public class WhileSymbol extends InstructionSymbol {
     CodeSymbol verifiedBody;
 
     /**
-     * Comparison sybmol compile unit.
+     * Comparison symbol compile unit.
      */
     CompareSymbol compare;
 
+    /**
+     * See {@link CompilerSymbol#toLLVM(CompilerTable, TempVariable...)}.
+     * @param table, reference to the {@link CompilerTable}.
+     * @param returnRegisters, the list of registers to use (in that case in which register to save the multiplication result)
+     * @return the compiled code.
+     */
     @Override
     public String toLLVM(CompilerTable table, TempVariable... returnRegisters) {
         StringBuilder sb = new StringBuilder();
@@ -54,10 +60,16 @@ public class WhileSymbol extends InstructionSymbol {
         return "<While>";
     }
 
+    /**
+     * Sets the while body root {@link CodeSymbol}.
+     */
     public void setVerifiedBody(CodeSymbol verifiedBody) {
         this.verifiedBody = verifiedBody;
     }
 
+    /**
+     * Sets the comparison operator.
+     */
     public void setCompare(CompareSymbol compare) {
         this.compare = compare;
     }
