@@ -3,6 +3,10 @@ package compiler;
 import parser.ParseTree;
 import util.OutputFileWriter;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+
 /**
  * Compilation step main class. This will first build the {@link AST} from the {@link ASTBuilder} static methods, then
  * create the LLVM source code from compiler symbols methods.
@@ -14,6 +18,8 @@ public class Compiler {
 
     private boolean built = false;
     private boolean compiled = false;
+
+    private static String TEMP_PATH = "as_code.temp";
 
     /**
      * Builds the abstract syntax of the compiler (necessary before calling the {@link #saveTree(String)}
@@ -56,5 +62,23 @@ public class Compiler {
         }
         OutputFileWriter outputFileWriter = new OutputFileWriter(path);
         outputFileWriter.write(this.compiledCode);
+    }
+
+    public int execute() throws IOException, InterruptedException {
+        if (!compiled) {
+            throw new RuntimeException("Cannot execute the LLVM code before compiling it. Please call the compile" +
+                    "method before.");
+        }
+        this.saveOutput(TEMP_PATH);
+        ProcessBuilder processBuilder = new ProcessBuilder().inheritIO()
+                .command("lli", TEMP_PATH).redirectErrorStream(true);
+        Process process = processBuilder.start();
+        process.waitFor();
+        File file = new File(TEMP_PATH);
+        boolean deleted = file.delete();
+        if (!deleted) {
+            throw new IOException("Couldn't delete temporary file: "+TEMP_PATH);
+        }
+        return process.exitValue();
     }
 }

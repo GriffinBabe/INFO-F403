@@ -77,9 +77,6 @@ public class Parser {
 				System.out.println("Top stack = " + topStackVar.getType());
 				System.out.print("Fetched rule: " + rule.toString());
 			}
-			else {
-				System.out.print(rule.toString());
-			}
 
 			// calls the rule actions (might perform actions on the stack, the symbol queue or the derivation tree).
 			rule.action(variableStack, symbolQueue, tree);
@@ -87,10 +84,6 @@ public class Parser {
 			if  (Parser.VERBOSE) {
 				System.out.println("----------------------------------\n");
 			}
-		}
-
-		if (!Parser.VERBOSE) {
-			System.out.println();
 		}
 
 		// checks if the stack is not empty.

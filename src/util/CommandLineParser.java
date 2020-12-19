@@ -12,6 +12,7 @@ public class CommandLineParser {
 
     private String latexOutput = null;
     private boolean verbose = false;
+    private boolean execute = false;
     private String inputSource = null;
     private String outputPath = null;
     private String astLatexOutput = null;
@@ -33,19 +34,20 @@ public class CommandLineParser {
                 case "-wast":
                     this.astLatexOutput = argSplit[++i];
                     break;
+                case "-o":
+                    this.outputPath = argSplit[++i];
+                    break;
+                case "-exec":
+                    this.execute = true;
+                    break;
                 default:
-                    if (this.inputSource == null) {
-                        this.inputSource = str;
-                    }
-                    else {
-                         this.outputPath = str;
-                    }
+                    this.inputSource = str;
                     break;
             }
         }
         // Problem if input source is still null
-        if (inputSource == null || outputPath == null) {
-            System.err.println("Usage: java -jar Part2.jar [-v] [-wt output.tex] <source.fs> <compiled.ll>");
+        if (inputSource == null) {
+            System.err.println("Usage: java -jar part3.jar [-v] [-wt parsetree.tex] [-wast asttree.tex] [-o as_code.ll] <source.fs>");
             System.exit(1);
         }
     }
@@ -82,5 +84,9 @@ public class CommandLineParser {
 
     public String getOutputPath() {
         return outputPath;
+    }
+
+    public boolean isExecute() {
+        return execute;
     }
 }

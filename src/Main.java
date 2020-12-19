@@ -5,6 +5,8 @@ import scanner.Scanner;
 import util.CommandLineParser;
 import util.OutputFileWriter;
 
+import java.io.IOException;
+
 /**
  * Main class. Will start by parsing the command line arguments with {@link CommandLineParser},
  * then initialize a stream to the source file and start scanning with a {@link Scanner} object.
@@ -56,9 +58,29 @@ class Main {
 			compiler.saveTree(clp.getAstLatexOutput());
 		}
 
-		compiler.compile();
-		compiler.saveOutput(clp.getOutputPath());
+		String asCode = compiler.compile();
+		if (clp.isExecute()) {
+			try {
+				int returncode = compiler.execute();
+				System.exit(returncode);
+			}
+			catch (IOException e) {
+				System.err.println("Problem with executing the code. " +
+						"Does the compiler have the permission to write temporary files here?");
+				System.exit(1);
+			}
+			catch (InterruptedException e) {
+				System.err.println("Process interrupted.");
+				System.exit(1);
+			}
+		}
 
+		if (clp.getOutputPath() != null) {
+			compiler.saveOutput(clp.getOutputPath());
+		}
+		else {
+			System.out.println(asCode);
+		}
 	}
 
 }

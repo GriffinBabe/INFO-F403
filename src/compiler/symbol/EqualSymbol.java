@@ -48,8 +48,6 @@ public class EqualSymbol extends CompareSymbol {
 
         // 4. Append the comparison to the StringBuilder.
         // %returnTemp = icmp eq i32 %tempLeft, %tempRight
-        System.out.println(leftTemp);
-        System.out.println(rightTemp);
         sb.append(retTemp).append(" = icmp eq i32 ").append(leftTemp).append(", ").append(rightTemp).append("\n");
         return sb.toString();
     }
