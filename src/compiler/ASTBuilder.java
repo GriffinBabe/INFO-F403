@@ -157,14 +157,35 @@ public class ASTBuilder {
                 return left;
             case V_C:
                 if(left.getHead() instanceof MinusSymbol) {
-                    tree.removeChild(0);
                     // there is an unary minus
                     // the minus sybmol on the left sub tree is discarded
                     // and the node is returned as an ast with a Unary head.
                     UnarySymbol unary = new UnarySymbol();
-                    tree.setHead(unary);
-                    unary.setLeft((ExpressionSymbol) right.getHead());
-                    return tree;
+                    if (right.getHead() instanceof OperatorSymbol) {
+                        // the minus must only apply to the left part of the following operator symbol
+                        // we must therefore reorder the tree accordingly
+                        OperatorSymbol operatorSymbol = (OperatorSymbol) right.getHead();
+                        ExpressionSymbol expressionSymbol = (ExpressionSymbol) right.getLeft().getHead();
+
+                        unary.setLeft(expressionSymbol);
+                        operatorSymbol.setLeft(unary);
+                        
+                        AST newtree = new AST();
+                        newtree.setHead(unary);
+                        newtree.addChild(right.getLeft());
+                        // replace right's (the operator) left child with a unary minus with the left child as a subtree
+                        right.removeChild(0);
+                        right.addChild(newtree);
+                        right.swapChildren();
+
+                        return right;
+                    }
+                    else {
+                        tree.removeChild(0);
+                        tree.setHead(unary);
+                        unary.setLeft((ExpressionSymbol) right.getHead());
+                        return tree;
+                    }
                 }
                 return left;
             case V_IF:

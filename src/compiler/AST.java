@@ -159,7 +159,8 @@ public class AST {
         treeTeX.append(" ");
 
         for (AST child : children) {
-            treeTeX.append(child.toLaTexTree());
+            if (child.getHead() != null)
+               treeTeX.append(child.toLaTexTree());
         }
         treeTeX.append("]");
         return treeTeX.toString();
