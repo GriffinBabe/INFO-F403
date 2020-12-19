@@ -47,7 +47,7 @@ public class CommandLineParser {
         }
         // Problem if input source is still null
         if (inputSource == null) {
-            System.err.println("Usage: java -jar part3.jar [-v] [-wt parsetree.tex] [-wast asttree.tex] [-o as_code.ll] <source.fs>");
+            System.err.println("Usage: java -jar part3.jar [-v] [-exec] [-wt parsetree.tex] [-wast asttree.tex] [-o as_code.ll] <source.fs>");
             System.exit(1);
         }
     }
