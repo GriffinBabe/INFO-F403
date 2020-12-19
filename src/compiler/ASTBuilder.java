@@ -50,10 +50,10 @@ public class ASTBuilder {
 
         switch (head.getType()) {
             case V_PROGRAM:
-                ProgramSymbol v_p = new ProgramSymbol();
-                tree.setHead(v_p);
+                ProgramSymbol programSymbol = new ProgramSymbol();
+                tree.setHead(programSymbol);
                 //temp
-                v_p.setCode((CodeSymbol)left.getHead()) ;
+                programSymbol.setCode((CodeSymbol)left.getHead()) ;
                 //
                 return tree;
             case V_CODE:
@@ -69,9 +69,8 @@ public class ASTBuilder {
                         ((CodeSymbol) compilerSymbol).setNextCode((CodeSymbol) right.getHead());
                     }
                     tree.setHead(compilerSymbol);
-                    return tree;
                 }
-                return left;
+                return tree;
             case V_ASSIGN:
                 compilerSymbol = new AssignSymbol();
                 // set the relation between the variable and the arithmetic expression

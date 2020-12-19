@@ -57,7 +57,9 @@ public class IfBlockSymbol extends CompilerSymbol {
         // verified body
         StringBuilder sb = new StringBuilder();
         sb.append(verifiedLabel).append(":\n");
-        sb.append(verifiedBody.toLLVM(table));
+        if (verifiedBody != null) {
+            sb.append(verifiedBody.toLLVM(table));
+        }
         sb.append("br label %").append(doneBody).append("\n");
 
         // unverified body

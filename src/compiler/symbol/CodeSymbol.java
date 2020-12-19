@@ -40,9 +40,11 @@ public class CodeSymbol extends CompilerSymbol {
     @Override
     public String toLLVM(CompilerTable table, TempVariable... returnRegisters) {
         StringBuilder sb = new StringBuilder();
-        sb.append(instruction.toLLVM(table, returnRegisters));
-        if (nextCode != null) {
-            sb.append(nextCode.toLLVM(table, returnRegisters));
+        if (instruction != null) {
+            sb.append(instruction.toLLVM(table, returnRegisters));
+            if (nextCode != null) {
+                sb.append(nextCode.toLLVM(table, returnRegisters));
+            }
         }
         return sb.toString();
     }
