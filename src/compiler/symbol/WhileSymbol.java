@@ -17,7 +17,7 @@ public class WhileSymbol extends InstructionSymbol {
     /**
      * Comparison sybmol compile unit.
      */
-    CompareSymbol compareSymbol;
+    CompareSymbol compare;
 
     @Override
     public String toLLVM(CompilerTable table, TempVariable... returnRegisters) {
@@ -26,12 +26,13 @@ public class WhileSymbol extends InstructionSymbol {
         TempVariable bodyLabel = table.nextLabel();
         TempVariable endLabel = table.nextLabel();
 
-        TempVariable compareReturn = table.nextRegister();
 
         // 1. Creates a new label and performs a comparison
         sb.append("br label %").append(compareLabel).append("\n");
         sb.append(compareLabel).append(":\n");
-        sb.append(compareSymbol.toLLVM(table, compareReturn));
+
+        TempVariable compareReturn = table.nextRegister();
+        sb.append(compare.toLLVM(table, compareReturn));
         // 2. jumps on the body symbol if the comparison is ok, jumps on the endlabel if not ok
         sb.append("br i1 ").append(compareReturn).append(", label %").append(bodyLabel).append(", label %")
                 .append(endLabel).append("\n");
@@ -57,8 +58,8 @@ public class WhileSymbol extends InstructionSymbol {
         this.verifiedBody = verifiedBody;
     }
 
-    public void setCompareSymbol(CompareSymbol compareSymbol) {
-        this.compareSymbol = compareSymbol;
+    public void setCompare(CompareSymbol compare) {
+        this.compare = compare;
     }
 
 }

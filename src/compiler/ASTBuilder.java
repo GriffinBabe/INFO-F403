@@ -190,7 +190,7 @@ public class ASTBuilder {
                 return tree;
             case V_WHILE:
                 WhileSymbol whileSymbol = new WhileSymbol();
-                whileSymbol.setCompareSymbol((CompareSymbol) left.getHead());
+                whileSymbol.setCompare((CompareSymbol) left.getHead());
                 whileSymbol.setVerifiedBody((CodeSymbol) right.getHead());
                 tree.setHead(whileSymbol);
                 return tree;
